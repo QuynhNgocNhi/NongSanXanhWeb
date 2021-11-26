@@ -1,0 +1,264 @@
+.shop-header{
+    height: 198px;
+    background-color:white;
+    padding: 16px;
+   
+    
+}
+.shop-header__overview{
+    background-color: rgba(104, 178, 228, 0.3);
+    min-height: 150px;
+    padding: 8px;
+    position: relative;
+    background-image: url('https://thumbs.dreamstime.com/z/large-set-fruit-triangles-white-background-abstract-colored-fruits-vector-art-58025568.jpg');
+    background-size: cover;
+    mask-image: black;
+    background-repeat: no-repeat;
+    
+ 
+}
+.shop-top__header{
+    margin: 16px 0 0 16PX ;
+    padding: 0;
+    font-size: 1.8rem;
+    color: rgb(112, 112, 112)
+    
+}
+.shop-header__overview:after{
+    display: flex;
+    flex-direction: column;
+    display:block;
+    content: "";
+    position: absolute;
+    top : 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-color:rgba(0,0,0,0.7);
+    z-index: 1;
+
+
+}
+
+.shop-header__overview-avatar{
+    display: inline-flex;
+    height: 80%;
+    
+    
+    
+}
+.shop-header__overview-avatar-img{
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    z-index: 4;
+    margin:  8px;
+    
+}
+
+
+
+.shop-header__overview-name{
+    display: flex;
+    font-size: 2.4rem;
+    font-weight: bold;
+    min-height: 100%;
+    min-width: 100%;
+    text-align: center;
+    margin: auto;
+    color: white;
+    
+    
+}
+.shop-header__decription-1{
+    list-style: none;
+}
+.shop-header__decription-2{
+    list-style: none;
+}
+
+.shop-header__decription-1-item-name,.shop-header__decription-2-item-name ,.shop-header__decription-2-item_content,.shop-header__decription-1-item_content {
+    font-size: 1.5rem;
+    padding: 12px;
+    
+}
+
+.shop-header__decription-2-item_content,.shop-header__decription-1-item_content{
+    color: var(--primary-color);
+}
+
+.shop-header__overview-container{
+    display: block;
+   
+    z-index: 3;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+   
+    min-height: 150px;
+
+    position: relative;
+    background-size: cover;
+    mask-image: black;
+    background-repeat: no-repeat;
+    
+}
+.shop-header__overview-button{
+    display: flex;
+    justify-content: space-around;
+    color: white;
+    font-size: 1.4rem;
+}
+button.shop-header__overview-button-1{
+    flex: 1;
+    font-size: 1.4rem;
+    height: 30px;
+    padding: 8px;
+    border: white 1px solid;
+    background-color: rgba(255,255,255,0.2);
+    color: white;
+    font-weight: bold;
+}
+button.shop-header__overview-button-2{
+    flex: 1;
+    height: 30px;
+    padding: 8px;
+    border: white 1px solid;
+    background-color: rgba(255,255,255,0.2);
+    color: white;
+    font-weight: bold;
+    
+}
+
+.page-ruler{
+    height: 360px;
+    background-color: tomato;
+    padding: 16px;
+    margin: 16px 0 16px 0;
+    background-color: white;
+    
+}
+
+.page-ruler__slide{
+    
+   
+    width: 100%;
+    height: 328px;
+    
+}
+
+.page-ruler__text{
+    line-height: 3rem;
+    font-size: 1.4rem;
+    padding-left: 30px;
+
+    
+}
+
+.shop-control-bar{
+    display: flex;
+    width: 100%;
+    height: 50px;
+    background-color: rgba(0,0,0,0.1);
+    margin-top: 16px;
+    align-items: center;
+    padding-left: 16px;
+
+}
+
+.shop-cotrol-bar__name{
+    font-size: 1.4rem;
+}
+.btn-shop{
+    margin: 8px;
+    min-width: 90px;
+    height: 30px;
+    background-color: white;
+    font-size: 1.4rem;
+    border: none;
+    cursor: pointer;
+}
+.shop-control-bar_price-up ,.shop-control-bar_price-down{
+    margin: 2px !important;
+    min-width: 45px !important
+}
+.shop-catagory {
+    background-color: white;
+    border-radius: 10px;
+    padding: 0 8px 0 8px;
+    margin-top: 16px;
+    
+}
+
+.shop-catagory-search-filter{
+    border-top: #999 1px solid;
+    padding: 16px 0 16px 0;
+    margin : 0
+    
+    
+}
+.shop-catagory-filter{
+    padding: 16px 0 16px 0;
+    margin : 0
+}
+.shop-catagory-filter__heading ,.shop-catagory-price__heading,.shop-catagory-search-filter__heading{
+    
+    font-size: 1.6rem;
+    color: var(--text-color);
+    padding: 0 0 16px 16px;
+    margin: 0;
+    
+}
+
+.shop-catagory-filter-link{
+    position: relative;
+    text-decoration: none;
+    color: var(--text-color);
+    font-size: 1.4rem;
+    font-weight: 600;
+    transition: right linear 0.1s;
+    right: 0;
+
+}
+
+.shop-catagory-filter-link:hover{
+    right: -4px;
+    color: var(--primary-color);
+}
+.shop-catagory-filter-list{
+    list-style-type: none;
+    padding-left: 0px;
+   
+    margin: 0;
+}
+.shop-catagory-filter-item{
+    padding: 8px 0;
+    text-align: center;
+}
+
+.shop-catagory-search-filter__heading-2{
+    font-size: 1.5rem;
+    color: var(--text-color);
+    margin: 0;
+    padding-bottom: 8px;
+}
+
+.shop-control-bar_price{
+    margin-right: 2px !important;
+    
+}
+
+
+
+
+.shop-page-ruler__img{
+    width: 100%;
+    height: 320px;
+    mask: rgba(0,0,0,0.5);
+    
+}   

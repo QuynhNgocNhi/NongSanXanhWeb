@@ -1,0 +1,40 @@
+
+ .main .main-row{
+  background-color: #ffffff;
+  border: 1px solid #c4c4c4;
+  border-radius: 10px;
+  padding: 10px;
+}
+.main .login-form{
+  padding: 50px;
+ 
+}
+.main .login-form form, .card-login{
+  
+  background-color: #f7f7f7;
+  padding: 50px;
+  border: 1px solid #ececec;
+}
+.advantages p i{
+  color: #26901b;
+  margin-right: 10px;
+  font-weight: bold;
+}
+.card-login{
+  margin-left: 0px!important;
+  border-radius: 0px!important;
+}
+.heading{
+  font-size: 21px;
+  font-weight: 700;
+  color: #222;
+}
+/* login */
+ .login__conect {
+  display: flex;
+  align-items: center;
+}
+.login__conect hr {
+  flex-grow: 1;
+  margin: 0;
+}

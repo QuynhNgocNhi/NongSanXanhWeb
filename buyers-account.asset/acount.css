@@ -1,0 +1,38 @@
+
+
+.main .account-main, .main .main-row, .main .tab-content{
+    background-color: #ffffff;
+    border: 1px solid #c4c4c4;
+    border-radius: 10px;
+    padding: 10px;
+}
+.table tr{
+    -moz-border-radius:10px;
+    -webkit-border-radius:10px;
+    border-radius:10px
+}
+.card-body .viewed-product-item, .table tr{
+    background-color: #ffffff;
+    border: 1px solid #c4c4c4;
+    
+    padding: 10px;
+    margin: 10px;
+}
+.dashboard-menu ul li a:hover, .main .account-main, .main .tab-content input:hover{
+    border: 2px solid;
+    border-color: #BCE3C9;
+    border-radius: 10px;
+}
+.card-body img{
+    max-width: 300px;
+}
+.card-body .favorite-product-item{
+    display: flex;
+}
+.card-body .favorite-product-item button{
+   margin-left: 20px;
+    max-height: 50px;
+}
+.card-body .favorite-product-item {
+    align-items: center;
+}

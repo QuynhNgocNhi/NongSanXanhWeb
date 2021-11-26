@@ -1,0 +1,275 @@
+.buyandsell-item__img{
+    padding-top: 100%;
+    border-radius: 3px;
+    
+    background-size: contain;
+    background-repeat: no-repeat;    
+    
+}
+
+.buyandsell-item {
+    margin-top: 10px;
+    background-color: rgb(221, 241, 216);
+    border-radius: 3px;
+    border: rgba(0,0,0,0.1) 1px solid;
+    position: relative;
+   
+}
+.sell-product-item__decription-brand__link{
+    text-decoration: none;
+
+}
+
+.buyandsell-item:hover .buyandsell-item__decription{
+    display: flex;
+    transition: linear 0.3s;
+}
+
+.buyandsell-item:hover{
+    -webkit-box-shadow: 0 0 5px  rgba(41, 165, 108,0.6) ;
+    box-shadow: 0 0 5px rgba(41, 165, 108,0.6);
+    transition: 0.3s;
+      
+    
+    
+}
+
+.buyandsell-item__name{
+    font-size: 1.4rem;
+    
+    color: var(--text-color);
+    line-height: 1.8rem;
+    margin: 10px;
+    height: 1.8rem;
+    overflow: hidden;
+    display: block;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
+
+.buyandsell-item__decription{
+    width: 100%;
+    height: 83%;
+    background-color: white;
+    z-index: 3;
+    top: 0%;
+    position: absolute; 
+    margin: auto;
+   
+    border-radius: 3px;
+    display: none; 
+    align-items: center;
+    text-align: center;
+    justify-content: space-around;
+    font-size: 1.6rem;
+    background-color: rgba(41, 165, 108, 0.8);
+    color: rgb(250, 244, 244);
+    font-weight: 500;
+    
+    flex-direction: column;
+    justify-content: end;
+
+
+}
+.buyandsell-DanhMuc__img{
+    border: rgb(172, 230, 184) 1px solid;
+    padding-top: 100%;
+    border-radius: 10px;   
+    background-size: cover;
+    background-repeat: no-repeat;  
+    
+}
+.buyandsell-DanhMuc-pop{
+    cursor: pointer;
+    background-color:white;
+    padding: 16px;
+    border-radius: 10px;
+}
+.buyandsell-item__decriotion-item{
+    padding: 8px ;
+    text-align: left;
+    width: 100%;
+
+    }
+
+.buyandsell-header, .buyandsell-top__header{
+    margin: 16px 0 0 16PX ;
+    padding: 0;
+    font-size: 1.8rem;
+    color: rgb(112, 112, 112);
+    
+
+    
+}
+.buyandsell-all__header {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 16px;
+}
+.buyandsell-catagory {
+    background-color: white;
+    border-radius: 10px;
+    padding: 0 8px 0 8px;
+    
+}
+
+.buyandsell-catagory-search-filter{
+    border-top: #999 1px solid;
+    padding: 16px 0 16px 0;
+    margin : 0
+    
+    
+}
+.buyandsell-catagory-filter{
+    padding: 16px 0 16px 0;
+    margin : 0
+}
+.buyandsell-catagory-filter__heading ,.buyandsell-catagory-price__heading,.buyandsell-catagory-search-filter__heading{
+    
+    font-size: 1.6rem;
+    color: var(--text-color);
+    padding: 0 0 16px 16px;
+    margin: 0;
+    
+}
+.buyandsell-catagory-search-filter__heading-2{
+    font-size: 1.5rem;
+    color: var(--text-color);
+    margin: 0;
+    padding-bottom: 8px;
+}
+.buyandsell-catagory-price{
+    border-top: #999 1px solid;
+    
+    padding : 16px 0 16px
+}
+.buyandsell-catagory-filter-list{
+    list-style-type: none;
+    padding-left: 0px;
+   
+    margin: 0;
+}
+.buyandsell-catagory-filter-item{
+    padding: 8px 0;
+    text-align: center;
+}
+
+.buyandsell-catagory-filter-link{
+    position: relative;
+    text-decoration: none;
+    color: var(--text-color);
+    font-size: 1.4rem;
+    font-weight: 600;
+    transition: right linear 0.1s;
+    right: 0;
+
+}
+
+.buyandsell-catagory-filter-link:hover{
+    right: -4px;
+    color: var(--primary-color);
+}
+
+.buyandsell-filter{
+    display: flex;
+    align-items: center;
+    background-color: rgba(0,0,0,0.03);
+    padding: 12px 22px;
+    font-weight: 400;
+
+}
+
+.buyandsell-filte__label{
+    font-size: 1.4rem;
+    color: var(--text-color);
+    margin-right: 16px;
+
+}
+.buyandsell-catagory-search-filter-form-container{
+    padding: 8px 0;
+}
+.buyandsell-catagory-search-filter__label{
+    font-size: 1.4rem;
+    padding: 3px 0;
+}
+.buyandsell-filte__label-btn{
+    margin-right: 16px;
+    min-width: 90px;
+    
+}
+
+.buyandsell-filter__select{
+    min-width: 140px;
+    height: 34px;
+    padding: 0 12px;
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.4rem;
+    align-items: center;
+}
+
+.buyandsell-control-bar{
+    display: flex;
+    width: 100%;
+    height: 50px;
+    background-color: rgba(0,0,0,0.1);
+ 
+    align-items: center;
+    padding-left: 16px;
+
+}
+
+.buyandsell-product-cotrol-bar__name{
+    font-size: 1.4rem;
+}
+
+.buyandsell-btn{
+    display: flex;
+    width: 100%;
+    height: 50px;
+    
+    margin: 8px 0;
+}
+
+
+
+.btn-buy, .btn-sell{
+    flex: 1;
+    background-color: rgb(172, 230, 184);
+    border : none;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.btn-buy.activated, .btn-sell.activated{
+    flex: 1;
+    background-color: rgb(172, 230, 184);
+    border : none;
+    font-size: 2rem;
+    cursor: pointer;
+    background-color:rgba(41, 165, 108,1);
+    color: white;
+    border: black 1px solid;
+}
+.btn-shop{
+    margin: 8px;
+    min-width: 90px;
+    height: 30px;
+    background-color: white;
+    font-size: 1.4rem;
+    border: none;
+    cursor: pointer;
+}
+.buyandsell-control-bar_price-up ,.buyandsell-control-bar_price-down{
+    margin: 2px !important;
+    min-width: 45px !important;
+    
+    
+}
+
+.buyandsell-control-bar_price{
+    margin-right: 2px !important;
+    
+}
+
