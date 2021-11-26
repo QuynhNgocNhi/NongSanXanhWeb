@@ -27,7 +27,7 @@ require_once('config.php');
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
     <script>
         $(document).ready(function(){
-        $("*").css("background-color","#ffc2cb");
+        $("p,a").css("color","#ffc2cb");
     });
     </script>
 <body>
