@@ -14,18 +14,11 @@ if (isset($_POST)) {
     $UserRoleId = 3;
     $EmailVerified = "no";
     $PasswordConfirmation = $_POST['PasswordConfirmation'];
-    $ErrorType = 0;
 
     require_once 'Account_Function.php';
     if (UInvalid($UserName)) {
-        ini_set('display_errors', 1);
-
         header('Content-type: application/json');
-
         echo json_encode(array('success' => 0));
-
-
-
     }
     if (pwMatch($Password, $PasswordConfirmation)) {
         header('Content-type: application/json');

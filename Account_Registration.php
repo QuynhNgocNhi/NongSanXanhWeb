@@ -198,7 +198,7 @@ require_once('config.php');
                 var UserName = $('#UserName').val();
                 var Password = $('#Password').val();
                 var PasswordConfirmation = $('#PasswordConfirmation').val();
-                var ErrorType;
+
 
                 va.preventDefault();
 
@@ -210,7 +210,7 @@ require_once('config.php');
                         UserName: UserName,
                         Password: Password,
                         PasswordConfirmation: PasswordConfirmation,
-                        ErrorType: ErrorType
+
 
                     },
                     success: function () {
@@ -226,7 +226,6 @@ require_once('config.php');
                     },
                     error: function () {
 
-
                         // window.open('login.php', '_blank')
                         swal({
                             'title': 'Thất bại',
@@ -234,8 +233,9 @@ require_once('config.php');
                             text: "Vui lòng kiểm tra lại thông tin!",
                             icon: "error"
                         })
-                        $('#Message').value= "sai mật khẩu!";
+
                     }
+
 
                 });
 
