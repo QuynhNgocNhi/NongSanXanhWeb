@@ -1422,7 +1422,7 @@ textarea:focus {
   margin-bottom: 1rem;
 }
 
-.form-group input {
+.form-group input.form-control {
   background: #fff;
   border: 1px solid #ececec;
   height: 64px;
@@ -1670,7 +1670,7 @@ label {
   padding-right: 0px;
 }
 
-.form-control {
+.form-control input.form-{
   border: 1px solid #f0e9ff;
   border-radius: 10px;
   height: 48px;

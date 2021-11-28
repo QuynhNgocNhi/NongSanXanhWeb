@@ -75,60 +75,7 @@ require_once('config.php');
             });
         });
     </script>
-    <!-- <script type="text/javascript">
 
-        $(function() {
-
-            $('#SignInBtn').click(function(va) {
-                var valid = this.form.checkValidity();
-                if (valid) {
-
-                    var UserName = $('#UserName').val();
-                    var Password = $('#Password').val();
-
-                    va.preventDefault();
-
-                    $.ajax({
-                        type: 'POST',
-                        url: 'process.php',
-                        data: {
-
-                            UserName: UserName,
-                            Password: Password
-                        },
-                        success: function(data) {
-                            swal({
-                                'title': 'Successful',
-
-                                text: "Đăng ký tài khoản thành công!",
-                                icon: "success"
-
-                            })
-                        },
-                        error: function(data) {
-                            swal({
-                                'title': 'error',
-                                text: "Đăng ký tài khoản Thất bại!",
-                                icon: "warning",
-                                dangerMode: true
-
-                            })
-                        }
-                    });
-
-                }
-
-                else {
-
-                            }
-
-            });
-
-
-
-
-        });
-    </script> -->
 </head>
 
 <body>

@@ -1,0 +1,51 @@
+<?php
+ob_start();
+session_start();
+?>
+<?php
+require_once('config.php');
+?>
+
+<?php
+if (isset($_POST)) {
+    $Email = $_POST['Email'];
+    $UserName = $_POST['UserName'];
+    $Password = $_POST['Password'];
+    $UserRoleId = 3;
+    $EmailVerified = "no";
+    $PasswordConfirmation = $_POST['PasswordConfirmation'];
+    $ErrorType = 0;
+
+    require_once 'Account_Function.php';
+    if (UInvalid($UserName)) {
+        ini_set('display_errors', 1);
+
+        header('Content-type: application/json');
+
+        echo json_encode(array('success' => 0));
+
+
+
+    }
+    if (pwMatch($Password, $PasswordConfirmation)) {
+        header('Content-type: application/json');
+        echo json_encode(array('success' => 0));
+    }
+    if (UExists($conn, $UserName, $Email) !== false) {
+        header('Content-type: application/json');
+        echo json_encode(array('success' => 0));
+    }
+
+    $hashPassword = password_hash($Password, PASSWORD_DEFAULT);
+    $sql = "INSERT INTO users (Email, UserName, Password, UserRoleId, EmailVerified) VALUES (?, ?, ?,?,?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("sssis", $Email, $UserName, $hashPassword, $UserRoleId, $EmailVerified);
+    $stmt->execute();
+
+    echo json_encode(array('success' => '1'));
+
+
+} else {
+    echo "No data founded!";
+}
+?>
