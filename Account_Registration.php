@@ -125,7 +125,7 @@ require_once('config.php');
                                         <a target="_blank" href="index.php"><i
                                                     class="fi-rs-book-alt mr-5 text-muted"></i>Tìm hiểu</a>
                                     </div>
-                                    <p id="Message" class="text-center text-8"> </p>
+                                    <p id="Message" class="text-center text-8"></p>
 
                                     <div class="form-group register-btn mb-30 mt-50 position-relative">
                                         <button type="submit"
@@ -202,42 +202,49 @@ require_once('config.php');
 
                 va.preventDefault();
 
-                $.ajax({
-                    type: 'POST',
-                    url: 'Account_Process.php',
-                    data: {
-                        Email: Email,
-                        UserName: UserName,
-                        Password: Password,
-                        PasswordConfirmation: PasswordConfirmation,
+                function usernameIsValid(username) {
+                    return /^[0-9a-zA-Z_.-]+$/.test(username);
+                }
+
+                if (!usernameIsValid(UserName)) {
+                    //sai username
+                    swal("Sai Username!", "Username không được chứa các ký tự đặc biệt!");
+                } else if (Password != PasswordConfirmation) {
+                    //đúng user name
+                     swal("Sai mật khẩu xác nhận!", "Mật khẩu nhập lại phải giống với mật khẩu!");
+                } else {
+
+                    $.ajax({
+                        type: 'POST',
+                        url: 'Account_Process.php',
+                        data: {
+                            Email: Email,
+                            UserName: UserName,
+                            Password: Password,
+                        },
+                        success: function () {
+                            swal({
+                                'title': 'Successful',
+                                text: "Đăng ký tài khoản thành công!",
+                                icon: "success"
+                            }).then(function () {
+                                window.open('login.php', '_blank')
+                            });
+                        },
+                        error: function () {
+                            swal({
+                                'title': 'Username đã tồn tại!',
+
+                                text: "Vui lòng chọn Username khác!",
+                                icon: "error"
+                            })
+
+                        }
 
 
-                    },
-                    success: function () {
-                        swal({
-                            'title': 'Successful',
-                            text: "Đăng ký tài khoản thành công!",
-                            icon: "success"
-                        })
+                    });
 
-
-                        // window.open('index.php', '_blank')
-
-                    },
-                    error: function () {
-
-                        // window.open('login.php', '_blank')
-                        swal({
-                            'title': 'Thất bại',
-
-                            text: "Vui lòng kiểm tra lại thông tin!",
-                            icon: "error"
-                        })
-
-                    }
-
-
-                });
+                }
 
             } else {
 

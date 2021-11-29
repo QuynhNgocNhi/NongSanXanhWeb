@@ -13,20 +13,26 @@ if (isset($_POST)) {
     $Password = $_POST['Password'];
     $UserRoleId = 3;
     $EmailVerified = "no";
-    $PasswordConfirmation = $_POST['PasswordConfirmation'];
 
     require_once 'Account_Function.php';
-    if (UInvalid($UserName)) {
-        header('Content-type: application/json');
-        echo json_encode(array('success' => 0));
-    }
-    if (pwMatch($Password, $PasswordConfirmation)) {
-        header('Content-type: application/json');
-        echo json_encode(array('success' => 0));
-    }
+//    if (UInvalid($UserName)) {
+////        echo " <h3 class="heading">Đăng ký tài khoản</h3>";
+//        header('Content-type: application/json');
+//        echo json_encode(array('success' => 0));
+//        exit();
+//    }
+//    if (pwMatch($Password, $PasswordConfirmation)) {
+////                echo " <h3 class="heading">Đăng ký tài khoản</h3>";
+//
+//        header('Content-type: application/json');
+//        echo json_encode(array('success' => 0));
+//        exit();
+//    }
     if (UExists($conn, $UserName, $Email) !== false) {
+
         header('Content-type: application/json');
         echo json_encode(array('success' => 0));
+        exit();
     }
 
     $hashPassword = password_hash($Password, PASSWORD_DEFAULT);

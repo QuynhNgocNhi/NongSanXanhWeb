@@ -1,7 +1,12 @@
-
+<?php
+ob_start();
+session_start();
+?>
 <?php
 require_once('config.php');
 ?>
+
+
 <?php
 function UInvalid($UserName)
 {
