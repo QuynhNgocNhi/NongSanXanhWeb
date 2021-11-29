@@ -132,7 +132,7 @@ require_once('config.php');
                         <!-- login -->
                         <div class="col-lg-6 ">
                             <div class="login-form">
-                                <form action="login.php" method="POST" class="form" id="form-1">
+                                <form action="login.php" method="POST" class="form account-form" id="form-1">
                                     <h3 class="heading">Đăng nhập vào tài khoản</h3>
                                     <p class="mb-30">Chưa có tài khoản? <a href="register.html">Đăng ký ngay</a></p>
 
