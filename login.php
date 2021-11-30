@@ -1,6 +1,7 @@
 <?php
 ob_start();
 session_start();
+session_destroy();
 ?>
 <?php
 require_once('config.php');
@@ -36,85 +37,17 @@ require_once('config.php');
     </script>
     <script>
         $(document).ready(function () {
-            document.getElementById('header').innerHTML = loadPage('header.html');
-            document.getElementById('footer').innerHTML = loadPage('footer.html');
+            document.getElementById('header').innerHTML = loadPage('header.php');
+            document.getElementById('footer').innerHTML = loadPage('footer.php');
         });
 
     </script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script>
 
-        $(function () {
-
-            $(`#SignInBtn`).click(function () {
-                var status = "yes";
-                if (status === "yes") {
-
-                    swal({
-                        title: "Thành công!",
-                        icon: "success",
-                        text: "Đăng nhập thành công",
-                        // button: ""
-                        // showConfirmButton: false,
-                        // =allowOutsideClick: false,
-                        // footer: `<a class="btn btn-primary" href="https://www.google.com">OK</a>`
-                    });
-
-
-                } else {
-                    swal({
-                        title: "Thất bại!",
-                        icon: "error",
-                        text: "Đăng nhập không thành công",
-                        // button: ""
-                        // showConfirmButton: false,
-                        // =allowOutsideClick: false,
-                        // footer: `<a class="btn btn-primary" href="https://www.google.com">OK</a>`
-                    });
-                }
-            });
-        });
-    </script>
 
 </head>
 
 <body>
 <div id="header"></div>
-<div>
-    <?php
-    if (isset($_POST['SignIn'])) {
-
-        $UserName = $_POST['UserName'];
-        $Password = $_POST['Password'];
-
-        $sql = "SELECT * FROM users WHERE UserName = '" . $UserName . "' AND Password = '" . $Password . "' ";
-        $result = mysqli_query($conn, $sql);
-
-        $row = mysqli_fetch_array($result);
-
-
-        if ($row) {
-            echo $row["UserRoleId"];
-            if ($row["UserRoleId"] == 1) {
-                header("location: index_admin.php");
-                echo $row["Id admin"];
-            } elseif ($row["UserRoleId"] == 3) {
-                echo $row["Id"];
-                header("location: index.php");
-            } else {
-                echo "error";
-            }
-        } else {
-            echo "NO User found";
-            header(header: "location: login.php");
-        }
-
-
-    }
-
-    ?>
-</div>
-
 <main class="main pages">
     <div class="page-header breadcrumb-wrap">
         <div class="container">
@@ -134,7 +67,7 @@ require_once('config.php');
                             <div class="login-form">
                                 <form action="login.php" method="POST" class="form account-form" id="form-1">
                                     <h3 class="heading">Đăng nhập vào tài khoản</h3>
-                                    <p class="mb-30">Chưa có tài khoản? <a href="register.html">Đăng ký ngay</a></p>
+                                    <p class="mb-30">Chưa có tài khoản? <a href="Account_Registration.php">Đăng ký ngay</a></p>
 
 
                                     <div class="spacer"></div>
@@ -147,7 +80,7 @@ require_once('config.php');
 
                                     <div class="form-group">
 
-                                        <input id="password" name="Password" type="password"
+                                        <input id="Password" name="Password" type="password"
                                                placeholder="Nhập mật khẩu" class="form-control" required>
                                         <span class="form-message"></span>
                                     </div>
@@ -221,6 +154,66 @@ require_once('config.php');
 </main>
 
 <div id="footer"></div>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+
+        $('#SignInBtn').click(function (va) {
+            var valid = this.form.checkValidity();
+            if (valid) {
+
+                var UserName = $('#UserName').val();
+                var Password = $('#Password').val();
+
+                va.preventDefault();
+
+                function usernameIsValid(username) {
+                    return /^[0-9a-zA-Z_.-]+$/.test(username);
+                }
+
+                if (!usernameIsValid(UserName)) {
+                    //sai username
+                    swal("Sai Username!", "Username không được chứa các ký tự đặc biệt!");
+                }
+                else {
+                    $.ajax({
+                        type: 'POST',
+                        url: 'login_Process.php',
+                        data: {
+
+                            UserName: UserName,
+                            Password: Password,
+                        },
+                        success: function () {
+
+                            swal({
+                                'title': 'Thành công',
+                                text: "Đăng nhập thành công!",
+                                icon: "success"
+                            }).then(function () {
+                                window.open('index.php', '_blank')
+                            });
+
+
+                        },
+                        error: function () {
+                            swal({
+                                title: "Oopps!",
+                                icon: "error",
+                                text: "Username hoặc mật khẩu không đúng!"
+                            })
+
+                        }
+                    });
+                }
+            } else {
+
+            }
+        });
+    });
+</script>
+
 </body>
 
 </html>

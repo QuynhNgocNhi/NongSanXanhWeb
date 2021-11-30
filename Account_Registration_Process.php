@@ -14,7 +14,7 @@ if (isset($_POST)) {
     $UserRoleId = 3;
     $EmailVerified = "no";
 
-    require_once 'Account_Function.php';
+    require_once 'Account_Registration_Function.php';
 //    if (UInvalid($UserName)) {
 ////        echo " <h3 class="heading">Đăng ký tài khoản</h3>";
 //        header('Content-type: application/json');

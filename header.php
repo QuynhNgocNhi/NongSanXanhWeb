@@ -22,12 +22,11 @@ session_start();
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/global/2.jpg"/>
     <!-- homepage CSS -->
     <link rel="stylesheet" href="home.asset/home.css?v=2.1"/>
-    <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
-    <!-- font -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+    <script src="plugins/jquery.min.js"></script>
 
 <body>
-
+<!-- font -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
 <!--header-->
 <header class="header-area header-style-1 header-height-2">
     <!--mobile front header-->
@@ -159,19 +158,18 @@ session_start();
 
 
                             <div class="header-action-icon-2">
-                                <a target="_blank" href="shop-wishlist.html">
+                                <a href="shop-wishlist.html">
                                     <img class="svgInject" alt="NSX" src="assets/img/icons/icon-heart.svg"/>
                                     <span class="pro-count blue">6</span>
                                 </a>
-                                <a target="_blank" href="shop-wishlist.html"><span class="lable">Yêu
-                                            thích</span></a>
+                                <a href="shop-wishlist.html"><span class="lable">Yêu thích</span></a>
                             </div>
                             <div class="header-action-icon-2">
-                                <a target="_blank" class="mini-cart-icon" href="shop-cart.html">
+                                <a class="mini-cart-icon" href="shop-cart.html">
                                     <img alt="NSX" src="assets/img/icons/icon-cart.svg"/>
                                     <span class="pro-count blue">2</span>
                                 </a>
-                                <a target="_blank" href="shop-cart.html"><span class="lable">Giỏ hàng</span></a>
+                                <a href="shop-cart.html"><span class="lable">Giỏ hàng</span></a>
                                 <div class="cart-dropdown-wrap cart-dropdown-hm2">
                                     <ul>
                                         <li>
@@ -229,7 +227,6 @@ session_start();
                                     echo "<a href='login.php'><span class='lable ml-0'>Tài khoản</span></a>";
                                 }
                                 ?>
-<!--                                <a href="page-account.html"><span class="lable ml-0">Tài khoản</span></a>-->
                                 <div class="
                                         cart-dropdown-wrap cart-dropdown-hm2
                                         account-dropdown
@@ -241,14 +238,12 @@ session_start();
 
 
                                             echo "<li><a href='User_Account.php'><i class='fi fi-rs-user mr-10'></i>Tài khoản của tôi</a></li>";
-                                             if($_SESSION["UserRoleId"]==2){
+                                            if ($_SESSION["UserRoleId"] == 2) {
                                                 echo "<li><a href='login.php'><i class='fi fi-rs-home mr-10'></i>Cửa hàng</a></li>";
+                                            } else {
+                                                echo "<li><a href='Store_Register.php'><i class='fi fi-rs-user mr-10'></i>Tạo cửa hàng</a></li>";
                                             }
-                                             else{
-                                                  echo "<li><a href='Store_Register.php'><i class='fi fi-rs-user mr-10'></i>Tạo cửa hàng</a></li>";
-                                             }
-                                        }
-                                        else{
+                                        } else {
                                             echo "<li><a href='Store_Register.php'><i class='fi fi-rs-user mr-10'></i>Tạo cửa hàng</a></li>";
                                             echo "<li><a href='login.php'><i class='fi fi-rs-user mr-10'></i>Đăng nhập</a></li>";
 
@@ -256,10 +251,9 @@ session_start();
 
                                         ?>
 
-
                                         <li>
                                             <a href="page-account.html"><i
-                                                        class="fi fi-rs-location-alt   mr-10"></i>Đơn
+                                                        class="fi fi-rs-location-alt mr-10"></i>Đơn
                                                 mua</a>
                                         </li>
                                         <li>
@@ -268,13 +262,12 @@ session_start();
                                                 đặt</a>
                                         </li>
                                         <li>
-                                            <a href="login.php"><i class="fi fi-rs-sign-out mr-10"></i>Đăng
+                                            <a href="page-login.html"><i class="fi fi-rs-sign-out mr-10"></i>Đăng
                                                 xuất</a>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -299,7 +292,7 @@ session_start();
                         <nav>
                             <ul>
                                 <li>
-                                    <a id="home-page" class="nav-link-main active" href="index.html">Trang chủ</a>
+                                    <a id="home-page" class="nav-link-main" href="index.php">Trang chủ</a>
                                 </li>
                                 <li>
                                     <a id="products-page" class="nav-link-main" href="products.html">Sản phẩm</a>
@@ -526,11 +519,11 @@ session_start();
                                 <ul>
                                     <li>
                                         <div class="shopping-cart-img">
-                                            <a href="shop-product-right.html"><img alt="NSX"
-                                                                                   src="home.asset/img/product/03-Multi/strawberry.png"/></a>
+                                            <a href="products.html"><img alt="NSX"
+                                                                         src="home.asset/img/product/03-Multi/strawberry.png"/></a>
                                         </div>
                                         <div class="shopping-cart-title">
-                                            <h4><a href="shop-product-right.html">Dâu tây Đà Lạt 100kg</a></h4>
+                                            <h4><a href="products.html">Dâu tây Đà Lạt 100kg</a></h4>
                                             <h3><span>1 × </span>800.000 vnd</h3>
                                         </div>
                                         <div class="shopping-cart-delete">
@@ -539,11 +532,11 @@ session_start();
                                     </li>
                                     <li>
                                         <div class="shopping-cart-img">
-                                            <a href="shop-product-right.html"><img alt="NSX"
-                                                                                   src="home.asset/img/product/03-Multi/durian.jpg"/></a>
+                                            <a href="products.html"><img alt="NSX"
+                                                                         src="home.asset/img/product/03-Multi/durian.jpg"/></a>
                                         </div>
                                         <div class="shopping-cart-title">
-                                            <h4><a href="shop-product-right.html">Sầu riêng Ri6 3 trái</a></h4>
+                                            <h4><a href="products.html">Sầu riêng Ri6 3 trái</a></h4>
                                             <h3><span>1 × </span>320.000 vnd</h3>
                                         </div>
                                         <div class="shopping-cart-delete">
@@ -576,7 +569,7 @@ session_start();
     <div class="mobile-header-wrapper-inner">
         <div class="mobile-header-top">
             <div class="mobile-header-logo">
-                <a href="index.html"><img src="assets/img/logo.svg" alt="logo"/></a>
+                <a href="index.html"><img src="assets/img/global/Logo.png" alt="logo"/></a>
             </div>
             <div class="mobile-menu-close close-style-wrap close-style-position-inherit">
                 <button class="close-style search-close">
@@ -638,10 +631,10 @@ session_start();
             </div>
             <div class="mobile-header-info-wrap">
                 <div class="single-mobile-header-info">
-                    <a href="index.html"><i class="fi-rs-marker"></i> Our location </a>
+                    <a href="page-contact.html"><i class="fi-rs-marker"></i> Our location </a>
                 </div>
                 <div class="single-mobile-header-info">
-                    <a href="index.html"><i class="fi-rs-user"></i>Log In / Sign Up </a>
+                    <a href="page-login.html"><i class="fi-rs-user"></i>Log In / Sign Up </a>
                 </div>
                 <div class="single-mobile-header-info">
                     <a href="#"><i class="fi-rs-headphones"></i>(+01) - 2345 - 6789 </a>
@@ -660,331 +653,19 @@ session_start();
     </div>
 </div>
 <!--end header-->
-<main class="main">
-    <!--banner section -->
-    <section class="home-slider position-relative mb-30">
-        <div class="container">
-            <div class="row">
-                <!-- bảng danh mục -->
-                <div class="col d-none d-xl-block">
-                    <div class="categories-dropdown-wrap style-2 font-heading mt-30">
-                        <div class="d-flex categori-dropdown-inner">
-                            <ul>
-                                <li>
-                                    <a target="_blank" href="products.html"> <img
-                                                src="assets/img/category-icons/vergetablePNG/48 x 48/01 Carrot.png"
-                                                alt=""/>Trái cây</a>
-                                </li>
-                                <li>
-                                    <a target="_blank" href="products.html"> <img
-                                                src="assets/img/category-icons/vergetablePNG/48 x 48/02 Corn.png"
-                                                alt=""/>Đặc sản vùng miền</a>
-                                </li>
-                                <li>
-                                    <a target="_blank" href="products.html"> <img
-                                                src="assets/img/category-icons/vergetablePNG/48 x 48/03 Broccoli.png"
-                                                alt=""/>Rau, củ, quả và nấm</a>
-                                </li>
-                                <li>
-                                    <a target="_blank" href="products.html"> <img
-                                                src="assets/img/category-icons/vergetablePNG/48 x 48/04 Eggplant.png"
-                                                alt=""/>Đậu, ngũ cốc, các loại hạt và nhân</a>
-                                </li>
-                                <li>
-                                    <a target="_blank" href="products.html"> <img
-                                                src="assets/img/category-icons/vergetablePNG/48 x 48/05 Tomato.png"
-                                                alt=""/>Đồ uống</a>
-                                </li>
-                                <li>
-                                    <a target="_blank" href="products.html"> <img
-                                                src="assets/img/category-icons/vergetablePNG/48 x 48/06 Artichoke.png"
-                                                alt=""/>Dược liệu</a>
-                                </li>
-                                <li>
-                                    <a target="_blank" href="products.html"> <img
-                                                src="assets/img/category-icons/vergetablePNG/48 x 48/07 Chili.png"
-                                                alt=""/>Thực phẩm chế biến sẵn</a>
-                                </li>
-                                <li>
-                                    <a target="_blank" href="products.html"> <img
-                                                src="assets/img/category-icons/vergetablePNG/48 x 48/08 Garlic.png"
-                                                alt=""/>Sữa, Mật - Sản phẩm từ Sữa, mật</a>
-                                </li>
-                                <li class="d-xl-none d-xxl-block">
-                                    <a target="_blank" href="products.html"> <img
-                                                src="assets/img/category-icons/vergetablePNG/48 x 48/09 Leek.png"
-                                                alt=""/>Gia vị thực phẩm</a>
-                                </li>
-                                <li class="d-xl-none d-xxl-block">
-                                    <a target="_blank" href="products.html"> <img
-                                                src="assets/img/category-icons/vergetablePNG/48 x 48/10 Mushroom.png"
-                                                alt=""/>Thủy - Hải sản</a>
-                                </li>
-
-
-                            </ul>
-
-                        </div>
-                        <div class="more_slide_open" style="display: none">
-                            <div class="d-flex categori-dropdown-inner">
-                                <ul>
-                                    <li>
-                                        <a target="_blank" href="products.html"> <img
-                                                    src="assets/img/category-icons/vergetablePNG/48 x 48//11 Cucumber.png"
-                                                    alt=""/>Gia súc & Sản phẩm Động vật</a>
-                                    </li>
-                                    <li>
-                                        <a target="_blank" href="products.html"> <img
-                                                    src="assets/img/category-icons/vergetablePNG/48 x 48/12 Cabbage.png"
-                                                    alt=""/>Chiết xuất thực vật & dầu</a>
-                                    </li>
-                                    <li>
-                                        <a target="_blank" href="products.html"> <img
-                                                    src="assets/img/category-icons/vergetablePNG/48 x 48/13 Paprika.png"
-                                                    alt=""/>Sợi thực vật & gỗ</a>
-                                    </li>
-                                    <li>
-                                        <a target="_blank" href="products.html"> <img
-                                                    src="assets/img/category-icons/vergetablePNG/48 x 48/14 Pumpkin.png"
-                                                    alt=""/>Cây giống - Con giống</a>
-                                    </li>
-                                    <li>
-                                        <a target="_blank" href="products.html"> <img
-                                                    src="assets/img/category-icons/vergetablePNG/48 x 48/15 Turnip.png"
-                                                    alt=""/>Vật tư nông nghiệpt</a>
-                                    </li>
-                                    <li>
-                                        <a target="_blank" href="products.html"> <img
-                                                    src="assets/img/category-icons/vergetablePNG/48 x 48/16 Spinach.png"
-                                                    alt=""/>Sản phẩm - dịch vụ khác</a>
-                                    </li>
-                                </ul>
-
-                            </div>
-                        </div>
-                        <div class="more_categories"><span class="icon"></span> <a class="heading-sm-1">Xem tất
-                                cả...</a></div>
-                    </div>
-
-
-                </div>
-                <!-- main banner  -->
-                <div class="col-lg-12 col-xl-7">
-                    <div class="home-slide-cover mt-30">
-                        <!-- email sign up  -->
-                        <div class="hero-slider-1 style-3 dot-style-1 dot-style-1-position-2 ">
-                            <div class=" single-hero-slider single-animation-wrap"
-                                 style="background-image: url(assets/img/slider/slider-2.png">
-                                <div class="slider-content">
-                                    <h5 class="display-2 mb-40">
-                                        Nền tảng giao dịch<br/>
-                                        nông sản
-                                    </h5>
-                                    <p class="mb-65">Đăng ký nhận thông báo<br/></p>
-                                    <form class="form-subcriber d-flex">
-                                        <input type="email" placeholder="Địa chỉ email"/>
-                                        <button class="btn" type="submit">Nhận</button>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="single-hero-slider single-animation-wrap"
-                                 style="background-image: url(assets/img/slider/slider-8.png">
-                                <div class="slider-content">
-                                    <h5 class="display-2 mb-40">
-                                        Rút ngắn<br/>
-                                        khoảng cách
-                                    </h5>
-                                    <p class="mb-65">Đăng ký nhận thông báo <br/></p>
-                                    <form class="form-subcriber d-flex">
-                                        <input type="email" placeholder="Địa chỉ email"/>
-                                        <button class="btn" type="submit">Nhận</button>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="single-hero-slider single-animation-wrap"
-                                 style="background-image: url(assets/img/slider/home-business/banner-03.jpg">
-                                <div class="slider-content">
-                                    <h5 class="display-2 mb-40">
-                                        Giữa bạn<br/>
-                                        với nông dân
-                                    </h5>
-                                    <p class="mb-65">Đăng ký nhận thông báo <br/></p>
-                                    <form class="form-subcriber d-flex">
-                                        <input type="email" placeholder="Địa chỉ email"/>
-                                        <button class="btn" type="submit">Nhận</button>
-                                    </form>
-                                </div>
-                            </div>
-
-
-                        </div>
-                        <div class="slider-arrow hero-slider-1-arrow"></div>
-
-                    </div>
-
-                </div>
-                <!-- 2 Small banner -->
-                <div class="col-lg-12 col-xl-3 small-banner">
-                    <div class="row">
-                        <!-- first mini banner -->
-                        <div class="col-sm-6 col-lg-6 col-xl-12">
-                            <div class="banner-img img1  mt-30">
-                                <img src="assets/img/promotion/drink_tea_01.jpg" alt=""/>
-                                <div class="banner-text">
-
-                                    <a href="products.html" class="btn btn-xs btn1">Mua ngay <i
-                                                class="fi-rs-arrow-small-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- second mini banner -->
-                        <div class="col-sm-6 col-lg-6 col-xl-12">
-                            <div class="banner-img img2  mt-5 ">
-                                <img src="assets/img/promotion/home-sidebar/promotion-01.jpg" alt=""/>
-                                <div class="banner-text">
-
-                                    <a href="products.html" class="btn btn-xs btn2">Mua ngay <i
-                                                class="fi-rs-arrow-small-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <!--end 2 Small banner -->
-            </div>
-
-
-        </div>
-    </section>
-    <!-- end banner section -->
-
-</main>
-
-<!--Footer -->
-<footer class="main">
-    <section class="section-padding footer-mid">
-        <div class="container pt-15 pb-20">
-            <div class="row">
-                <div class="col-lg-3">
-                    <div class="widget-about font-md mb-md-3 mb-lg-3 mb-xl-0">
-                        <div class="logo mb-10" id="logo-footer">
-                            <a href="index.html" class="mb-10">
-                                <img src="assets/img/global/2.jpg" alt="logo"/>
-                            </a>
-                            <p class="font-lg text-heading">Nền tảng giao dịch nông sản</p>
-                        </div>
-                        <ul class="contact-infor">
-                            <li>
-                                <img src="assets/img/global/" alt="NSX"/><strong>Địa chỉ: </strong>
-                                <span>Khu phố 6, phường Linh Trung, Tp. Thủ Đức</span>
-                            </li>
-                            <li>
-                                <img src="assets/img/icons/icon-contact.svg" alt="NSX"/><strong>Liên
-                                    hệ:</strong><span>(+84) - 888-250-764</span>
-                            </li>
-                            <li>
-                                <img src="assets/img/icons/icon-email-2.svg"
-                                     alt="NSX"/><strong>Email:</strong><span>12345678@uit.edu.vn</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="footer-link-widget col">
-                    <h5 class="widget-title">Chăm sóc Khách hàng</h5>
-                    <ul class="footer-list mb-sm-5 mb-md-0">
-                        <li><a href="#">Về Chúng tôi</a></li>
-                        <li><a href="#">Thông tin giao hàng</a></li>
-                        <li><a href="#">Chính sách bảo mật</a></li>
-                        <li><a href="#">Điều khoản &amp; Dịch vụ</a></li>
-                        <li><a href="#">Trung tâm hỗ trợ</a></li>
-                    </ul>
-                </div>
-                <div class="footer-link-widget col">
-                    <h5 class="widget-title">Tài khoản</h5>
-                    <ul class="footer-list mb-sm-5 mb-md-0">
-                        <li><a href="#">Đăng ký tài khoản</a></li>
-                        <li><a href="#">Đăng ký cửa hàng</a></li>
-                        <li><a href="#">Đăng tin mua bán</a></li>
-                        <li><a href="#">Sản phẩm yêu tích</a></li>
-                        <li><a href="#">Theo dõi đơn hàng</a></li>
-
-                    </ul>
-                </div>
-                <div class="col">
-                    <div class="widget-about font-md mb-md-3 mb-lg-3 mb-xl-0">
-                        <h5 class="widget-title">Follow Us</h5>
-                        <ul class="contact-infor">
-                            <li>
-                                <div class="mobile-social-icon pb-20" style="float: left">
-                                    <a href="#"><img src="assets/img/icons/icon-facebook-white.svg" alt=""/></a>
-                                    <a href="#"><img src="assets/img/icons/icon-twitter-white.svg" alt=""/></a>
-                                    <a href="#"><img src="assets/img/icons/icon-instagram-white.svg" alt=""/></a>
-                                    <a href="#"><img src="assets/img/icons/icon-pinterest-white.svg" alt=""/></a>
-                                    <a href="#"><img src="assets/img/icons/icon-youtube-white.svg" alt=""/></a>
-                                </div>
-                            </li>
-                            <li style="clear: left">
-                                <div class="hotline d-lg-inline-flex mr-30">
-                                    <img src="assets/img/icons/phone-call.svg" alt="hotline"/>
-                                    <p>1852 - 1952<span>Thời gian làm việc: 8:00 - 22:00</span></p>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="hotline d-lg-inline-flex">
-                                    <img src="assets/img/icons/phone-call.svg" alt="hotline"/>
-                                    <p>1900 - 8888<span>24/7 Hỗ trợ trực tuyến</span></p>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <div class="container pb-30">
-        <div>
-            >
-            <p class="font-sm mb-0" align="Center">
-                &copy; 2021, <strong class="text-brand">NSX</strong> - All rights
-                reserved.
-            </p>
-        </div>
-    </div>
-</footer>
-
 
 <!-- Vendor JS-->
-<script data-cfasync="false" src="../../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-<script src="assets/js/vendor/modernizr-3.6.0.min.js"></script>
 <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
-<script src="assets/js/vendor/jquery-migrate-3.3.0.min.js"></script>
-<script src="assets/js/vendor/bootstrap.bundle.min.js"></script>
-<script src="assets/js/plugins/slick.js"></script>
-<script src="assets/js/plugins/jquery.syotimer.min.js"></script>
-<script src="assets/js/plugins/wow.js"></script>
-<script src="assets/js/plugins/jquery-ui.js"></script>
-<script src="assets/js/plugins/perfect-scrollbar.js"></script>
-<script src="assets/js/plugins/magnific-popup.js"></script>
 <script src="assets/js/plugins/select2.min.js"></script>
-<script src="assets/js/plugins/waypoints.js"></script>
-<script src="assets/js/plugins/counterup.js"></script>
-<script src="assets/js/plugins/jquery.countdown.min.js"></script>
-<script src="assets/js/plugins/images-loaded.js"></script>
-<script src="assets/js/plugins/isotope.js"></script>
 <script src="assets/js/plugins/scrollup.js"></script>
-<script src="assets/js/plugins/jquery.vticker-min.js"></script>
-<script src="assets/js/plugins/jquery.theia.sticky.js"></script>
-<script src="assets/js/plugins/jquery.elevatezoom.js"></script>
+<script src="assets/js/plugins/magnific-popup.js"></script>
+<script src="assets/js/plugins/wow.js"></script>
+<script src="assets/js/plugins/slick.js"></script>
+
 <!-- Template  JS -->
 <script src="assets/js/mainf195.js?v=2.1"></script>
-<script src="assets/js/shopf195.js?v=2.1"></script>
 
-<script>
-    $(document).ready(function () {
-        $("a:selected").css("background-color", "#ffc2cb");
-    });
-</script>
+
 </body>
 
 </html>

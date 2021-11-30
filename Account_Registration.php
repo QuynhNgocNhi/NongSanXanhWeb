@@ -1,6 +1,7 @@
 <?php
 ob_start();
 session_start();
+session_destroy();
 ?>
 <?php
 require_once('config.php');
@@ -36,8 +37,8 @@ require_once('config.php');
     </script>
     <script>
         $(document).ready(function () {
-            document.getElementById('header').innerHTML = loadPage('header.html');
-            document.getElementById('footer').innerHTML = loadPage('footer.html');
+            document.getElementById('header').innerHTML = loadPage('header.php');
+            document.getElementById('footer').innerHTML = loadPage('footer.php');
         });
     </script>
 </head>
@@ -216,7 +217,7 @@ require_once('config.php');
 
                     $.ajax({
                         type: 'POST',
-                        url: 'Account_Process.php',
+                        url: 'Account_Registration_Process.php',
                         data: {
                             Email: Email,
                             UserName: UserName,

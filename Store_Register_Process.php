@@ -4,7 +4,7 @@ require_once('config.php');
 
 <?php
 if (isset($_POST)) {
-    echo "Data inserted!";
+
 //    $Email = $_POST['Email'];
 //    $UserName = $_POST['UserName'];
 //    $Password = $_POST['Password'];

@@ -1,4 +1,11 @@
-﻿<!DOCTYPE html>
+﻿<?php
+ob_start();
+session_start();
+if(!isset($_SESSION['Id'])){
+    header("location: login.php");
+}
+?>
+<!DOCTYPE html>
 <html class="no-js" lang="en">
 
 
@@ -33,8 +40,8 @@
     </script>
     <script>
       $(document).ready(function(){
-          document.getElementById('header').innerHTML = loadPage('header.html');
-          document.getElementById('footer').innerHTML = loadPage('footer.html'); 
+          document.getElementById('header').innerHTML = loadPage('header.php');
+          document.getElementById('footer').innerHTML = loadPage('footer.php');
       });
       
     </script>
