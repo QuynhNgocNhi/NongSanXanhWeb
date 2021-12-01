@@ -15,14 +15,14 @@
 
     <form class="my-form" action="{{ url_for('get_input_data')}}" method="POST">
         <div class="container">
-            <h1 class="strokeme" >Predict Laptop Used Price</h1>
+            <h1 class="strokeme" >DỰ ĐOÁN GIÁ LAPTOP CŨ</h1>
             <ul>
                 <li>
-                    <textarea id="result" placeholder="Result?"></textarea>
+                    <textarea id="result" placeholder="Kết quả?"></textarea>
                   </li>
                 <li>
                     <select name="brand" id="brand" required>
-                        <option selected disabled>-- Please choose an Laptop's brand --</option>
+                        <option selected disabled>-- Chọn hãng--</option>
                         <option value="Acer">Acer</option>
                         <option value="Apple">Apple</option>
                         <option value="Asus">Asus</option>
@@ -34,7 +34,7 @@
                 </li>
                 <li>
                     <select name="cpu_type" id="cpu" required>
-                        <option selected disabled>-- Please choose an Laptop's CPU --</option>
+                        <option selected disabled>-- Chọn CPU --</option>
                         <option value="pentinum">Pentium</option>
                         <option value="i3">i3</option>
                         <option value="i5">i5</option>
@@ -45,7 +45,7 @@
                 </li>
                 <li>
                     <select name="gpu_type" id="gpu" required>
-                        <option selected disabled>-- Please choose an Laptop's GPU --</option>
+                        <option selected disabled>-- Chọn GPU --</option>
                         <option value="Intel">Intel</option>
                         <option value="NVIDIA GTX">NVIDIA GTX</option>
                         <option value="NVIDIA MX">NVIDIA MX</option>
@@ -57,7 +57,7 @@
                 </li>
                 <li>
                     <select name="screen_size" id="screen" required>
-                        <option selected disabled>-- Please choose an Laptop's screen-size --</option>
+                        <option selected disabled>-- Chọn kích thước màn hình --</option>
                         <option value="13.3">13.3</option>
                         <option value="14.0">14</option>
                         <option value="15.6">15.6</option>
@@ -66,7 +66,7 @@
                 </li>
                 <li>
                     <select name="material" id="material" required>
-                        <option selected disabled>-- Please choose an Laptop's material --</option>
+                        <option selected disabled>-- Chọn chất liệu --</option>
                         <option value="Nhựa">Nhựa</option>
                         <option value="Nhựa + kim loại">Nhựa + kim loại</option>
                         <option value="Kim loại">Kim loại</option>
@@ -74,10 +74,11 @@
                 </li>
 
                 <li class="radio">
-                    <input type="radio" name="has_touchscreen" id="option1" value="1">
+                    <span>Cảm ứng:</span>
+                    <input type="radio" name="has_touchscreen" id="individual" value="1">
                     <label for="individual"><span></span>Có </label>
 
-                    <input type="radio" name="has_touchscreen" id="option2" value="0" >
+                    <input type="radio" name="has_touchscreen" id="organization" value="0" >
                     <label for="organization"><span></span>Không</label>
 
                 </li>
@@ -94,15 +95,15 @@
                         <div class="required-msg">Bắt Buộc</div>
                         <button class="btn-grid" type="submit">
                             <span class="back">
-                                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/email-icon.svg" alt="">
+                                <i class="fas fa-search-dollar"></i>
                             </span>
-                            <span class="front">PREDICT</span>
+                            <span class="front">Dự đoán</span>
                         </button>
                         <button class="btn-grid" type="reset">
                             <span class="back">
                                 <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/eraser-icon.svg" alt="">
                             </span>
-                            <span class="front">RESET</span>
+                            <span class="front">Chọn lại</span>
                         </button>
                     </div>
                 </li>

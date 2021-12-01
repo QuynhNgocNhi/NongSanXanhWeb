@@ -194,3 +194,7 @@ select {
 .main-content{
     background: #FFFFFF;
 }
+button img{
+    max-width: 24px;
+    max-height: 24px;
+}
