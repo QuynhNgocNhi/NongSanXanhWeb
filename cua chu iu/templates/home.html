@@ -1,0 +1,126 @@
+<!DOCTYPE
+        html>
+<html>
+<head>
+    <meta
+            charset="UTF-8">
+    <title> Predict
+        Laptop
+        Used
+        Price </title>
+    <link
+            href='https://fonts.googleapis.com/css?family=Pacifico'
+            rel='stylesheet'
+            type='text/css'>
+    <link
+            href='https://fonts.googleapis.com/css?family=Arimo'
+            rel='stylesheet'
+            type='text/css'>
+    <link
+            href='https://fonts.googleapis.com/css?family=Hind:300'
+            rel='stylesheet'
+            type='text/css'>
+    <link
+            href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300'
+            rel='stylesheet'
+            type='text/css'>
+    <!--    <link-->
+    <!--            type="text/css"-->
+    <!--            rel="stylesheet"-->
+    <!--            href="{{ url_for('static', filename='./style.css') }}">-->
+    <link
+            type="text/css"
+            rel="stylesheet"
+            href="../static/style.css">
+
+</head>
+<body>
+<div
+
+
+        class="login">
+
+    <h1> Predict
+        Laptop
+        Used
+        Price </h1>
+
+
+    <!-- Form to enter new  data for predictions -->
+    <form
+            action="{{ url_for('get_input_data')}}"
+            method="POST">
+
+        <label for="cars">Hãng: </label>
+        <select name="brand" id="cars">
+            <option value="Acer">Acer</option>
+            <option value="Apple">Apple</option>
+            <option value="Asus">Asus</option>
+            <option value="Dell">Dell</option>
+            <option value="HP">HP</option>
+            <option value="Lenovo">Lenovo</option>
+            <option value="MSI">MSI</option>
+        </select> <br>
+
+        <label for="cars">CPU: </label>
+        <select name="cpu_type" id="cars">
+            <option value="pentinum">Pentium</option>
+            <option value="i3">i3</option>
+            <option value="i5">i5</option>
+            <option value="i7">i7</option>
+            <option value="R5">R5</option>
+            <option value="R7">R7</option>
+        </select> <br>
+
+        <label for="cars">GPU: </label>
+        <select name="gpu_type" id="cars">
+            <option value="Intel">Intel</option>
+            <option value="NVIDIA GTX">NVIDIA GTX</option>
+            <option value="NVIDIA MX">NVIDIA MX</option>
+            <option value="NVIDIA Quadro">NVIDIA Quadro</option>
+            <option value="NVIDIA RTX">NVIDIA RTX</option>
+            <option value="Radeon">Radeon</option>
+            <option value="AMD">AMD</option>
+        </select> <br>
+
+        <label for="cars">Kích thước màn hình: </label>
+        <select name="screen_size" id="cars">
+            <option value="13.3">13.3</option>
+            <option value="14.0">14</option>
+            <option value="15.6">15.6</option>
+            <option value="Others">Khác</option>
+        </select> <br>
+
+        <label for="cars">Chất liệu: </label>
+        <select name="material" id="cars">
+            <option value="Nhựa">Nhựa</option>
+            <option value="Nhựa + kim loại">Nhựa + kim loại</option>
+            <option value="Kim loại">Kim loại</option>
+        </select> <br>
+
+        <input type="radio" name="has_touchscreen" id="option1" value='0' checked> Không <br>
+        <input type="radio" name="has_touchscreen" id="option2" value='1'> Có <br>
+
+        <input
+                type="text"
+                name="weight"
+                placeholder="Trọng lượng"
+                required="required"/> <br>
+
+        <button
+                type="submit"
+                class="btn btn-primary btn-block btn-large"> Predict
+        </button>
+
+    </form>
+
+    <br>
+    <br>
+
+</div>
+
+<!-- ĐÂY LÀ CHỖ MÀ SAU KHI BẤM PREDICT SẼ HIỆN RA TEXT 'Giá dự đoán: 16,983,860 VNĐ'-->
+{{prediction}}
+
+</body>
+</html>
