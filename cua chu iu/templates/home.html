@@ -1,5 +1,5 @@
-<!DOCTYPE
-        html>
+<!DOCTYPE html>
+
 <html>
 <head>
     <meta
@@ -35,18 +35,13 @@
 
 </head>
 <body>
-<div
-
-
-        class="login">
+<div class="login">
 
     <h1> Predict
         Laptop
         Used
         Price </h1>
-
-
-    <!-- Form to enter new  data for predictions -->
+<div class="main-content">
     <form
             action="{{ url_for('get_input_data')}}"
             method="POST">
@@ -113,6 +108,10 @@
         </button>
 
     </form>
+</div>
+
+    <!-- Form to enter new  data for predictions -->
+
 
     <br>
     <br>
@@ -120,7 +119,9 @@
 </div>
 
 <!-- ĐÂY LÀ CHỖ MÀ SAU KHI BẤM PREDICT SẼ HIỆN RA TEXT 'Giá dự đoán: 16,983,860 VNĐ'-->
-{{prediction}}
+<div id="prediction">
 
+
+</div>
 </body>
 </html>
