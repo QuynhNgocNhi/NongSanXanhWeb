@@ -26,9 +26,11 @@ if (isset($_POST)) {
     $Description = $_POST['Description'];
 
 //insert product to database
+    mysqli_query($conn, "SET FOREIGN_KEY_CHECKS=0;");
+
     $sql = "INSERT INTO products (Name, Price, Description, StoreId, StoreName, Img) VALUES (?,?, ?, ?, ?,?);";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sisiss", $Name, $Price, $Description, $StoreId, $StoreName, $NewImg);
+    $stmt->bind_param("sisiss", $Name, $Price, $Description, $StoreId, $StoreName, $ProductImg);
     $stmt->execute();
 
     echo json_encode(array('success' => 0));

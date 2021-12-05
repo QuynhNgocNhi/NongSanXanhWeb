@@ -18,10 +18,10 @@ if (isset($_FILES['Product_Image'])) {
 	if ($error === 0) {
 		if ($img_size > 1000000) {
 			# error message
-			$em = "Sorry, your file is too large.";
+			$error_message = "Sorry, your file is too large.";
 
 			# response array
-			$error = array('error' => 1, 'em'=> $em);
+			$error = array('error' => 1, 'error_message'=> $error_message);
 
 			/**
 		    printing out php array and
@@ -66,6 +66,7 @@ if (isset($_FILES['Product_Image'])) {
 				# inserting imge name into database
                 $sql = "INSERT INTO productimgs (ImgUrl)
                         VALUES ('$new_img_name')";
+                mysqli_query($conn, "SET FOREIGN_KEY_CHECKS=0;");
                 mysqli_query($conn, $sql);
 
                 # response array
@@ -76,10 +77,10 @@ if (isset($_FILES['Product_Image'])) {
 
 			}else {
 				# error message
-				$em = "You can't upload files of this type";
+				$error_message = "You can't upload files of this type";
 
 				# response array
-				$error = array('error' => 1, 'em'=> $em);
+				$error = array('error' => 1, 'error_message'=> $error_message);
 
 				/**
 			    printing out php array and
@@ -92,10 +93,10 @@ if (isset($_FILES['Product_Image'])) {
 		}
 	}else {
 		# error message
-		$em = "unknown error occurred!";
+		$error_message = "unknown error occurred!";
 
 		# response array
-		$error = array('error' => 1, 'em'=> $em);
+		$error = array('error' => 1, 'error_message'=> $error_message);
 
 		/**
 	    printing out php array and

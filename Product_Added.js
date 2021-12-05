@@ -1,10 +1,8 @@
-
-
-function upload(va) {
-
-    var ImgName = path;
-
-    va.preventDefault();
+document.getElementById("AddProduct").addEventListener('click', function (event) {
+    // NOTE: You are clicking a submit button.  After this function runs,
+    // then the form will be submitted.  If you want to *stop* that, you can
+    // use the following:
+    event.preventDefault();
 
     $.ajax({
         type: 'POST',
@@ -14,7 +12,7 @@ function upload(va) {
             "Name": $('#Name').val(),
             "Price": $('#Price').val(),
             "Description": $('#Description').val(),
-            "ProductImg": ImgName
+            "ProductImg": mainImage,
 
             // ProductCategoryId: $('#ProductCategoryId').val();,
             // ProductCategory: $('#ProductCategory').val();,
@@ -44,5 +42,6 @@ function upload(va) {
         }
     });
 
+});
 
-}
+

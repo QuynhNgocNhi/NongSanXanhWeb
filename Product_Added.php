@@ -51,33 +51,32 @@ if ($_SESSION['UserRoleId'] == 3) {
 
         $("#UploadMainImgBtn").click(function (e) {
             e.preventDefault();
-            let form_data = new FormData();
-            let img = $("#MainProductImg")[0].files;
+            let formData = new FormData();
+            let image = $("#MainProductImg")[0].files;
 
             // Check image selected or not
-            if (img.length > 0) {
-                form_data.append('Product_Image', img[0]);
+            if (image.length > 0) {
+                formData.append('Product_Image', image[0]);
                 $.ajax({
                     url: 'Product_Img_Upload.php',
                     type: 'post',
-                    data: form_data,
+                    data: formData,
                     contentType: false,
-                    // dataType: 'json',
                     processData: false,
                     success: function (data) {
                         data = JSON.parse(data);
-                        if (data.error != 1) {
-                            path = "data/Product_Img_Upload/" + data.src;
-
-                            $("#PreImg").attr("src", path);
+                        if (data.error !== 1) {
+                            mainImage = data.src
+                            let path = "data/Product_Img_Upload/" + mainImage;
+                            $("#previousImage").attr("src", path);
                         } else {
-                            $("#errorMs").text(data.em);
+                            $("#errorMessage").text(data.error_message);
                         }
                     }
                 });
 
             } else {
-                $("#errorMs").text("Please select an image.");
+                $("#errorMessage").text("Please select an image.");
             }
         });
 
@@ -385,7 +384,7 @@ if ($_SESSION['UserRoleId'] == 3) {
                                     <div class="col-lg-6 col-md-6"><b>Hình ảnh sản phẩm</b>
                                         <!-- Thêm hình ảnh -->
                                         <div class="input-group">
-                                            <p id="errorMs"></p>
+                                            <p id="errorMessage"></p>
 
                                             <form action="Product_Img_Upload.php" id="FileUpload"
                                                   class="dropzone m-b-20 m-t-20"
@@ -403,7 +402,7 @@ if ($_SESSION['UserRoleId'] == 3) {
                                             <!--                                            </div>-->
                                         </div>
                                         <div class="PreImg">
-                                            <img src="assets/imgs/shop/cat-1.png" id="PreImg" >
+                                            <img src="assets/imgs/shop/cat-1.png" id="PreImg">
 
                                         </div>
                                     </div>
@@ -468,7 +467,7 @@ if ($_SESSION['UserRoleId'] == 3) {
                                                       placeholder="Mô tả chung"></textarea>
                                         </div>
                                     </div>
-                                    <button type="submit" id="AddProduct" onclick="upload()"
+                                    <button type="submit" id="AddProduct"
                                             class="btn btn-lg btn-brand btn-primary btn-rounded">Đăng sản phẩm
                                     </button>
 
