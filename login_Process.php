@@ -24,6 +24,8 @@ if (isset($_POST)) {
                 $_SESSION["Id"] = $row["Id"];
                 $_SESSION["UserRoleId"] = $row["UserRoleId"];
                 $_SESSION["UserName"] = $row["UserName"];
+                $_SESSION["StoreId"] = $row["StoreId"];
+
 
             } elseif ($row["UserRoleId"] == 3) {
                 session_start();
@@ -31,11 +33,14 @@ if (isset($_POST)) {
                 $_SESSION["UserRoleId"] = $row["UserRoleId"];
                 $_SESSION["UserName"] = $row["UserName"];
 
+
             } elseif ($row["UserRoleId"] == 2) {
                 session_start();
                $_SESSION["Id"] = $row["Id"];
                 $_SESSION["UserRoleId"] = $row["UserRoleId"];
                 $_SESSION["UserName"] = $row["UserName"];
+                $_SESSION["StoreId"] = $row["StoreId"];
+
 
             }
         } else {

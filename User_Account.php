@@ -5,6 +5,9 @@ if (!isset($_SESSION['Id'])) {
     header("location: login.php");
 }
 ?>
+<?php
+require_once('config.php');
+?>
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 
@@ -122,19 +125,53 @@ if (!isset($_SESSION['Id'])) {
                                      aria-labelledby="account-detail-tab">
                                     <div class="card">
                                         <div class="card-header">
-                                            <h3 class="mb-0">Xin chào Rosie!</h3>
+                                            <?php
+                                if (isset($_SESSION["UserName"])) {
+                                    echo "<a href='User_Account.php'><span class='h3 text-brand lable ml-0'> Chào ".$_SESSION["UserName"];
+
+                                }
+                                else{
+                                    echo "<h3 href='Amin_Dashboard.php'><span class='lable ml-0'>Admin</span></h3>";
+                                }
+                                ?>
+<!--                                            <h3 class="mb-0">Xin chào Rosie!</h3>-->
                                         </div>
                                         <div class="row">
                                             <div class="row-cols-4">
-                                                <img class="justify-content-around center"
-                                                     src="assets/img/global/UserAvatar/Avatar0.png">
+                                                <?php
+                                                if (isset($_GET['error'])): ?>
+                                                    <p><?php
+                                                        if (isset($_GET['error'])) ; ?></p>
+                                                <?php endif ?>
+                                                <?php
+                                                $UserId = $_SESSION['Id'];
+                                                $sql = "SELECT * FROM images WHERE UserId = '" . $UserId . "' ORDER BY Id DESC ";
+                                                $result = mysqli_query($conn, $sql);
+                                                if ($result) {
+                                                    $row = mysqli_fetch_array($result, MYSQLI_BOTH);
+                                                    $images = $row["ImgUrl"]; ?>
+<!--                                                        Thêm role-->
+                                                    <img  class="justify-content-around rounded-circle center"
+                                                         src="data/Avartar_Upload/<?= $images ?>">
+                                                    <?php
+
+
+                                                }
+                                                ?>
+
+
+                                                <!--                                                <img class="justify-content-around center"-->
+                                                <!--                                                     src="assets/img/global/UserAvatar/Avatar0.png">-->
                                             </div>
-                                            <div class="col-4 button-input">
-                                                <form action="Acount_Upload.php" method="post" enctype="multipart/form-data">
-                                                    <input class="buttun button-input" type="file" id="myAvatar" name="FileName">
+                                            <div class=" button-input">
+                                                <form action="Acount_Upload.php" method="post"
+                                                      enctype="multipart/form-data">
+                                                    <input class="buttun button-input" type="file" id="myAvatar"
+                                                           name="FileName">
 
 
-                                                    <input id="ChangeAvatar" class="button button-input" type="submit" name="ChangeAvatar" value="Thay đổi">
+                                                    <input id="ChangeAvatar" class="button button-input" type="submit"
+                                                           name="ChangeAvatar" value="Thay đổi">
 
                                                 </form>
                                             </div>

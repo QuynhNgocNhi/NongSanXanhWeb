@@ -220,7 +220,7 @@ session_start();
                                 </a>
                                 <?php
                                 if (isset($_SESSION["UserName"])) {
-                                    echo "<a href='index.php'><span class='lable ml-0'> ".$_SESSION["UserName"];
+                                    echo "<a href='User_Account.php'><span class='lable ml-0'> ".$_SESSION["UserName"];
 
                                 }
                                 else{
@@ -239,7 +239,7 @@ session_start();
 
                                             echo "<li><a href='User_Account.php'><i class='fi fi-rs-user mr-10'></i>Tài khoản của tôi</a></li>";
                                             if ($_SESSION["UserRoleId"] == 2) {
-                                                echo "<li><a href='login.php'><i class='fi fi-rs-home mr-10'></i>Cửa hàng</a></li>";
+                                                echo "<li><a href='Vendor_Dashboard.php'><i class='fi fi-rs-home mr-10'></i>Cửa hàng</a></li>";
                                             } else {
                                                 echo "<li><a href='Store_Register.php'><i class='fi fi-rs-user mr-10'></i>Tạo cửa hàng</a></li>";
                                             }

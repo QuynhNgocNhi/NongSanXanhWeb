@@ -192,7 +192,7 @@ require_once('config.php');
                                 text: "Đăng nhập thành công!",
                                 icon: "success"
                             }).then(function () {
-                                window.open('index.php', '_blank')
+                                window.open('index.php', '_self')
                             });
 
 
