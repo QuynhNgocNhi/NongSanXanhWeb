@@ -1,6 +1,3 @@
-var ImgArray = [];
-var i = 0;
-var j = 0;
 document.getElementById("AddProduct").addEventListener('click', function (event) {
     // NOTE: You are clicking a submit button.  After this function runs,
     // then the form will be submitted.  If you want to *stop* that, you can
@@ -65,17 +62,28 @@ function getName() {
     document.getElementById("result").value = filename;
 }
 
+var ImgArray = [];
+let j = 0;
+i = 0;
 document.getElementById("UploadMainImgBtn").addEventListener('click', function (event) {
     // NOTE: You are clicking a submit button.  After this function runs,
     // then the form will be submitted.  If you want to *stop* that, you can
     // use the following:
     //
+
     event.preventDefault();
-    if (ImgArray.length < 5) {
-         event.preventDefault();
-        $('input[name="ProductImage"]:checked').each(function () {
-            let image = $('input[name = "FileName"]')[0].files[i];
-            ImgArray[i++] = $(this).val();
+    if (j < 5) {
+
+        for (var i = 0; i < $('input[name="ProductImage"]').length; i++) {
+            if (!$('input[name="ProductImage"]')[i].is(':checked')) {
+                return false;
+            }
+
+            // let image = $('#MainProductImg')[0].files[i];
+            // let image = $(this).attr('value');
+            // let image = $('input[name="ProductImage"]:checked')[0].files[i];
+            let image = ImageData.get('Image' + i);
+
             let formData = new FormData();
 
 // todo:Chức năng xóa hình ảnh(lựa chọn ảnh đăng trong vong 5 ảnh)
@@ -93,8 +101,8 @@ document.getElementById("UploadMainImgBtn").addEventListener('click', function (
                         if (data.error !== 1) {
 
                             mainImage = data.src;
-                            ImgArray[j] = mainImage;
-                            j++;
+                            // ImgArray[j] = mainImage;
+                            i++;
 
                             let path = "data/Product_Img_Upload/" + mainImage;
 
@@ -110,15 +118,36 @@ document.getElementById("UploadMainImgBtn").addEventListener('click', function (
                 $("#errorMessage").text("Please select an image.");
             }
 
-        });
-    }
-    else {
+        }
+
+    } else {
+
+        $("#errorMessage").text("Bạn chỉ được chọn 5 ảnh.");
 
     }
 
 
 });
 
+// $(document).ready(function () {
+//     $('form').ajaxForm(function () {
+//         alert("Uploaded SuccessFully");
+//     });
+// });
+let ImageData = new FormData();
+document.getElementById("MainProductImg").addEventListener('change', function (event) {
+    event.preventDefault();
+
+
+    var currentImageNumber = $('div.numberImage').length;
+
+    for (var i = currentImageNumber, j = 0; i < 20; i++, j++) {
+        ImageData.append('Image' + i, $('#MainProductImg')[0].files[j])
+        $('#image_preview').append("<div class='numberImage imageandtext image_grid'> <label for='IMG" + i + "'> <img class='img-fluid img-thumbnail' src='" + URL.createObjectURL(event.target.files[j]) + "'> </label> <input type='checkbox' name='ProductImage' value ='" + URL.createObjectURL(event.target.files[j]) + "' id='IMG" + i + "'> <div class='caption' id='result" + i + "'> </div>  </div>");
+
+    }
+
+})
 // document.getElementById("MainProductImg").addEventListener('change', function (event) {
 //     // NOTE: You are clicking a submit button.  After this function runs,
 //     // then the form will be submitted.  If you want to *stop* that, you can

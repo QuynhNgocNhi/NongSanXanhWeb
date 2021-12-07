@@ -90,7 +90,7 @@ if ($_SESSION['UserRoleId'] == 3) {
             border: 2px solid white;
             border-radius: 50%;
         }
-        #image_preview div img, #image_preview div input, #imageSuccess img{
+        #image_preview div img, #image_preview div input,#image_preview div.caption, #imageSuccess img{
 width: 90px;
 
 }
@@ -419,19 +419,6 @@ width: 90px;
                                     </div>
                                     <script>
 
-                                        $(document).ready(function () {
-                                            $('form').ajaxForm(function () {
-                                                alert("Uploaded SuccessFully");
-                                            });
-                                        });
-
-                                        function preview_image() {
-                                            // var total_file = document.getElementById("MainProductImg").files.length;
-                                            for (var i = 0; i < 5; i++) {
-                                                // $('#image_preview').append("<img class='img-fluid col-2 img-thumbnail' src='" + URL.createObjectURL(event.target.files[i]) + "'>");
-                                                $('#image_preview').append("<div class=' imageandtext image_grid'> <label for='IMG" + i + "'> <img class='img-fluid img-thumbnail' src='" + URL.createObjectURL(event.target.files[i]) + "'> </label> <input type='checkbox' name='ProductImage' value ='" + URL.createObjectURL(event.target.files[i]) + "' id='IMG" + i + "' checked> <div class='caption' id='result" + i + "'> </div>  </div>");
-                                            }
-                                        }
 
                                     </script>
                                     <div class="col-lg-6 p-b-50 col-md-6"><b>Hình ảnh sản phẩm</b>
@@ -445,7 +432,7 @@ width: 90px;
 
                                                 <div class="fallback">
                                                     <input id="MainProductImg" name="FileName[]" type="file"
-                                                           onchange="preview_image();" multiple/>
+                                                           multiple/>
                                                 </div>
                                                 <input id="UploadMainImgBtn" class="button button-input" type="submit"
                                                        name="AddMain" value="Thêm hình ảnh">
