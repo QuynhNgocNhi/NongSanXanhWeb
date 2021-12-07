@@ -90,6 +90,10 @@ if ($_SESSION['UserRoleId'] == 3) {
             border: 2px solid white;
             border-radius: 50%;
         }
+        #image_preview div img, #image_preview div input, #imageSuccess img{
+width: 90px;
+
+}
     </style>
 </head>
 
@@ -425,12 +429,12 @@ if ($_SESSION['UserRoleId'] == 3) {
                                             // var total_file = document.getElementById("MainProductImg").files.length;
                                             for (var i = 0; i < 5; i++) {
                                                 // $('#image_preview').append("<img class='img-fluid col-2 img-thumbnail' src='" + URL.createObjectURL(event.target.files[i]) + "'>");
-                                                $('#image_preview').append("<div class='imageandtext image_grid'> <label for='IMG" + i + "'> <img class='img-fluid col-2 img-thumbnail' src='" + URL.createObjectURL(event.target.files[i]) + "'> </label> <input type='checkbox' name='ProductImage' id='IMG" + i + "' checked><div class='caption' id='result" + i + "'> </div> </div>");
+                                                $('#image_preview').append("<div class=' imageandtext image_grid'> <label for='IMG" + i + "'> <img class='img-fluid img-thumbnail' src='" + URL.createObjectURL(event.target.files[i]) + "'> </label> <input type='checkbox' name='ProductImage' value ='" + URL.createObjectURL(event.target.files[i]) + "' id='IMG" + i + "' checked> <div class='caption' id='result" + i + "'> </div>  </div>");
                                             }
                                         }
 
                                     </script>
-                                    <div class="col-lg-6 col-md-6"><b>Hình ảnh sản phẩm</b>
+                                    <div class="col-lg-6 p-b-50 col-md-6"><b>Hình ảnh sản phẩm</b>
                                         <!-- Thêm hình ảnh -->
                                         <div class="input-group">
                                             <p id="errorMessage"></p>
@@ -446,7 +450,7 @@ if ($_SESSION['UserRoleId'] == 3) {
                                                 <input id="UploadMainImgBtn" class="button button-input" type="submit"
                                                        name="AddMain" value="Thêm hình ảnh">
                                             </form>
-                                            <div class="grid-two imageandtext" id="image_preview">
+                                            <div class="col-12 grid-two p-t-20 imageandtext row" id="image_preview">
 
                                             </div>
                                         </div>
@@ -455,10 +459,13 @@ if ($_SESSION['UserRoleId'] == 3) {
 
                                     </div>
                                     <!--                                    try-->
-                                    <div class="col-lg-6 col-md-6 p-t-20"><b>Hình ảnh Hợp lệ</b>
-                                        <div id="imageSuccess">
+                                    <div class="col-lg-6 p-b-50 col-md-6 p-t-20 "><b>Hình ảnh Hợp lệ</b>
+                                        <div>
+                                            <div  class="grid-two p-t-20 imageandtext row" id="imageSuccess">
 
                                         </div>
+                                        </div>
+
 <!--                                        <div class="imageandtext image_grid" id="imageSuccess">-->
 <!--                                            <div class="imageandtext image_grid">-->
 <!--                                                <label for="IMG1">-->
