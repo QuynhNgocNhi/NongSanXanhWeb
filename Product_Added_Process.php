@@ -19,18 +19,21 @@ if (isset($_POST)) {
 //$fileType = $_FILES['file']['type'];
 //$fileError = $_FILES['file']['error'];
 //$fileContent = file_get_contents($_FILES['file']['tmp_name']);
-    $ProductImg = $_POST['ProductImg'];
-    $StoreId = $_SESSION['Id'];
+
+    $ProductMainImage = $_POST['ProductImage'];
+    $StoreId = $_SESSION['StoreId'];
+    $UserId = $_SESSION['Id'];
     $Name = $_POST['Name'];
     $Price = $_POST['Price'];
     $Description = $_POST['Description'];
+    $ProductCategory = $_POST['ProductCategory'];
 
 //insert product to database
     mysqli_query($conn, "SET FOREIGN_KEY_CHECKS=0;");
 
-    $sql = "INSERT INTO products (Name, Price, Description, StoreId, StoreName, Img) VALUES (?,?, ?, ?, ?,?);";
+    $sql = "INSERT INTO products (Name, Price, Description, VendorId, StoreId, StoreName, ProductCategoryId) VALUES (?,?, ?, ?, ?,?,?);";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sisiss", $Name, $Price, $Description, $StoreId, $StoreName, $ProductImg);
+    $stmt->bind_param("sisissi", $Name, $Price, $Description, $UserId, $StoreId, $StoreName, $ProductCategory );
     $stmt->execute();
 
     echo json_encode(array('success' => 0));

@@ -346,15 +346,23 @@ if ($_SESSION['UserRoleId'] == 3) {
 
                                         <p><b>Danh mục cha: litmit 2</b></p>
                                         <select class="form-control show-tick" multiple>
-                                            <optgroup label="Condiments" data-max-options="2">
-                                                <option>Mustard</option>
-                                                <option>Ketchup</option>
-                                                <option>Relish</option>
-                                            </optgroup>
-                                            <optgroup label="Breads" data-max-options="2">
-                                                <option>Plain</option>
-                                                <option>Steamed</option>
-                                                <option>Toasted</option>
+                                            <optgroup label="Chọn 1 danh mục cha" data-max-options="2">
+
+                                                <?php
+
+                                                include "config.php";
+
+                                                $sql = "select * from productcategory";
+                                                $result = mysqli_query($conn, $sql);
+
+                                                if (mysqli_num_rows($result) > 0) {
+                                                    $index = 0;
+                                                    while ($row = mysqli_fetch_row($result)) {
+                                                        echo "<option value='$row[0]'>$row[1]</option>";
+
+                                                    }
+                                                }
+                                                ?>
                                             </optgroup>
                                         </select>
                                         <b>Hình ảnh danh mục</b>
@@ -400,31 +408,8 @@ if ($_SESSION['UserRoleId'] == 3) {
                                         <div class="row clearfix">
                                             <div class="col-lg-12 col-md-12 col-sm-12">
                                                 <div class="card">
-                                                    <div class="header">
-                                                        <h2><strong>Light Color</strong> background <small>You can use
-                                                                material design colors which examples are
-                                                                <code>.xl-pink</code></small></h2>
-                                                        <ul class="header-dropdown">
-                                                            <li class="dropdown"><a href="javascript:void(0);"
-                                                                                    class="dropdown-toggle"
-                                                                                    data-toggle="dropdown" role="button"
-                                                                                    aria-haspopup="true"
-                                                                                    aria-expanded="false"> <i
-                                                                            class="zmdi zmdi-more"></i> </a>
-                                                                <ul class="dropdown-menu dropdown-menu-right">
-                                                                    <li><a href="javascript:void(0);">Action</a></li>
-                                                                    <li><a href="javascript:void(0);">Another action</a>
-                                                                    </li>
-                                                                    <li><a href="javascript:void(0);">Something else</a>
-                                                                    </li>
-                                                                </ul>
-                                                            </li>
-                                                            <li class="remove">
-                                                                <a role="button" class="boxs-close"><i
-                                                                            class="zmdi zmdi-close"></i></a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
+
+                                                    <!--                                Danh sách danh mục-->
                                                     <div class="body table-responsive">
                                                         <table class="table">
                                                             <thead>
@@ -444,33 +429,47 @@ if ($_SESSION['UserRoleId'] == 3) {
                                                             $result = mysqli_query($conn, $sql);
 
                                                             if (mysqli_num_rows($result) > 0) {
+                                                                $index = 0;
 
 
-//                                            echo "<td>Tên công ty</td><td><select name='macongty'>";
-                                            while ($row = mysqli_fetch_row($result)) {
-                                                echo "<tr class='xl-khaki'>
+                                                                while ($row = mysqli_fetch_row($result)) {
+                                                                    if ($index % 2 == 0) {
+                                                                        echo "<tr class='xl-khaki'>
                                                       <th scope='row'>";
 
-                                                echo "$row[0]</th>
+                                                                        echo "$row[0]</th>
                                                                 <td>";
+                                                                        echo "$row[1]</td>
+                                                                <td>";
+                                                                        echo "$row[2]</td>
+                                                                ";
+                                                                        echo "<td>
+                                        <button class='btn btn-sm btn-icon btn-simple btn-icon-mini btn-round'><i class='zmdi zmdi-edit'></i></button>
+                                        <button class='btn btn-sm btn-icon btn-simple btn-icon-mini btn-round'><i class='zmdi zmdi-delete'></i></button>
+                                    </td></tr>";
+                                                                    } else {
+                                                                        echo "<tr class='xl-pink'>
+                                                      <th scope='row'>";
+
+                                                                        echo "$row[0]</th>
+                                                                <td>";
+                                                                        echo "$row[1]</td>
+                                                                <td>";
+                                                                        echo "$row[2]</td>
+                                                                ";
+                                                                        echo "<td>
+                                        <button class='btn btn-sm btn-icon btn-simple btn-icon-mini btn-round'><i class='zmdi zmdi-edit'></i></button>
+                                        <button class='btn btn-sm btn-icon btn-simple btn-icon-mini btn-round'><i class='zmdi zmdi-delete'></i></button>
+                                    </td></tr>";
+                                                                    }
+                                                                    $index += 1;
 
 
-                                            }
-//                                            echo " </select></td></tr>";
+                                                                }
+
+
                                                             }
                                                             ?>
-                                                            1Trái cây</td>
-                                                                <td>1</td>
-                                                                <td></td>
-                                                            </tr>
-                                                            <tr class="xl-pink">
-                                                                <th scope="row">2</th>
-                                                                <td>Đặc sản vùng miền</td>
-                                                                <td>1</td>
-                                                                <td></td>
-                                                            </tr>
-
-
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -491,7 +490,7 @@ if ($_SESSION['UserRoleId'] == 3) {
                                     </button>
 
                                 </div>
-                                <!--                                Danh sách danh mục-->
+
                             </div>
 
 

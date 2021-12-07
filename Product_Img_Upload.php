@@ -1,11 +1,15 @@
 <?php
+ob_start();
+session_start();
 require_once('config.php');
 ?>
+
 <?php
 # check if image sent
 if (isset($_FILES['Product_Image'])) {
 
 	# database connection file
+    $StoreId = $_SESSION['StoreId'];
 
 
 	# getting image data and store them in var
@@ -13,6 +17,7 @@ if (isset($_FILES['Product_Image'])) {
 	$img_size = $_FILES['Product_Image']['size'];
 	$tmp_name = $_FILES['Product_Image']['tmp_name'];
 	$error    = $_FILES['Product_Image']['error'];
+
 
 	# if there is not error occurred while uploading
 	if ($error === 0) {
@@ -64,8 +69,7 @@ if (isset($_FILES['Product_Image'])) {
 				move_uploaded_file($tmp_name, $img_upload_path);
 
 				# inserting imge name into database
-                $sql = "INSERT INTO productimgs (ImgUrl)
-                        VALUES ('$new_img_name')";
+                $sql = "INSERT INTO productimgs (ImgUrl, StoreId ) VALUES ('$new_img_name', '$StoreId')";
                 mysqli_query($conn, "SET FOREIGN_KEY_CHECKS=0;");
                 mysqli_query($conn, $sql);
 

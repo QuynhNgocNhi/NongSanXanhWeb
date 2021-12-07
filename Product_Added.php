@@ -33,7 +33,64 @@ if ($_SESSION['UserRoleId'] == 3) {
     <!-- Bootstrap Tagsinput Css -->
     <link rel="stylesheet" href="Admin_Store.asset/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css">
     <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
+    <style>
+        .caption {
+            position: absolute;
+            top: 0;
+            left: 5px; /*  changed to match image_grid padding  */
+            height: 100%;
+            width: calc(100% - 5px); /*  changed to match image_grid padding  */
+            padding: 0 10px;
+            box-sizing: border-box;
+            pointer-events: none;
 
+        }
+
+        .imageandtext {
+            position: relative;
+
+        }
+
+        .image_grid {
+            display: inline-block;
+            padding-left: 5px;
+        }
+
+        .image_grid img { /*  added rule  */
+            display: block;
+
+        }
+
+        .image_grid img {
+
+        }
+
+        .image_grid input {
+            display: none;
+        }
+
+        .image_grid input:checked + .caption {
+            background: rgba(0, 0, 0, 0.5);
+            background: hsla(0, 100%, 100%, 0.3);;;
+
+
+        }
+
+        .image_grid input:checked + .caption::after {
+            content: '✔';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 50px;
+            height: 50px;
+            transform: translate(-50%, -50%);
+            color: #ffabab;
+            font-size: 35px;
+            text-align: center;
+            border: 2px solid white;
+            border-radius: 50%;
+        }
+    </style>
 </head>
 
 <body class="theme-blush">
@@ -47,40 +104,7 @@ if ($_SESSION['UserRoleId'] == 3) {
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-    $(document).ready(function () {
 
-        $("#UploadMainImgBtn").click(function (e) {
-            e.preventDefault();
-            let formData = new FormData();
-            let image = $("#MainProductImg")[0].files;
-
-            // Check image selected or not
-            if (image.length > 0) {
-                formData.append('Product_Image', image[0]);
-                $.ajax({
-                    url: 'Product_Img_Upload.php',
-                    type: 'post',
-                    data: formData,
-                    contentType: false,
-                    processData: false,
-                    success: function (data) {
-                        data = JSON.parse(data);
-                        if (data.error !== 1) {
-                            mainImage = data.src
-                            let path = "data/Product_Img_Upload/" + mainImage;
-                            $("#previousImage").attr("src", path);
-                        } else {
-                            $("#errorMessage").text(data.error_message);
-                        }
-                    }
-                });
-
-            } else {
-                $("#errorMessage").text("Please select an image.");
-            }
-        });
-
-    });
 </script>
 <!-- Overlay For Sidebars -->
 <div class="overlay"></div>
@@ -352,16 +376,24 @@ if ($_SESSION['UserRoleId'] == 3) {
                                     </div>
                                     <div class="col-lg-6 col-md-6"><b>Danh mục</b>
 
-                                        <select class="form-control show-tick" id="ProductCategory" multiple>
-                                            <optgroup label="Condiments" data-max-options="2">
-                                                <option>Mustard</option>
-                                                <option>Ketchup</option>
-                                                <option>Relish</option>
-                                            </optgroup>
-                                            <optgroup label="Breads" data-max-options="2">
-                                                <option>Plain</option>
-                                                <option>Steamed</option>
-                                                <option>Toasted</option>
+                                        <select name="ProductCategory" class="form-control show-tick" multiple>
+                                            <optgroup label="Chọn 1 danh mục cha" data-max-options="2">
+
+                                                <?php
+
+                                                include "config.php";
+
+                                                $sql = "select * from productcategory";
+                                                $result = mysqli_query($conn, $sql);
+
+                                                if (mysqli_num_rows($result) > 0) {
+                                                    $index = 0;
+                                                    while ($row = mysqli_fetch_row($result)) {
+                                                        echo "<option value='$row[0]'>$row[1]</option>";
+
+                                                    }
+                                                }
+                                                ?>
                                             </optgroup>
                                         </select>
                                     </div>
@@ -381,6 +413,23 @@ if ($_SESSION['UserRoleId'] == 3) {
 
                                         </select>
                                     </div>
+                                    <script>
+
+                                        $(document).ready(function () {
+                                            $('form').ajaxForm(function () {
+                                                alert("Uploaded SuccessFully");
+                                            });
+                                        });
+
+                                        function preview_image() {
+                                            // var total_file = document.getElementById("MainProductImg").files.length;
+                                            for (var i = 0; i < 5; i++) {
+                                                // $('#image_preview').append("<img class='img-fluid col-2 img-thumbnail' src='" + URL.createObjectURL(event.target.files[i]) + "'>");
+                                                $('#image_preview').append("<div class='imageandtext image_grid'> <label for='IMG" + i + "'> <img class='img-fluid col-2 img-thumbnail' src='" + URL.createObjectURL(event.target.files[i]) + "'> </label> <input type='checkbox' name='ProductImage' id='IMG" + i + "' checked><div class='caption' id='result" + i + "'> </div> </div>");
+                                            }
+                                        }
+
+                                    </script>
                                     <div class="col-lg-6 col-md-6"><b>Hình ảnh sản phẩm</b>
                                         <!-- Thêm hình ảnh -->
                                         <div class="input-group">
@@ -391,21 +440,39 @@ if ($_SESSION['UserRoleId'] == 3) {
                                                   method="post" enctype="multipart/form-data">
 
                                                 <div class="fallback">
-                                                    <input id="MainProductImg" name="FileName" type="file" multiple/>
+                                                    <input id="MainProductImg" name="FileName[]" type="file"
+                                                           onchange="preview_image();" multiple/>
                                                 </div>
                                                 <input id="UploadMainImgBtn" class="button button-input" type="submit"
                                                        name="AddMain" value="Thêm hình ảnh">
                                             </form>
-                                            <!--                                            <div class="fallback">-->
-                                            <!--                                                <input id="ProductImg" name="FileName" type="file" multiple/>-->
-                                            <!--                                                <button id="upload" value="Thêm ảnh" />-->
-                                            <!--                                            </div>-->
+                                            <div class="grid-two imageandtext" id="image_preview">
+
+                                            </div>
                                         </div>
-                                        <div class="PreImg">
-                                            <img src="assets/imgs/shop/cat-1.png" id="PreImg">
+                                        <!--                                        todo: click để chọn ra ảnh sẽ đăng, click thêm ảnh sẽ duocjd thêm và chuyển qua bên kia, lưu về database,-->
+                                        <!--                                        xuất ra thẻ img có id và onclick = get name ra cái div ở phía dứi để lấy từng cái value-->
+
+                                    </div>
+                                    <!--                                    try-->
+                                    <div class="col-lg-6 col-md-6 p-t-20"><b>Hình ảnh Hợp lệ</b>
+                                        <div id="imageSuccess">
 
                                         </div>
+<!--                                        <div class="imageandtext image_grid" id="imageSuccess">-->
+<!--                                            <div class="imageandtext image_grid">-->
+<!--                                                <label for="IMG1">-->
+<!--                                                    <img src='assets/img/products/01-Fresh/saurieng.jpg'-->
+<!--                                                         style="width:200px"/>-->
+<!--                                                </label>-->
+<!--                                                <input type="checkbox" name="ProductImage" id="IMG1">-->
+<!--                                                <div class="caption" id="result">-->
+<!---->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
                                     </div>
+
                                     <div class="col-lg-6 col-md-6"><b>Tag sản phẩm</b>
                                         <!-- Thêm Tag -->
 
