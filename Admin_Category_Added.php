@@ -345,7 +345,9 @@ if ($_SESSION['UserRoleId'] == 3) {
                                         </div>
 
                                         <p><b>Danh mục cha: litmit 2</b></p>
+
                                         <select class="form-control show-tick" multiple>
+
                                             <optgroup label="Chọn 1 danh mục cha" data-max-options="2">
 
                                                 <?php

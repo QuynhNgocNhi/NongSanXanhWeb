@@ -381,7 +381,6 @@ width: 90px;
                                     <div class="col-lg-6 col-md-6"><b>Danh mục</b>
 
                                         <select name="ProductCategory" class="form-control show-tick" multiple>
-                                            <optgroup label="Chọn 1 danh mục cha" data-max-options="2">
 
                                                 <?php
 
@@ -398,7 +397,7 @@ width: 90px;
                                                     }
                                                 }
                                                 ?>
-                                            </optgroup>
+
                                         </select>
                                     </div>
                                     <div class="col-lg-3 col-md-6"><b>Đơn vị bán</b>

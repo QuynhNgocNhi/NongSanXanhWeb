@@ -2,11 +2,21 @@ document.getElementById("AddProduct").addEventListener('click', function (event)
     // NOTE: You are clicking a submit button.  After this function runs,
     // then the form will be submitted.  If you want to *stop* that, you can
     // use the following:
-
+    var ImageArray = new Array(5);
 
     event.preventDefault();
-    // var img = document.getElementById("result").value;
-
+    // var MainImageSource = document.getElementById("IMG1").src;
+    for (var i = 0; i < 5; i++) {
+        if (i == 0) {
+            var ImageMainId = $('div#imageSuccess > img')[i].id;
+            var MainImageName = getName(ImageMainId);
+        }
+        var ImageId = $('div#imageSuccess > img')[i].id;
+        var ImageName = getName(ImageId);
+        ImageArray[i] = ImageName;
+    }
+    // var ImageId = $('div#imageSuccess > img')[0].id;
+    // var MainImageName = getName(ImageId);
     $.ajax({
         type: 'POST',
         url: 'Product_Added_Process.php',
@@ -15,10 +25,9 @@ document.getElementById("AddProduct").addEventListener('click', function (event)
             "Name": $('#Name').val(),
             "Price": $('#Price').val(),
             "Description": $('#Description').val(),
-            "ProductMainImage": ImgArray[0],
-
-
-            "ProductCategory": $("[name = 'ProductCategory']").val()
+            "ProductMainImage": MainImageName,
+            "ProductImages": ImageArray,
+            // "ProductCategory": $("[name ='ProductCategory']").val()[0]
 
 
             // ProductCategoryId: $('#ProductCategoryId').val();,
@@ -51,20 +60,21 @@ document.getElementById("AddProduct").addEventListener('click', function (event)
 
 });
 
-function getName() {
+function getName(Name) {
 
-    var fullPath = document.getElementById("img1").src;
+    var fullPath = document.getElementById(Name).src;
     var index = fullPath.lastIndexOf("/");
     var filename = fullPath;
     if (index !== -1) {
         filename = fullPath.substring(index + 1, fullPath.length);
     }
-    document.getElementById("result").value = filename;
+    // document.getElementById("result").value = filename;
+    return filename;
 }
 
 var ImgArray = [];
 let j = 0;
-i = 0;
+
 document.getElementById("UploadMainImgBtn").addEventListener('click', function (event) {
     // NOTE: You are clicking a submit button.  After this function runs,
     // then the form will be submitted.  If you want to *stop* that, you can
@@ -73,17 +83,13 @@ document.getElementById("UploadMainImgBtn").addEventListener('click', function (
 
     event.preventDefault();
     if (j < 5) {
-
         for (var i = 0; i < $('input[name="ProductImage"]').length; i++) {
-            if (!$('input[name="ProductImage"]')[i].is(':checked')) {
-                return false;
+
+            if (!$('input[name="ProductImage"]')[i].checked) {
+                continue;
             }
-
-            // let image = $('#MainProductImg')[0].files[i];
-            // let image = $(this).attr('value');
-            // let image = $('input[name="ProductImage"]:checked')[0].files[i];
+            j++;
             let image = ImageData.get('Image' + i);
-
             let formData = new FormData();
 
 // todo:Chức năng xóa hình ảnh(lựa chọn ảnh đăng trong vong 5 ảnh)
@@ -102,11 +108,9 @@ document.getElementById("UploadMainImgBtn").addEventListener('click', function (
 
                             mainImage = data.src;
                             // ImgArray[j] = mainImage;
-                            i++;
-
                             let path = "data/Product_Img_Upload/" + mainImage;
 
-                            $('#imageSuccess').append("<img id='IMG" + i + "' class='img-fluid img-thumbnail' src='" + path + "'>");
+                            $('#imageSuccess').append("<img id='" + mainImage + "' class='img-fluid img-thumbnail' src='" + path + "'>");
 
                         } else {
                             $("#errorMessage").text(data.error_message);
