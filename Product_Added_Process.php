@@ -27,8 +27,7 @@ if (isset($_POST)) {
     $Name = $_POST['Name'];
     $Price = $_POST['Price'];
     $Description = $_POST['Description'];
-//    $ProductCategory = $_POST['ProductCategory'];
-    $ProductCategory = 3;
+    $ProductCategory = $_POST['ProductCategory'];
 
 //todo: Generate Productid = StoreId + time created or prevent default Productname
 //insert product to database
@@ -48,12 +47,13 @@ if (isset($_POST)) {
     }
 
 //    add Product images to db
-    for ($i = 0; $i < 5; $i++) {
+    for ($i = 0; $i < count($ProductImages); $i++) {
         $ProductImage = $ProductImages[$i];
         if ($i == 0) {
             $sql = "UPDATE productimgs SET ProductId = '" . $ProductId . "', IsMainProductImg = 1 WHERE ImgUrl = '" . $ProductImage . "'";
         }
         else {
+
             $sql = "UPDATE productimgs SET ProductId = '" . $ProductId . "' WHERE ImgUrl = '" . $ProductImage . "'";
         }
         mysqli_query($conn, $sql);

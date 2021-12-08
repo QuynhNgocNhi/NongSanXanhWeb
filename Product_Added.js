@@ -6,7 +6,7 @@ document.getElementById("AddProduct").addEventListener('click', function (event)
 
     event.preventDefault();
     // var MainImageSource = document.getElementById("IMG1").src;
-    for (var i = 0; i < 5; i++) {
+    for (var i = 0; i <  $('div#imageSuccess > img').length; i++) {
         if (i == 0) {
             var ImageMainId = $('div#imageSuccess > img')[i].id;
             var MainImageName = getName(ImageMainId);
@@ -14,9 +14,14 @@ document.getElementById("AddProduct").addEventListener('click', function (event)
         var ImageId = $('div#imageSuccess > img')[i].id;
         var ImageName = getName(ImageId);
         ImageArray[i] = ImageName;
+
+
+
     }
     // var ImageId = $('div#imageSuccess > img')[0].id;
     // var MainImageName = getName(ImageId);
+
+
     $.ajax({
         type: 'POST',
         url: 'Product_Added_Process.php',
@@ -27,7 +32,7 @@ document.getElementById("AddProduct").addEventListener('click', function (event)
             "Description": $('#Description').val(),
             "ProductMainImage": MainImageName,
             "ProductImages": ImageArray,
-            // "ProductCategory": $("[name ='ProductCategory']").val()[0]
+            "ProductCategory": $("[name ='ProductCategory']").val()[0]
 
 
             // ProductCategoryId: $('#ProductCategoryId').val();,
@@ -38,14 +43,15 @@ document.getElementById("AddProduct").addEventListener('click', function (event)
         },
 
         success: function (data) {
-            alert(data);
             swal({
                 'title': 'Successful',
 
                 text: "Thành công!",
                 icon: "success"
 
-            })
+            }).then(function () {
+                                window.open('Product_List.php', '_self')
+                            });
         },
         error: function (data) {
             swal({
@@ -108,6 +114,8 @@ document.getElementById("UploadMainImgBtn").addEventListener('click', function (
 
                             mainImage = data.src;
                             // ImgArray[j] = mainImage;
+
+
                             let path = "data/Product_Img_Upload/" + mainImage;
 
                             $('#imageSuccess').append("<img id='" + mainImage + "' class='img-fluid img-thumbnail' src='" + path + "'>");

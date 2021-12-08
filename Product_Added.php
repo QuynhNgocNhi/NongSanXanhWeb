@@ -380,7 +380,8 @@ width: 90px;
                                     </div>
                                     <div class="col-lg-6 col-md-6"><b>Danh mục</b>
 
-                                        <select name="ProductCategory" class="form-control show-tick" multiple>
+                                        <select name="ProductCategory" class="form-control show-tick z-index" data-live-search="true" >
+
 
                                                 <?php
 
