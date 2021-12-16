@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 ob_start();
 session_start();
 if (!isset($_SESSION['Id'])) {
@@ -20,7 +20,7 @@ if ($_SESSION['UserRoleId'] == 3) {
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <meta name="description" content="Responsive Bootstrap 4 and web Application ui kit.">
 
-    <title>Thêm danh mục</title>
+    <title>Thêm đơn vị</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <!-- Favicon-->
     <link rel="stylesheet" href="Admin_Store.asset/plugins/bootstrap/css/bootstrap.min.css">
@@ -46,7 +46,43 @@ if ($_SESSION['UserRoleId'] == 3) {
     </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
 
+        $("#UploadMainImgBtn").click(function (e) {
+            e.preventDefault();
+            let form_data = new FormData();
+            let img = $("#MainProductImg")[0].files;
+
+            // Check image selected or not
+            if (img.length > 0) {
+                form_data.append('Product_Image', img[0]);
+                $.ajax({
+                    url: 'Product_Img_Upload.php',
+                    type: 'post',
+                    data: form_data,
+                    contentType: false,
+                    // dataType: 'json',
+                    processData: false,
+                    success: function (data) {
+                        data = JSON.parse(data);
+                        if (data.error != 1) {
+                            path = "data/Product_Img_Upload/" + data.src;
+
+                            $("#PreImg").attr("src", path);
+                        } else {
+                            $("#errorMs").text(data.em);
+                        }
+                    }
+                });
+
+            } else {
+                $("#errorMs").text("Please select an image.");
+            }
+        });
+
+    });
+</script>
 <!-- Overlay For Sidebars -->
 <div class="overlay"></div>
 
@@ -241,12 +277,11 @@ if ($_SESSION['UserRoleId'] == 3) {
                 </div>
             </li>
             <li class="header">Quản lý Nông Sản Xanh</li>
-
-           <li ><a href="Admin_Dashboard.php"><i class="zmdi zmdi-home"></i><span>Dash board</span> </a>
+            <li ><a href="Admin_Dashboard.php"><i class="zmdi zmdi-home"></i><span>Dash board</span> </a>
             </li>
-            <li class="active open"><a href="Admin_Category_Added.php"><i class="zmdi zmdi-plus-circle"></i><span>Thêm danh mục</span>
+            <li ><a href="Admin_Category_Added.php"><i class="zmdi zmdi-plus-circle"></i><span>Thêm danh mục</span>
                 </a></li>
-            <li ><a href="Admin_Unit_Added.php"><i class="zmdi zmdi-plus-circle"></i><span>Thêm đơn vị</span>
+            <li class="active open"><a href="Admin_Unit_Added.php"><i class="zmdi zmdi-plus-circle"></i><span>Thêm đơn vị</span>
                 </a></li>
             <li><a href="Product_List.php"><i class="zmdi zmdi-sort-amount-desc"></i><span>Tất cả sản phẩm</span>
                 </a></li>
@@ -263,15 +298,15 @@ if ($_SESSION['UserRoleId'] == 3) {
     <div class="block-header">
         <div class="row">
             <div class="col-lg-7 col-md-6 col-sm-12">
-                <h2>Danh mục
-                    <small>Thêm danh mục</small>
+                <h2>Đơn vị
+                    <small>Thêm Đơn vị</small>
                 </h2>
             </div>
             <div class="col-lg-5 col-md-6 col-sm-12">
                 <ul class="breadcrumb float-md-right">
                     <li class="breadcrumb-item"><a href="index.php"><i class="zmdi zmdi-home"></i>Nông Sản Xanh</a></li>
                     <li class="breadcrumb-item"><a href="Vendor_Dashboard.php">Cửa hàng</a></li>
-                    <li class="breadcrumb-item active">Thêm danh mục</li>
+                    <li class="breadcrumb-item active">Thêm Đơn vị</li>
                 </ul>
             </div>
         </div>
@@ -290,8 +325,8 @@ if ($_SESSION['UserRoleId'] == 3) {
                                                         aria-expanded="false"> <i class="zmdi zmdi-more"></i> </a>
                                     <ul class="dropdown-menu dropdown-menu-right">
                                         <li><a href="javascript:void(0);">Cập nhật</a></li>
-                                        <li><a href="javascript:void(0);">Xóa danh mục</a></li>
-                                        <li><a href="javascript:void(0);">Khóa danh mục</a></li>
+                                        <li><a href="javascript:void(0);">Xóa đơn vị</a></li>
+                                        <li><a href="javascript:void(0);">Khóa đơn vị</a></li>
                                     </ul>
                                 </li>
                                 <li class="remove">
@@ -303,36 +338,14 @@ if ($_SESSION['UserRoleId'] == 3) {
                             <div class="demo-masked-input">
                                 <div class="row clearfix">
 
-                                    <div class="col-lg-6 col-md-6"><b>Tên danh mục</b>
+                                    <div class="col-lg-6 col-md-6"><b>Tên đơn vị</b>
                                         <div class="input-group ">
                                             <span class="input-group-addon"><i class="zmdi zmdi-info"></i></span>
                                             <input type="text" class="form-control" id="Name" name="Name"
-                                                   placeholder="vd: Trái cây">
+                                                   placeholder="vd: Kg">
                                         </div>
 
-                                        <p><b>Danh mục cha: litmit 2</b></p>
 
-                                        <select class="form-control show-tick" multiple>
-
-                                            <optgroup label="Chọn 1 danh mục cha" data-max-options="2">
-
-                                                <?php
-
-                                                include "config.php";
-
-                                                $sql = "select * from productcategory";
-                                                $result = mysqli_query($conn, $sql);
-
-                                                if (mysqli_num_rows($result) > 0) {
-                                                    $index = 0;
-                                                    while ($row = mysqli_fetch_row($result)) {
-                                                        echo "<option id='$row[0]'>$row[1]</option>";
-
-                                                    }
-                                                }
-                                                ?>
-                                            </optgroup>
-                                        </select>
 
                                         <b>Tag liên quan</b>
                                         <!-- Thêm Tag -->
@@ -346,31 +359,30 @@ if ($_SESSION['UserRoleId'] == 3) {
                                                 </div>
                                             </div>
                                         </div>
-                                         <div><b>Mô tả danh mục</b>
+                                        <div class="col-lg-12 col-md-12"><b>Mô tả đơn vị</b>
                                         <div class="form-group">
                                             <textarea id="Description" rows="5" class="form-control no-resize"
                                                       placeholder="Mô tả chung"></textarea>
                                         </div>
                                     </div>
-                                    <button type="Submit" name="Submit" value="Thêm"
-                                            class="btn btn-lg btn-brand btn-primary btn-rounded">Thêm danh mục
+                                    <button type="submit" name="Submit" id="AddProduct" value="Thêm"
+                                            class="btn btn-lg btn-brand btn-primary btn-rounded">Thêm đơn vị
                                     </button>
                                     </div>
-
-                                    <div class="col-lg-6 col-md-6"><b>Danh sách danh mục</b>
+                                    <div class="col-lg-6 col-md-6"><b>Danh sách đơn vị</b>
 
 
                                         <div class="row clearfix">
                                             <div class="col-lg-12 col-md-12 col-sm-12">
                                                 <div class="card">
 
-                                                    <!--                                Danh sách danh mục-->
+                                                    <!--                                Danh sách đơn vị-->
                                                     <div class="body table-responsive">
                                                         <table class="table">
                                                             <thead>
                                                             <tr>
                                                                 <th>id</th>
-                                                                <th>Tên danh mục</th>
+                                                                <th>Tên đơn vị</th>
                                                                 <th>Bậc</th>
                                                                 <th>Hành động</th>
                                                             </tr>
@@ -380,7 +392,7 @@ if ($_SESSION['UserRoleId'] == 3) {
 
                                                             include "config.php";
 
-                                                            $sql = "select * from productcategory";
+                                                            $sql = "select * from productunits";
                                                             $result = mysqli_query($conn, $sql);
 
                                                             if (mysqli_num_rows($result) > 0) {
@@ -465,22 +477,23 @@ if ($_SESSION['UserRoleId'] == 3) {
 <!-- Bootstrap Tags Input Plugin Js -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
+
 </body>
 <?php
-if (isset($_GET['Submit'])) {
+if (isset($_GET['Submit']) && ($_GET['Submit']) == "Thêm") {
 
     include "config.php";
     $ten = $_GET['Name'];
 
 
-    $sql = "INSERT INTO productcategory (Name) VALUES ('$ten')";
+    $sql = "INSERT INTO productunits (UnitName) VALUES ('$ten')";
 
     if (mysqli_query($conn, $sql)) {
         echo "Thêm thành công";
     } else {
         echo "Error adding record: " . mysqli_connect_error();
     }
-    header("Location: Admin_Category_Added.php");
+    header("Location: Admin_Unit_Added.php");
 
 
 }

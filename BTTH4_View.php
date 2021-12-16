@@ -10,7 +10,7 @@
 <!--    Cau1-->
 <body>
 <?php
-$manhanvien = $_GET['manhanvien'];
+$ProductId = $_GET['ProductId'];
 include "BTTH_Connnect.php";
 $sql = "SELECT * FROM NHANVIEN WHERE MaNhanVien='$manhanvien'";
 

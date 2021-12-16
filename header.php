@@ -123,7 +123,7 @@ session_start();
 
             <div class="header-wrap justify-content-center">
                 <div class="logo logo-width-1">
-                    <a href="index.html"><img src="assets/img/global/logo_homepage_fixed.jpg" alt="NSX"/></a>
+                    <a href="index.php"><img src="assets/img/global/logo_homepage_fixed.jpg" alt="NSX"/></a>
                 </div>
                 <div class="header-right">
 

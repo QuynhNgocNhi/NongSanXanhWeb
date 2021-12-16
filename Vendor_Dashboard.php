@@ -215,10 +215,10 @@ require_once('Store_Dashboard_Process.php');
             <li class="header">Quản lý cửa hàng</li>                
             <li class="active open"><a href="Vendor_Dashboard.php"><i class="zmdi zmdi-home"></i><span>Thông tin cửa hàng</span> </a> </li>
             <li> <a href="Product_Added.php"><i class="zmdi zmdi-plus-circle"></i><span>Thêm sản phẩm</span> </a> </li>
-            <li><a href="Product_List.html"><i class="zmdi zmdi-sort-amount-desc"></i><span>Tất cả sản phẩm</span> </a> </li>
-            <li><a href="Order_List.html"><i class="zmdi zmdi-grid"></i><span>Đơn hàng</span> </a> </li>
-            <li><a href="Customer-List.html"><i class="zmdi zmdi-label-alt"></i><span>Khách hàng</span> </a> </li>                
-            <li><a href="Comision_List.html"><i class="zmdi zmdi-blogger"></i><span>Lợi nhuận</span> </a> </li>
+            <li><a href="Product_List.php"><i class="zmdi zmdi-sort-amount-desc"></i><span>Tất cả sản phẩm</span> </a> </li>
+            <li><a href="Order_List.php"><i class="zmdi zmdi-grid"></i><span>Đơn hàng</span> </a> </li>
+            <li><a href="Customer-List.php"><i class="zmdi zmdi-label-alt"></i><span>Khách hàng</span> </a> </li>
+            <li><a href="Comision_List.php"><i class="zmdi zmdi-blogger"></i><span>Lợi nhuận</span> </a> </li>
 
         </ul>
     </div>

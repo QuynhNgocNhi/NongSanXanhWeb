@@ -15,18 +15,17 @@ if ($_SESSION['UserRoleId'] == 3) {
 <?php
 
 if (isset($_POST)) {
+    $StoreId = $_SESSION['StoreId'];
+    $UserId = $_SESSION['Id'];
     $ProductStatus = $_POST['ProductStatus'];
     $ProductUnitId = $_POST['ProductUnits'];
     $ProductMainImage = $_POST['ProductMainImage'];
-
     $ProductImages = $_POST['ProductImages'];
-    $StoreId = $_SESSION['StoreId'];
-    $UserId = $_SESSION['Id'];
     $Name = $_POST['Name'];
     $Price = $_POST['Price'];
     $Description = $_POST['Description'];
     $ProductCategoryId = $_POST['ProductCategoryId'];
-//get category name
+    //get category name
     $sql = "SELECT * FROM productcategory WHERE Id = '" . $ProductCategoryId . "'";
     $result = mysqli_query($conn, $sql);
     if ($result) {
@@ -48,19 +47,13 @@ if (isset($_POST)) {
         $StoreName = $row["StoreName"];
     }
 //todo: Generate Productid = StoreId + time created or prevent default Productname
-//insert product to database
+//update product in database
     mysqli_query($conn, "SET FOREIGN_KEY_CHECKS=0;");
 
-    $sql = "INSERT INTO products (Name, Price, Description, VendorId, StoreId, StoreName, ProductCategoryId,ProductCategory, Img, ProductUnitId, ProductUnitName, ProductStatus) VALUES (?,?, ?, ?, ?,?,?,?,?, ?,?, ?);";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sisiisissisi", $Name, $Price, $Description, $UserId, $StoreId, $StoreName, $ProductCategoryId, $ProductCategoryName, $ProductMainImage, $ProductUnitId, $ProductUnitName, $ProductStatus);
-    $stmt->execute();
-
-
-
+    $sql = "UPDATE FROM products SET Name = '$Name', Price = '$Price', Description = '$Description', ProductCategoryId = '$ProductCategoryId',ProductCategory = '$ProductCategoryName', Img = '$ProductMainImage', ProductUnitId = '$ProductUnitId', ProductUnitName = '$ProductUnitName', ProductStatus = '$ProductStatus';";
+    mysqli_query($conn, $sql);
     //insert product category name to products table
-//    $sql = "UPDATE products SET ProductCategory = '" . $ProductCategoryName . "';";
-//    mysqli_query($conn,$sql);
+
 
 //    get product id
     $sql = "SELECT * FROM products WHERE StoreId = '" . $StoreId . "' AND Name = '" . $Name . "'";

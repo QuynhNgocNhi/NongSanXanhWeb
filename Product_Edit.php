@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 ob_start();
 session_start();
 if (!isset($_SESSION['Id'])) {
@@ -9,6 +9,15 @@ if ($_SESSION['UserRoleId'] == 3) {
     header("location: Store_Register.php");
     require_once('Store_Dashboard_Process.php');
 }
+
+$ProductId = $_GET['ProductId'];
+include "config.php";
+$sql = "SELECT * FROM products WHERE Id='$ProductId'";
+
+$result = mysqli_query($conn, $sql);
+$row = mysqli_fetch_assoc($result);
+
+
 ?>
 <!doctype html>
 <html class="no-js " lang="en">
@@ -20,8 +29,8 @@ if ($_SESSION['UserRoleId'] == 3) {
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <meta name="description" content="Responsive Bootstrap 4 and web Application ui kit.">
 
-    <title>Thêm sản phẩm</title>
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <title>Sửa sản phẩm</title>
+    <link rel="icon" href="favicon.icon" type="image/x-icon">
     <!-- Favicon-->
     <link rel="stylesheet" href="Admin_Store.asset/plugins/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="Admin_Store.asset/plugins/dropzone/dropzone.css">
@@ -45,10 +54,7 @@ if ($_SESSION['UserRoleId'] == 3) {
         <p>Chờ xíu đê...</p>
     </div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
 
-</script>
 <!-- Overlay For Sidebars -->
 <div class="overlay"></div>
 
@@ -58,7 +64,7 @@ if ($_SESSION['UserRoleId'] == 3) {
         <div class="navbar-header">
             <a href="javascript:void(0);" class="bars"></a>
             <a class="navbar-brand" href="./index.php"><img src="Admin_Store.asset/images/logo.svg" width="30"
-                                                             alt="Compass"><span class="m-l-10">Nông sản xanh</span></a>
+                                                            alt="Compass"><span class="m-l-10">Nông sản xanh</span></a>
         </div>
         <ul class="nav navbar-nav navbar-left">
             <li><a href="javascript:void(0);" class="ls-toggle-btn" data-close="true"><i
@@ -73,8 +79,6 @@ if ($_SESSION['UserRoleId'] == 3) {
             </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-
-
             <li>
                 <a href="javascript:void(0);" class="fullscreen hidden-sm-down" data-provide="fullscreen"
                    data-close="true"><i class="zmdi zmdi-fullscreen"></i></a>
@@ -100,13 +104,13 @@ if ($_SESSION['UserRoleId'] == 3) {
                     </div>
 
 
-                    <a href="Login.php" title="Sign out"><i class="zmdi zmdi-power"></i></a>
+                    <a href="login.php" title="Sign out"><i class="zmdi zmdi-power"></i></a>
                 </div>
             </li>
             <li class="header">Quản lý cửa hàng</li>
             <li><a href="Vendor_Dashboard.php"><i class="zmdi zmdi-home"></i><span>Thông tin cửa hàng</span> </a>
             </li>
-            <li class="active open"><a href="Product_Added.php"><i class="zmdi zmdi-plus-circle"></i><span>Thêm sản
+            <li class="open"><a href="Product_Added.php"><i class="zmdi zmdi-plus-circle"></i><span>Thêm sản
                             phẩm</span> </a></li>
             <li><a href="Product_List.php"><i class="zmdi zmdi-sort-amount-desc"></i><span>Tất cả sản phẩm</span>
                 </a></li>
@@ -124,15 +128,15 @@ if ($_SESSION['UserRoleId'] == 3) {
     <div class="block-header">
         <div class="row">
             <div class="col-lg-7 col-md-6 col-sm-12">
-                <h2>New Post
-                    <small>Welcome to Compass</small>
+                <h2>Sửa sản phẩm
+                    <small></small>
                 </h2>
             </div>
             <div class="col-lg-5 col-md-6 col-sm-12">
                 <ul class="breadcrumb float-md-right">
                     <li class="breadcrumb-item"><a href="index.php"><i class="zmdi zmdi-home"></i>Nông Sản Xanh</a></li>
                     <li class="breadcrumb-item"><a href="Vendor_Dashboard.php">Cửa hàng</a></li>
-                    <li class="breadcrumb-item active">Thêm sản phẩm</li>
+                    <li class="breadcrumb-item active">Sửa sản phẩm</li>
                 </ul>
             </div>
         </div>
@@ -144,17 +148,9 @@ if ($_SESSION['UserRoleId'] == 3) {
                 <div class="card">
                     <form action="Product_Added.php" method="POST">
                         <div class="header">
-
+                            <div id="ProductId">Mã sản phẩm: <?php echo $row['Id']; ?></div>
                             <ul class="header-dropdown">
-                                <li class="dropdown"><a href="javascript:void(0);" class="dropdown-toggle"
-                                                        data-toggle="dropdown" role="button" aria-haspopup="true"
-                                                        aria-expanded="false"> <i class="zmdi zmdi-more"></i> </a>
-                                    <ul class="dropdown-menu dropdown-menu-right">
-                                        <li><a href="javascript:void(0);">Action</a></li>
-                                        <li><a href="javascript:void(0);">Another action</a></li>
-                                        <li><a href="javascript:void(0);">Something else</a></li>
-                                    </ul>
-                                </li>
+
                                 <li class="remove">
                                     <a role="button" class="boxs-close"><i class="zmdi zmdi-close"></i></a>
                                 </li>
@@ -164,18 +160,19 @@ if ($_SESSION['UserRoleId'] == 3) {
                             <div class="demo-masked-input">
                                 <div class="row clearfix">
 
+
                                     <div class="col-lg-6 col-md-6"><b>Tên Sản phẩm</b>
                                         <div class="input-group ">
                                             <span class="input-group-addon"><i class="zmdi zmdi-info"></i></span>
                                             <input type="text" class="form-control" id="Name"
-                                                   placeholder="vd: Sầu riêng Ri6">
+                                                   value="<?php echo $row['Name']; ?>">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6"><b>Giá (Vnđ)</b>
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="zmdi zmdi-money"></i></span>
                                             <input type="number" id="Price" class="form-control business_money-coins"
-                                                   placeholder="VD: 125000 vnđ">
+                                                   value="<?php echo $row['Price']; ?>">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6"><b>Danh mục</b>
@@ -183,18 +180,18 @@ if ($_SESSION['UserRoleId'] == 3) {
                                         <select name="ProductCategory" class="form-control show-tick z-index"
                                                 data-live-search="true">
 
-                                            <option>Chọn danh mục --</option>
+                                            <option><?php echo $row['ProductCategory']; ?></option>
                                             <?php
 
                                             include "config.php";
 
-                                            $sql = "select * from productcategory";
-                                            $result = mysqli_query($conn, $sql);
+                                            $sql3 = "select * from productcategory";
+                                            $result3 = mysqli_query($conn, $sql3);
 
-                                            if (mysqli_num_rows($result) > 0) {
+                                            if (mysqli_num_rows($result3) > 0) {
                                                 $index = 0;
-                                                while ($row = mysqli_fetch_row($result)) {
-                                                    echo "<option value='$row[0]'>$row[1]</option>";
+                                                while ($row3 = mysqli_fetch_row($result3)) {
+                                                    echo "<option value='$row3[0]'>$row3[1]</option>";
 
                                                 }
                                             }
@@ -204,17 +201,17 @@ if ($_SESSION['UserRoleId'] == 3) {
                                     </div>
                                     <div class="col-lg-3 col-md-6"><b>Đơn vị bán</b>
                                         <select class="form-control show-tick" id="ProductUnits">
-                                            <option>Chọn đơn vị --</option>
+                                            <option><?php echo $row['ProductUnitName']; ?></option>
                                             <?php
                                             include "config.php";
 
-                                            $sql = "select * from productunits";
-                                            $result = mysqli_query($conn, $sql);
+                                            $sql4 = "select * from productunits";
+                                            $result4 = mysqli_query($conn, $sql4);
 
-                                            if (mysqli_num_rows($result) > 0) {
+                                            if (mysqli_num_rows($result4) > 0) {
                                                 $index = 0;
-                                                while ($row = mysqli_fetch_row($result)) {
-                                                    echo "<option value='$row[0]'>$row[1]</option>";
+                                                while ($row4 = mysqli_fetch_row($result4)) {
+                                                    echo "<option value='$row4[0]'>$row4[1]</option>";
 
                                                 }
                                             }
@@ -224,7 +221,12 @@ if ($_SESSION['UserRoleId'] == 3) {
                                     </div>
                                     <div class="col-lg-3 col-md-6"><b>Trạng thái hàng</b>
                                         <select class="form-control show-tick" id="ProductStatus">
-                                            <option>Còn hàng/hết hàng --</option>
+                                            <?php if ($row['ProductStatus'] == 0)
+                                                echo "<option value='1'>Còn hàng</option>";
+                                            else
+                                                echo "<option value='0'>Hết hàng</option>";
+                                            ?>
+
                                             <option value="1">Còn hàng</option>
                                             <option value="0">Hết hàng</option>
 
@@ -237,7 +239,8 @@ if ($_SESSION['UserRoleId'] == 3) {
                                     <div class="col-lg-6 p-b-50 col-md-6"><b>Hình ảnh sản phẩm</b>
                                         <!-- Thêm hình ảnh -->
                                         <div class="input-group">
-                                            <p id="errorMessage"></p>
+
+
 
                                             <form action="Product_Img_Upload.php" id="FileUpload"
                                                   class="dropzone m-b-20 m-t-20"
@@ -252,6 +255,7 @@ if ($_SESSION['UserRoleId'] == 3) {
                                             </form>
                                             <div class="col-12 grid-two p-t-20 imageandtext row" id="image_preview">
 
+
                                             </div>
                                         </div>
                                         <!--                                        todo: click để chọn ra ảnh sẽ đăng, click thêm ảnh sẽ duocjd thêm và chuyển qua bên kia, lưu về database,-->
@@ -259,9 +263,30 @@ if ($_SESSION['UserRoleId'] == 3) {
 
                                     </div>
                                     <!--                                    try-->
-                                    <div class="col-lg-6 p-b-50 col-md-6 p-t-20 "><b>Hình ảnh Hợp lệ</b>
+                                    <div class="col-lg-6 p-b-50 col-md-6 p-t-20 "><b>Hình ảnh Hợp lệ</b> <p id="errorMessage" class="text-danger"></p>
                                         <div>
                                             <div class="grid-two p-t-20 imageandtext row" id="imageSuccess">
+                                                <?php
+                                                include "config.php";
+
+
+                                                //Get image
+                                                $sql1 = "SELECT * FROM productimgs WHERE ProductId = '" . $ProductId . "'";
+                                                $result1 = mysqli_query($conn, $sql1);
+
+                                                if (mysqli_num_rows($result1) > 0) {
+
+                                                    while ($ProductImages = mysqli_fetch_assoc($result1)) {
+                                                        showImage($ProductImages['ImgUrl']);
+                                                    }
+                                                }
+
+                                                function showImage($ProductImages)
+                                                {
+                                                    echo "<img src= 'data/Product_Img_Upload/" . $ProductImages . "' alt='product image'>";
+                                                }
+
+                                                ?>
 
                                             </div>
                                         </div>
@@ -319,30 +344,15 @@ if ($_SESSION['UserRoleId'] == 3) {
                                             <option>Onions</option>
                                         </select>
                                     </div>
-                                    <div class="col-lg-3 col-md-6">
-                                        <p><b>Multiple Select</b></p>
-                                        <select class="form-control show-tick" multiple>
-                                            <option>Mustard</option>
-                                            <option>Ketchup</option>
-                                            <option>Relish</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-lg-3 col-md-6">
-                                        <p><b>With Search Bar</b></p>
-                                        <select class="form-control show-tick z-index" data-live-search="true">
-                                            <option>Hot Dog, Fries and a Soda</option>
-                                            <option>Burger, Shake and a Smile</option>
-                                            <option>Sugar, Spice and all things nice</option>
-                                        </select>
-                                    </div>
+
                                     <div class="col-lg-12 col-md-12"><b>Mô tả sản phẩm</b>
                                         <div class="form-group">
-                                            <textarea id="Description" rows="5" class="form-control no-resize"
-                                                      placeholder="Mô tả chung"></textarea>
+                                            <textarea id="Description" rows="5" class="form-control no-resize"><?=$row['Description']?></textarea>
                                         </div>
                                     </div>
-                                    <button type="submit" id="AddProduct"
-                                            class="btn btn-lg btn-brand btn-primary btn-rounded">Đăng sản phẩm
+
+                                    <button type="submit" id="EditProduct"
+                                            class="btn btn-lg btn-brand btn-primary btn-rounded">Cập nhật sản phẩm
                                     </button>
 
                                 </div>
@@ -372,7 +382,7 @@ if ($_SESSION['UserRoleId'] == 3) {
 <!-- Bootstrap Tags Input Plugin Js -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-<script src="Product_Added.js"></script>
+<script src="Product_Edit.js"></script>
 </body>
 
 </html>

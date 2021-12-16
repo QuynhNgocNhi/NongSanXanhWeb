@@ -1058,12 +1058,13 @@ $result = mysqli_query($conn, $sql);
                 <div class="categories--block">
                     <h3><a class="categories__title" id="freshFoodBlock">Trái cây</a></h3>
                     <div class="categories__content">
-                        <div class="categories__promotion">
+                        <div class="col-lg-3 categories__promotion">
                             <div class="slick-single-item">
                                 <div class="categories-carousel"><a href="#"><img class="carousel__thumbnail"
                                                                                   src="assets/imgs/banner/banner-.png"
                                                                                   alt="alt"/></a></div>
-                                <div class="categories-carousel"><a href="#"><img class="carousel__thumbnail"
+                                <div class="categories-carousel"><a href="#"><img style="max-width: 170px;"
+                                                                                  class="carousel__thumbnail"
                                                                                   src="assets/imgs/banner/banner-6.png"
                                                                                   alt="alt"/></a></div>
                                 <div class="categories-carousel"><a href="#"><img class="carousel__thumbnail"
@@ -1091,9 +1092,15 @@ $result = mysqli_query($conn, $sql);
                                     <div class="categories__list-item"><a href="#">Vegetarian Foods</a></div>
                                 </div>
                             </div>
-                            <div class="categories__footer"><a href="shop-categories.html">
-                                    <u>View all</u><i class="icon-chevron-right"></i></a></div>
+                            <div class="categories__footer">
+                                <a href="shop-categories.html">
+                                    <u>View all</u>
+                                    <i class="icon-chevron-right"></i>
+                                </a>
+                            </div>
                         </div>
+                        <!--                            Danh sách sản phẩm mới nhất-->
+
                         <div class="categories__products">
                             <div class="row m-0">
 
@@ -1108,7 +1115,7 @@ $result = mysqli_query($conn, $sql);
                                     ?>
 
                                     <div class="col-6 col-md-4 col-lg-3 p-0">
-                                        <div class="ps-product--standard"><a href="Product_Detail.html">
+                                        <div class="ps-product--standard"><a href="<?="Product_Details.php?ProductId=" . $item['Id']?>">
                                                 <img
                                                         class="ps-product__thumbnail"
                                                         src="<?= "data/Product_Img_Upload/" . $item['Img']; ?>"
@@ -1118,9 +1125,13 @@ $result = mysqli_query($conn, $sql);
                                                         class="icon-expand"></i></a>
                                             <div class="ps-product__content">
                                                 <p class="ps-product__type"><i
-                                                            class="fi fi-rs-home "></i><?= $item['StoreName']; ?></p>
+                                                            class="fi fi-rs-home "></i>
+                                                    <a href="">
+                                                        <?= $item['StoreName']; ?>
+                                                    </a>
+                                                </p>
                                                 <h5><a class="ps-product__name"
-                                                       href="Product_Detail.html"><?= $item['Name']; ?></a></h5>
+                                                       href="<?="Product_Details.php?ProductId=" . $item['Id']?>"><?= $item['Name']; ?></a></h5>
 
 
                                                 <p class="ps-product-price-block"><span

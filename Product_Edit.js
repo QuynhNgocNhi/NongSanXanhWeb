@@ -1,10 +1,12 @@
-document.getElementById("AddProduct").addEventListener('click', function (event) {
+// Edit product
+document.getElementById("EditProduct").addEventListener('click', function (event) {
     // NOTE: You are clicking a submit button.  After this function runs,
     // then the form will be submitted.  If you want to *stop* that, you can
     // use the following:
+    event.preventDefault();
     var ImageArray = new Array(5);
 
-    event.preventDefault();
+
     // var MainImageSource = document.getElementById("IMG1").src;
     for (var i = 0; i < $('div#imageSuccess > img').length; i++) {
         if (i == 0) {
@@ -19,9 +21,9 @@ document.getElementById("AddProduct").addEventListener('click', function (event)
     }
     $.ajax({
         type: 'POST',
-        url: 'Product_Added_Process.php',
+        url: 'Product_Edit_Process.php',
         data: {
-
+            "ProductId": $('#ProductId').val(),
             "Name": $('#Name').val(),
             "Price": $('#Price').val(),
             "Description": $('#Description').val(),
@@ -30,11 +32,6 @@ document.getElementById("AddProduct").addEventListener('click', function (event)
             "ProductCategoryId": $("[name ='ProductCategory']").val()[0],
             "ProductStatus": $('#ProductStatus').val(),
             "ProductUnits": $('#ProductUnits').val(),
-
-            // ProductCategoryId: $('#ProductCategoryId').val();,
-            // ProductCategory: $('#ProductCategory').val();,
-
-            // VendorId: VendorId
         },
 
         success: function (data) {
@@ -60,20 +57,6 @@ document.getElementById("AddProduct").addEventListener('click', function (event)
     });
 
 });
-
-function getName(Name) {
-
-    var fullPath = document.getElementById(Name).src;
-    var index = fullPath.lastIndexOf("/");
-    var filename = fullPath;
-    if (index !== -1) {
-        filename = fullPath.substring(index + 1, fullPath.length);
-    }
-    // document.getElementById("result").value = filename;
-    return filename;
-}
-
-// hien thi image Success
 var ImgArray = [];
 document.getElementById("UploadMainImgBtn").addEventListener('click', function (event) {
     // NOTE: You are clicking a submit button.  After this function runs,
@@ -138,13 +121,6 @@ document.getElementById("UploadMainImgBtn").addEventListener('click', function (
 
 
 });
-
-// $(document).ready(function () {
-//     $('form').ajaxForm(function () {
-//         alert("Uploaded SuccessFully");
-//     });
-// });
-// Thêm image preview
 let ImageData = new FormData();
 document.getElementById("MainProductImg").addEventListener('change', function (event) {
     event.preventDefault();
@@ -159,50 +135,3 @@ document.getElementById("MainProductImg").addEventListener('change', function (e
     }
 
 })
-// document.getElementById("MainProductImg").addEventListener('change', function (event) {
-//     // NOTE: You are clicking a submit button.  After this function runs,
-//     // then the form will be submitted.  If you want to *stop* that, you can
-//     // use the following:
-//     //
-//
-//     event.preventDefault();
-//     for (i = 0; i < 5; i++) {
-//         let formData = new FormData();
-//         let image = $("#MainProductImg")[0].files[i];
-//
-// // todo:Chức năng xóa hình ảnh(lựa chọn ảnh đăng trong vong 5 ảnh)
-//         // Check image selected or not
-//         if (image.size > 0) {
-//             formData.append('Product_Image', image);
-//             $.ajax({
-//                 url: 'Product_Img_Upload.php',
-//                 type: 'post',
-//                 data: formData,
-//                 contentType: false,
-//                 processData: false,
-//                 success: function (data) {
-//                     data = JSON.parse(data);
-//                     if (data.error !== 1) {
-//
-//                         mainImage = data.src;
-//                         ImgArray[j] = mainImage;
-//                         j++;
-//
-//                         let path = "data/Product_Img_Upload/" + mainImage;
-//
-//                         $('#image_preview').append("<img id='IMG" + i + "' class='img-fluid col-2 img-thumbnail' src='" + path + "'>");
-//
-//                     } else {
-//                         $("#errorMessage").text(data.error_message);
-//                     }
-//                 }
-//             });
-//
-//         } else {
-//             $("#errorMessage").text("Please select an image.");
-//         }
-//         ;
-//     }
-//
-// });
-//
