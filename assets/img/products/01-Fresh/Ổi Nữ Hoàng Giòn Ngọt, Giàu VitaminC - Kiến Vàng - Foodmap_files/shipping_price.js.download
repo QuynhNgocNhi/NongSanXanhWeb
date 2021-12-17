@@ -1,0 +1,113 @@
+(function($) {
+	runGetPrice(null,null,null,default_district);
+	if($('.delivery-select').length>0){
+		var html_select = $('.delivery-select').html();
+		$('.delivery-select').html(html_select+'<i class="icon-arrow-1" style="transform: rotate(90deg)"></i>');
+	}
+
+	$('.delivery-select').on('click',function(e){
+		e.preventDefault();
+		var parent = $(this).parent();
+		if(parent.find('.content-cities').length>0){
+			parent.find('.content-cities').toggleClass('active');
+		}else{
+			var htmlShow = '<div class="content-cities active">';
+			htmlShow += '<ul class="content-list">';
+			$.each(cities, function(index,value){
+				htmlShow+='<li class="content-item" data-id="'+index+'">'+value.name+'</li>';
+			});
+			htmlShow+='</ul>';
+			htmlShow+='</div>';
+			parent.append(htmlShow);
+		}
+	});
+
+	$(document).on('click','.content-cities .content-item', function(){
+		var id = $(this).attr('data-id');
+		var name = $(this).html();
+		var htmlShow = '';
+
+		$.each(cities[id].districts, function(index,value){
+			htmlShow+='<li class="content-child" data-id="'+index+'">'+value.name+'</li>';
+		});
+		$('.content-cities').html('<div class="city-tab" data-id="'+id+'"><i class="icon-arrow-1"></i><span>'+name+'</span></div>');
+		$('.content-cities').append('<ul class="content-list">'+htmlShow+'</ul>');
+	});
+
+	$(document).on('click', '.city-tab', function(e){
+		e.preventDefault();
+		refillCities();
+	})
+
+	$(document).on('click','.content-child',function(){
+
+		var district = $(this).html();
+		var city = $(this).closest('.content-cities').find('.city-tab').children('span').html();
+		var city_id = $(this).closest('.content-cities').find('.city-tab').data('id');
+		var district_id = $(this).data('id');
+
+		$('.delivery-select').html(district +' - '+city);
+
+		// htmlShow = '<ul class="content-list">';
+		// $.each(cities, function(index,value){
+		// 	htmlShow+='<li class="content-item" data-id="'+index+'">'+value.name+'</li>';
+		// });
+		// htmlShow+='</ul>';
+		// $('.content-cities').removeClass('active').html(htmlShow);
+		refillCities();
+		$('.content-cities').removeClass('active');
+
+		runGetPrice(city,district,city_id,district_id);
+		updateID(city_id,district_id);
+	});
+
+	$(document).on('click','.delivery-price',function(e){
+		e.preventDefault();
+	});
+
+	function refillCities(){
+		htmlShow = '<ul class="content-list">';
+		$.each(cities, function(index,value){
+			htmlShow+='<li class="content-item" data-id="'+index+'">'+value.name+'</li>';
+		});
+		htmlShow+='</ul>';
+		$('.content-cities').html(htmlShow);
+	}
+
+	function updateID(city_id,district_id){
+		$('#formAction input[name="city_id"]').val(city_id);
+		$('#formAction input[name="district_id"]').val(district_id);
+	}
+
+	function runGetPrice(city,district,city_id,district_id){
+		// var address = district+', '+city+', Vietnam';
+		$.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '/api/ahamove',
+            data: {
+                // address: address,
+                // 'city_id': city_id,
+                'district_id': district_id
+            },
+            success: function success(data) {
+                if(!data.errors){
+                    $('.delivery-price').html(formatNumber(data.price)+' đ');
+                }
+            },
+            error: function error(errors) {
+                console.log('something wrong with api ahamove');
+                console.log(errors);
+            }
+        });
+	}
+
+	function formatNumber(num) {
+        return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
+    }
+})(jQuery);

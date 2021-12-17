@@ -1,0 +1,12 @@
+(function($) {
+	$('.cmtl').on('click',function(e){
+		var type = $(this).data('type');
+		e.preventDefault();
+		var id = $(this).closest('li').data('id');
+		if(type=='child'){
+			var id = $(this).closest('li').data('child');
+		}
+		
+		$('.ratingLst li[data-reply="'+id+'"]').toggleClass('hide');
+	})
+})(jQuery);

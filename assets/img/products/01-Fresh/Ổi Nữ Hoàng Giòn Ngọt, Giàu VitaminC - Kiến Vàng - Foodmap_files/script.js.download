@@ -1,0 +1,324 @@
+function createElement(html) {
+  var div = document.createElement('div');
+  div.innerHTML = html;
+  return div.firstElementChild;
+}
+
+
+
+
+// MYMODAL
+// Array.from(document.querySelectorAll('.myModal')).forEach(function(e){
+//   var over = createElement('<span class="btnModal overlay"></span>');
+//   var close = createElement('<span class="btnModal btn-close"><i class="icon-close"> </i></span>');
+//   var body = document.getElementsByTagName("body")[0];
+//     e.prepend(over);
+//     e.document.querySelector('.contentModal').prepend(close);
+//     //if($(window).outerHeight()>hc){c.addClass('middle');}
+//     body.append(e);
+
+// });
+
+// MYMODAL
+// Array.from(document.querySelectorAll('.myModal')).forEach(function(e){
+//   var over = createElement('<span class="btnModal overlay"></span>');
+//   var close = createElement('<span class="btnModal btn-close"><i class="icon-close"> </i></span>');
+//   var body = document.getElementsByTagName("body")[0];
+//     e.prepend(over);
+//     e.document.querySelector('.contentModal').prepend(close);
+//     //if($(window).outerHeight()>hc){c.addClass('middle');}
+//     body.append(e);
+//
+// });
+
+//if ( $(".single_item_video").length > 0) {
+// $(".single_item_video").each(function() {
+//     var
+//         v = $(this),
+//         f =$('<iframe width="1600" height="900" src="https://www.youtube.com/embed/'+v.data("video")+'?rel=0&autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>   '),
+//         b = $('<div class=" btnvideo"><img src="'+v.data('img')+'" alt=""> <i class="icon-play"></i></div>').click(function() {
+//             v.append(f);
+//             v.addClass('active');
+//         }); v.prepend(b);
+// })
+// //}
+
+
+
+Array.from(document.querySelectorAll('.btnModal')).forEach(function(e){
+  e.addEventListener('click',function(){
+    //e.preventDefault();
+    var id = e.dataset['modal'];
+    var pr = document.getElementsByClassName("myModal").parentElement;
+  });
+});
+
+// TOGGLE
+Array.from(document.querySelectorAll('.toggleClass > .toggle')).forEach(function(e){
+  e.addEventListener('click', function() {
+    e.parentNode.classList.toggle('active');
+    return false;
+  }, false);
+});
+
+
+
+
+// VIDEO
+Array.from(document.querySelectorAll('.single_item_video')).forEach(function(e){
+  var frame = createElement('<iframe width="1600" height="900" src="https://www.youtube.com/embed/'+ e.dataset["video"] +'?rel=0&autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>');
+  var button = createElement('<div class=" btnvideo"><img class="lazy-hidden" data-lazy-type="image" data-lazy-src="'+e.dataset['img']+'" alt=""> <i class="icon-play"></i></div>');
+  button.addEventListener('click',function(){
+    e.append(frame);
+    e.classList.add('active');
+  });
+  e.prepend(button);
+});
+
+
+//SCROLL TO TOP
+    //Get the button
+    var mybutton = document.getElementById("myBtn");
+    // When the user scrolls down 20px from the top of the document, show the button
+
+
+
+    if (typeof(mybutton) != 'undefined' && mybutton != null){
+      window.onscroll = function() {scrollFunction()};
+      function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+          //mybutton.style.display = "block";
+          mybutton.classList.add('active');
+        } else {
+          //mybutton.classList.display = "none";
+          mybutton.classList.remove('active');
+        }
+      }
+    }
+    // When the user clicks on the button, scroll to the top of the document
+    function topFunction() {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    }
+
+
+
+// LAZYLOAD
+/*-----------------------------------------------------------------*/
+var offdefault = 50;  //BJLL.threshold;
+var BJLL_options = BJLL_options || {},
+    BJLL = {
+        _ticking: !1,
+        check: function() {
+            if (!BJLL._ticking) {
+                BJLL._ticking = !0, void 0 === BJLL.threshold && (void 0 !== BJLL_options.threshold ? BJLL.threshold = parseInt(BJLL_options.threshold) : BJLL.threshold = 200);
+                var e = document.documentElement.clientHeight || body.clientHeight,
+                    t = !1,
+                    n = document.getElementsByClassName("lazy-hidden");
+                [].forEach.call(n, function(n, a, i) {
+                    var s = n.getBoundingClientRect(),
+                        offset = parseFloat(n.getAttribute('offset'));
+                    if(offset) o = 0 - offset;
+                    else o = offdefault;
+                    e - s.top + o > 0 && (BJLL.show(n), t = !0)
+                }), BJLL._ticking = !1, t && BJLL.check()
+            }
+        },
+        show: function(e) {
+            e.className = e.className.replace(/(?:^|\s)lazy-hidden(?!\S)/g, ""), e.addEventListener("load", function() {
+                e.className += " lazy-loaded", BJLL.customEvent(e, "lazyloaded");
+            }, !1);
+            var t = e.getAttribute("data-lazy-type");
+            e.className += ' loaded';
+            if ("image" == t) null != e.getAttribute("data-lazy-srcset") && e.setAttribute("srcset", e.getAttribute("data-lazy-srcset")), null != e.getAttribute("data-lazy-sizes") && e.setAttribute("sizes", e.getAttribute("data-lazy-sizes")), e.setAttribute("src", e.getAttribute("data-lazy-src"));
+
+            else if ("bg" == t) {
+                var n = e.getAttribute("data-lazy-src");
+                e.style.backgroundImage = 'url(' + n + ')';
+            }
+            else if ("iframe" == t) {
+                var n = e.getAttribute("data-lazy-src");
+
+                e.setAttribute('src', n);
+            }
+            else if ("mp4" == t) {
+                var n = e.getAttribute("data-lazy-src"),
+                    a = '<source src="'+n+'" type="video/mp4">';
+                e.innerHTML += a;
+            }
+        },
+        customEvent: function(e, t) {
+            var n;
+            document.createEvent ? (n = document.createEvent("HTMLEvents")).initEvent(t, !0, !0) : (n = document.createEventObject()).eventType = t, n.eventName = t, document.createEvent ? e.dispatchEvent(n) : e.fireEvent("on" + n.eventType, n)
+        }
+    };
+window.addEventListener("load", BJLL.check, !1), window.addEventListener("scroll", BJLL.check, !1), window.addEventListener("resize", BJLL.check, !1), document.getElementsByTagName("body").item(0).addEventListener("post-load", BJLL.check, !1);
+
+
+
+// Jquery
+(function($){
+
+    $('.widget-mini-cart .toggle').click(function(){
+        $('body').toggleClass('showCart');
+    });
+
+    $('.sec-menu-category .title').click(function(){
+            $(this).parent().toggleClass('hover');
+    });
+
+    $('.overlay').click(function(){
+        $('body').removeClass();
+        $('.widget-mini-cart').removeClass("active")
+    });
+
+    // MODAL
+    /*-----------------------------------------------------------------*/
+
+    $(".myModal").each(function () {
+        var over = $('<span class="btnModal overlay"></span>'),
+            close = $('<span class="btnModal btn-close"><i class="icon-close"> </i></span>'),
+            c = $(this).children('.container '),
+            hc = c.children('.contentModal').outerHeight() + 80;
+        $(this).prepend(over);
+        $(this).find('.contentModal').prepend(close);
+        if($(window).outerHeight()>hc){c.addClass('middle');}
+    });
+    $(".btnModal").each(function () {
+        $(this).click(function(e){
+            e.preventDefault();
+            var id = $(this).data('modal');
+            var pr = $(this).parents('.myModal');
+
+            if ($("#modal-login").html() == ''){
+
+                $.ajax({
+                    type: 'GET',
+                    url: '/login-ajax',
+                    success: function (response) {
+
+                        $("#modal-login").html("<br>");
+                        $("#modal-login").after(response);
+                        $("#modal-login-trigger").click();
+
+                    },
+                    error: (xhr) => {
+                        console.log(xhr.statusText + ":" + xhr.responseJSON.message);
+                    },
+                });
+
+            }
+            else{
+                $('body').toggleClass('showModal');
+            }
+
+            if(pr.length>0) {
+                pr.removeClass('active');
+            }else {
+                $('div#'+id).toggleClass('active');
+            }
+        });
+    });
+
+    $(document).ready(function(){
+
+        $('.toggle-search').click(function(){
+            $('body').toggleClass('showSearchMb');
+        });
+
+         function changeQuality() {
+              $('div.quality').each(function () {
+                  plus = $(this).children('.plus');
+                  minus = $(this).children('.minus');
+                  $(plus).on('click',function () {
+                      max = $(this).parent().data('max');
+                      valueNew = $(this).parent().children('input').val();
+                      valueNew++;
+
+                      if( max && valueNew > max ) valueNew = max;
+                      $(this).parent().children('input').val(valueNew);
+
+                  });
+                  $(minus).on('click',function () {
+                      min = $(this).parent().data('min');
+                      valueNew = $(this).parent().children('input').val();
+                      valueNew--;
+
+                      if(valueNew < min ) valueNew = min;
+                      $(this).parent().children('input').val(valueNew);
+
+                  });
+              });
+          }
+
+          changeQuality();
+
+        $(".cttab-detail .tab-menu > div").each(function () {
+            $(this).click(function () {
+              var item = $(this),
+                index = $(this).index(),
+                content = item.closest('[class*="cttab"]').find('.tab-content');
+              item.addClass('active').siblings().removeClass('active');
+              content.children(':eq('+index+')').addClass('active').siblings().removeClass('active');
+            });
+        });
+
+
+        $('ul.vertical-menu ul').each(function(){
+            var li = $(this).parent();
+                //btn = $('<span>',{'class':'showsubmenu icon-arrow-2 ib', text : '' });
+                $(this).wrap('<div class="wrapul"></div>');
+                var wrapul = li.children('.wrapul');
+        })
+
+
+        $('.boxRatingCmt .bcrt .btn').click(function(){
+            $('.fRatingComment').toggleClass('active');
+            $(this).toggleClass('active');
+        });
+
+        $('.fRatingComment .fieldset-rating label').each(function(){
+          $(this).on('click',function(){
+              $('.fRatingComment .fieldinput').addClass('active');
+          });
+        })
+
+
+
+
+    });
+})(jQuery);
+
+// //VUE
+
+// Vue.use(VueAwesomeSwiper)
+
+// new Vue({
+//   el: '#vueapp',
+//   data: {
+//     swiperOptions: {
+//       loop: true,
+//       pagination: {
+//         el: '.swiper-pagination'
+//       },
+//       navigation: {
+//         nextEl: '.swiper-button-next',
+//         prevEl: '.swiper-button-prev'
+//       }
+//     }
+//   },
+//   methods: {
+//     onSetTranslate() {
+//       console.log('onSetTranslate')
+//     },
+//     onSwiperSlideChangeTransitionStart() {
+//       console.log('onSwiperSlideChangeTransitionStart')
+//     },
+//     onSwiperClickSlide(index, reallyIndex) {
+//       console.log('Swiper click slide!', reallyIndex)
+//     }
+//   },
+//   mounted() {
+//     console.log('Swiper instances:', this.$refs.swiperComponent.$swiper, this.swiper)
+//   }
+// })

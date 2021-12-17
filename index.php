@@ -30,646 +30,46 @@ $result = mysqli_query($conn, $sql);
     <!-- homepage CSS -->
     <link rel="stylesheet" href="home.asset/css/style.css"/>
     <link rel="stylesheet" href="home.asset/home.css?v=2.1"/>
+    <link rel="stylesheet" href="home.asset/css/demo.css">
+    <link rel="stylesheet" href="home.asset/css/nouislider.css">
+    <!--    <link rel="stylesheet" href="home.asset/plugins/bootstrap/css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="home.asset/plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="home.asset/plugins/jquery-bar-rating/dist/themes/fontawesome-stars.css">
+    <link rel="stylesheet" href="home.asset/plugins/select2/dist/css/select2.min.css">
+    <link rel="stylesheet" href="home.asset/plugins/owl-carousel/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="home.asset/plugins/slick/slick.css">
+    <link rel="stylesheet" href="home.asset/plugins/lightGallery/dist/css/lightgallery.min.css">
     <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
     <!-- font -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
 
+    <script type="text/javascript">
+        function loadPage(href) {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open("GET", href, false);
+            xmlhttp.send();
+            return xmlhttp.responseText;
+        }
 
+    </script>
+
+    <script>
+        function CallActivePage() {
+            document.getElementById("products-page").classList.add("active");
+        }
+
+        $(document).ready(function () {
+            document.getElementById('header').innerHTML = loadPage('header.php');
+            CallActivePage();
+            document.getElementById('footer').innerHTML = loadPage('footer.php');
+        });
+
+
+    </script>
 <body>
 
 <!--header-->
-<header class="header-area header-style-1 header-height-2">
-    <!--mobile front header-->
-
-    <div class="mobile-promotion">
-        <span>Miễn phí vận chuyển duy nhất trong ngày 11/11.</span>
-    </div>
-    <!--end mobile front header-->
-
-    <!--top header-->
-    <div class="header-top header-top-ptb-1 d-none d-lg-block">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-xl-5 col-lg-5">
-                    <div class="header-info">
-                        <ul>
-                            <li><a href="page-about.html">Về Nông Sản Xanh</a></li>
-                            <li><a href="page-account.html">Tài khoản</a></li>
-                            <li><a href="shop-wishlist.html">Yêu thích</a></li>
-                            <li><a href="shop-order.html">Theo dõi đơn hàng</a></li>
-                            <li><a href="">Trợ giúp</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-lg-3">
-                    <div class="text-center ">
-                        <div class=".d-none .d-lg-block">
-                            <span>Miễn phí vận chuyển.</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-4">
-                    <div class="header-info header-info-right">
-                        <ul>
-                            <li>
-                                <a class="BuyandSell-dropdown-active" href="#">Mua ngay <i
-                                            class="fi-rs-angle-small-down"></i></a>
-                                <ul class="BuyandSell-dropdown">
-                                    <li>
-                                        <a href="#"><img src="" alt=""/>Xem tin bán</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><img src="" alt=""/>Đăng tin mua</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><img src="" alt=""/>Tìm nhà bán uy tín</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a class="BuyandSell-dropdown-active" href="#">Bán ngay <i
-                                            class="fi-rs-angle-small-down"></i></a>
-                                <ul class="BuyandSell-dropdown">
-                                    <li>
-                                        <a href="#"><img src="" alt=""/>Xem tin mua</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><img src="" alt=""/>Đăng tin bán</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><img src="" alt=""/>Đăng ký cửa hàng</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><img src="" alt=""/>Cách bán trên NSX</a>
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <li>
-                                <a class="language-dropdown-active" href="#">Vietnamese <i
-                                            class="fi-rs-angle-small-down"></i></a>
-                                <ul class="language-dropdown">
-                                    <li>
-                                        <a href="#"><img src="" alt=""/>Vietnamese</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><img src="" alt=""/>English</a>
-                                    </li>
-
-                                </ul>
-                            </li>
-
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--end top header-->
-
-    <!--mid header-->
-    <div class="header-middle header-middle-ptb-1 d-none d-lg-block">
-        <div class="container">
-
-            <div class="header-wrap justify-content-center">
-                <div class="logo logo-width-1">
-                    <a href="index.html"><img src="assets/img/global/logo_homepage_fixed.jpg" alt="NSX"/></a>
-                </div>
-                <div class="header-right">
-
-                    <div class="search-style-2">
-                        <form action="#">
-                            <select class="select-active">
-                                <option>Danh mục</option>
-                                <option>Trái cây</option>
-                                <option>Đặc sản vùng miền</option>
-                                <option>Rau, củ, quả và nấm</option>
-                                <option>Đậu, ngũ cốc, các loại hạt và nhân</option>
-                                <option>Đồ uống</option>
-                                <option>Dược liệu</option>
-                                <option>Thực phẩm chế biến sẵn</option>
-                                <option>Sữa, Mật - Sản phẩm từ Sữa, mật</option>
-                                <option>Gia vị thực phẩm</option>
-                                <option>Thủy - Hải sản</option>
-                                <option>Gia súc & Sản phẩm Động vật</option>
-                                <option>Chiết xuất thực vật & dầu</option>
-                                <option>Sợi thực vật & gỗ</option>
-                                <option>Cây giống - Con giống</option>
-                                <option>Vật tư nông nghiệpt</option>
-                                <option>Máy móc & Thiết bị Nông nghiệp</option>
-                                <option>Sản phẩm - dịch vụ khác</option>
-                                <option>Danh mục khác</option>
-                            </select>
-                            <input type="text" placeholder="Tìm kiếm..."/>
-                        </form>
-                    </div>
-                    <div class="header-action-right">
-                        <div class="header-action-2">
-
-
-                            <div class="header-action-icon-2">
-                                <a target="_blank" href="shop-wishlist.html">
-                                    <img class="svgInject" alt="NSX" src="assets/img/icons/icon-heart.svg"/>
-                                    <span class="pro-count blue">6</span>
-                                </a>
-                                <a target="_blank" href="shop-wishlist.html"><span class="lable">Yêu
-                                            thích</span></a>
-                            </div>
-                            <div class="header-action-icon-2">
-                                <a target="_blank" class="mini-cart-icon" href="shop-cart.html">
-                                    <img alt="NSX" src="assets/img/icons/icon-cart.svg"/>
-                                    <span class="pro-count blue">2</span>
-                                </a>
-                                <a target="_blank" href="shop-cart.html"><span class="lable">Giỏ hàng</span></a>
-                                <div class="cart-dropdown-wrap cart-dropdown-hm2">
-                                    <ul>
-                                        <li>
-                                            <div class="shopping-cart-img">
-                                                <a href="products.html"><img alt="NSX"
-                                                                             src="home.asset/img/product/03-Multi/strawberry.png"/></a>
-                                            </div>
-                                            <div class="shopping-cart-title">
-                                                <h4>
-                                                    <a href="products.html">Dâu tây Đà lạt 100kg</a>
-                                                </h4>
-                                                <h4><span>1 × </span>800.000 vnd</h4>
-                                            </div>
-                                            <div class="shopping-cart-delete">
-                                                <a href="#"><i class="fi-rs-cross-small"></i></a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="shopping-cart-img">
-                                                <a href="products.html"><img alt="NSX"
-                                                                             src="home.asset/img/product/03-Multi/durian.jpg"/></a>
-                                            </div>
-                                            <div class="shopping-cart-title">
-                                                <h4>
-                                                    <a href="products.html">Sầu riêng Ri6 3 trái</a>
-                                                </h4>
-                                                <h4><span>1 × </span>320.000 vnd</h4>
-                                            </div>
-                                            <div class="shopping-cart-delete">
-                                                <a href="#"><i class="fi-rs-cross-small"></i></a>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                    <div class="shopping-cart-footer">
-                                        <div class="shopping-cart-total">
-                                            <h4>Tổng <span>400.000 vnd</span></h4>
-                                        </div>
-                                        <div class="shopping-cart-button">
-                                            <a href="shop-cart.html" class="outline">Xem giỏ hàng</a>
-                                            <a href="shop-checkout.html">Thanh toán</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="header-action-icon-2">
-                                <a href="Admin_Dashboard.php">
-                                    <img class="svgInject" alt="NSX" src="assets/img/icons/icon-user.svg"/>
-                                </a>
-                                <?php
-                                if (isset($_SESSION["UserName"])) {
-                                    echo "<a href='index.php'><span class='lable ml-0'> " . $_SESSION["UserName"];
-
-                                } else {
-                                    echo "<a href='login.php'><span class='lable ml-0'>Tài khoản</span></a>";
-                                }
-                                ?>
-                                <!--                                <a href="page-account.html"><span class="lable ml-0">Tài khoản</span></a>-->
-                                <div class="
-                                        cart-dropdown-wrap cart-dropdown-hm2
-                                        account-dropdown
-                                    ">
-                                    <ul>
-                                        <?php
-
-                                        if (isset($_SESSION["Id"])) {
-
-
-                                            echo "<li><a href='User_Account.php'><i class='fi fi-rs-user mr-10'></i>Tài khoản</a></li>";
-                                            if ($_SESSION["UserRoleId"] == 1) {
-                                                echo "<li><a href='Admin_Dashboard.php'><i class='fi fi-rs-home mr-10'></i>Cửa hàng</a></li>";
-                                            } elseif($_SESSION["UserRoleId"] == 2)
-                                            {
-                                                echo "<li><a href='Vendor_Dashboard.php'><i class='fi fi-rs-home mr-10'></i>Dashboard</a></li>";
-                                            }
-                                            else {
-                                                echo "<li><a href='Store_Register.php'><i class='fi fi-rs-user mr-10'></i>Tạo cửa hàng</a></li>";
-                                            }
-
-                                        } else {
-                                            echo "<li><a href='Store_Register.php'><i class='fi fi-rs-user mr-10'></i>Tạo cửa hàng</a></li>";
-                                            echo "<li><a href='login.php'><i class='fi fi-rs-user mr-10'></i>Đăng nhập</a></li>";
-
-                                        }
-
-                                        ?>
-
-
-                                        <li>
-                                            <a href="page-account.html"><i
-                                                        class="fi fi-rs-location-alt   mr-10"></i>Đơn
-                                                mua</a>
-                                        </li>
-                                        <li>
-                                            <a href="page-account.html"><i
-                                                        class="fi fi-rs-settings-sliders mr-10"></i>Cài
-                                                đặt</a>
-                                        </li>
-                                        <li>
-                                            <a href="login.php"><i class="fi fi-rs-sign-out mr-10"></i>Đăng
-                                                xuất</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--end mid header-->
-
-    <!-- main header-->
-    <div class="header-bottom header-bottom-bg-color sticky-bar header-nav">
-        <div class="container">
-            <div class="header-wrap header-space-between position-relative ">
-                <!-- mobile logo center -->
-                <div class="logo logo-width-1 d-block d-lg-none">
-                    <a href="index.php"><img src="assets/img/global/logo_home.jpg" alt="logo"/></a>
-                </div>
-                <!-- end mobile logo center -->
-
-                <div class=" col header-nav d-none d-lg-flex ">
-
-                    <div class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block font-heading">
-                        <nav>
-                            <ul>
-                                <li>
-                                    <a id="home-page" class="nav-link-main active" href="index.html">Trang chủ</a>
-                                </li>
-                                <li>
-                                    <a id="products-page" class="nav-link-main" href="products.html">Sản phẩm</a>
-                                </li>
-                                <li>
-                                    <a id="posts-page" class="nav-link-main" href="index.html">Tin đăng <i
-                                                class="fi-rs-angle-down"></i></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="index.html">Tin mua</a></li>
-                                        <li><a href="index-2.html">Tin bán</a></li>
-
-                                    </ul>
-                                </li>
-
-                                <li>
-                                    <a id="sellers-page" class="nav-link-main" href="products.html">Nhà cung
-                                        cấp <i class="fi-rs-angle-down"></i></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="products.html">Đã xác minh</a></li>
-                                        <li><a href="shop-grid-left.html">Tin cậy</a></li>
-
-                                    </ul>
-                                </li>
-
-                            </ul>
-
-                        </nav>
-                    </div>
-
-                </div>
-
-                <!-- Recently viewed product -->
-                <div
-                        class="col-2 navigation-text main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block font-heading">
-                    <ul class="menu">
-                        <li class="menu-item-has-children has-mega-menu">
-                            <a class="nav-link" href="javascript:void(0);">Xem gần đây <i
-                                        class="fi-rs-angle-down"></i></a>
-                            <span class="sub-toggle"></span>
-                            <div class="mega-menu recent-view">
-                                <div class="mega-anchor"></div>
-                                <div class="container">
-
-                                    <div class="slick-many-item slick-initialized slick-slider">
-                                        <button class="btn-small slick-nav slick-left slick-arrow">
-                                            <i class="fi-rs-angle-double-small-left "></i>
-                                        </button>
-                                        <div aria-live="polite" class="slick-list draggable">
-                                            <div class="slick-track" role="listbox"
-                                                 style="opacity: 1; width: 3591px; transform: translate3d(-1064px, 0px, 0px);">
-                                                <a class="recent-item slick-slide slick-cloned" href="index.html"
-                                                   data-slick-index="-8" id="" aria-hidden="true" tabindex="-1"
-                                                   style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_10a.jpg"
-                                                         alt="alt"></a><a
-                                                        class="recent-item slick-slide slick-cloned" href="index.html"
-                                                        data-slick-index="-7" id="" aria-hidden="true" tabindex="-1"
-                                                        style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_18a.jpg"
-                                                         alt="alt"></a><a
-                                                        class="recent-item slick-slide slick-cloned" href="index.html"
-                                                        data-slick-index="-6" id="" aria-hidden="true" tabindex="-1"
-                                                        style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_28b.jpg"
-                                                         alt="alt"></a><a
-                                                        class="recent-item slick-slide slick-cloned" href="index.html"
-                                                        data-slick-index="-5" id="" aria-hidden="true" tabindex="-1"
-                                                        style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_16a.jpg"
-                                                         alt="alt"></a><a
-                                                        class="recent-item slick-slide slick-cloned" href="index.html"
-                                                        data-slick-index="-4" id="" aria-hidden="true" tabindex="-1"
-                                                        style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_31a.jpg"
-                                                         alt="alt"></a><a
-                                                        class="recent-item slick-slide slick-cloned" href="index.html"
-                                                        data-slick-index="-3" id="" aria-hidden="true" tabindex="-1"
-                                                        style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_15a.jpg"
-                                                         alt="alt"></a><a
-                                                        class="recent-item slick-slide slick-cloned" href="index.html"
-                                                        data-slick-index="-2" id="" aria-hidden="true" tabindex="-1"
-                                                        style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_5a.jpg"
-                                                         alt="alt"></a><a
-                                                        class="recent-item slick-slide slick-cloned" href="index.html"
-                                                        data-slick-index="-1" id="" aria-hidden="true" tabindex="-1"
-                                                        style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_32a.jpg"
-                                                         alt="alt"></a><a
-                                                        class="recent-item slick-slide slick-current slick-active"
-                                                        href="index.html" data-slick-index="0" aria-hidden="false"
-                                                        tabindex="-1" role="option" style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_1a.jpg"
-                                                         alt="alt"></a><a
-                                                        class="recent-item slick-slide slick-active" href="index.html"
-                                                        data-slick-index="1" aria-hidden="false" tabindex="-1"
-                                                        role="option" style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_2a.jpg"
-                                                         alt="alt"></a><a
-                                                        class="recent-item slick-slide slick-active" href="index.html"
-                                                        data-slick-index="2" aria-hidden="false" tabindex="-1"
-                                                        role="option" style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_30a.jpg"
-                                                         alt="alt"></a><a
-                                                        class="recent-item slick-slide slick-active" href="index.html"
-                                                        data-slick-index="3" aria-hidden="false" tabindex="-1"
-                                                        role="option" style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_10a.jpg"
-                                                         alt="alt"></a><a
-                                                        class="recent-item slick-slide slick-active" href="index.html"
-                                                        data-slick-index="4" aria-hidden="false" tabindex="-1"
-                                                        role="option" style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_18a.jpg"
-                                                         alt="alt"></a><a
-                                                        class="recent-item slick-slide slick-active" href="index.html"
-                                                        data-slick-index="5" aria-hidden="false" tabindex="-1"
-                                                        role="option" style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_28b.jpg"
-                                                         alt="alt"></a><a
-                                                        class="recent-item slick-slide slick-active" href="index.html"
-                                                        data-slick-index="6" aria-hidden="false" tabindex="-1"
-                                                        role="option" style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_16a.jpg"
-                                                         alt="alt"></a><a
-                                                        class="recent-item slick-slide slick-active" href="index.html"
-                                                        data-slick-index="7" aria-hidden="false" tabindex="-1"
-                                                        role="option" style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_31a.jpg"
-                                                         alt="alt"></a><a class="recent-item slick-slide"
-                                                                          href="index.html" data-slick-index="8"
-                                                                          aria-hidden="true"
-                                                                          tabindex="-1" role="option"
-                                                                          style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_15a.jpg"
-                                                         alt="alt"></a><a class="recent-item slick-slide"
-                                                                          href="index.html" data-slick-index="9"
-                                                                          aria-hidden="true"
-                                                                          tabindex="-1" role="option"
-                                                                          style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_5a.jpg"
-                                                         alt="alt"></a><a class="recent-item slick-slide"
-                                                                          href="index.html" data-slick-index="10"
-                                                                          aria-hidden="true"
-                                                                          tabindex="-1" role="option"
-                                                                          style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_32a.jpg"
-                                                         alt="alt"></a><a
-                                                        class="recent-item slick-slide slick-cloned" href="index.html"
-                                                        data-slick-index="11" id="" aria-hidden="true" tabindex="-1"
-                                                        style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_1a.jpg"
-                                                         alt="alt"></a><a
-                                                        class="recent-item slick-slide slick-cloned" href="index.html"
-                                                        data-slick-index="12" id="" aria-hidden="true" tabindex="-1"
-                                                        style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_2a.jpg"
-                                                         alt="alt"></a><a
-                                                        class="recent-item slick-slide slick-cloned" href="index.html"
-                                                        data-slick-index="13" id="" aria-hidden="true" tabindex="-1"
-                                                        style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_30a.jpg"
-                                                         alt="alt"></a><a
-                                                        class="recent-item slick-slide slick-cloned" href="index.html"
-                                                        data-slick-index="14" id="" aria-hidden="true" tabindex="-1"
-                                                        style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_10a.jpg"
-                                                         alt="alt"></a><a
-                                                        class="recent-item slick-slide slick-cloned" href="index.html"
-                                                        data-slick-index="15" id="" aria-hidden="true" tabindex="-1"
-                                                        style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_18a.jpg"
-                                                         alt="alt"></a><a
-                                                        class="recent-item slick-slide slick-cloned" href="index.html"
-                                                        data-slick-index="16" id="" aria-hidden="true" tabindex="-1"
-                                                        style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_28b.jpg"
-                                                         alt="alt"></a><a
-                                                        class="recent-item slick-slide slick-cloned" href="index.html"
-                                                        data-slick-index="17" id="" aria-hidden="true" tabindex="-1"
-                                                        style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_16a.jpg"
-                                                         alt="alt"></a><a
-                                                        class="recent-item slick-slide slick-cloned" href="index.html"
-                                                        data-slick-index="18" id="" aria-hidden="true" tabindex="-1"
-                                                        style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_31a.jpg" alt="alt">
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <button class="btn-small slick-nav slick-right slick-arrow">
-                                            <i class="fi-rs-angle-double-small-right"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <!-- end Recently viewed product -->
-
-                <!-- mobile menu -->
-                <div class="header-act  ion-icon-2 d-block d-lg-none">
-                    <div class="burger-icon burger-icon-white">
-                        <span class="burger-icon-top"></span>
-                        <span class="burger-icon-mid"></span>
-                        <span class="burger-icon-bottom"></span>
-                    </div>
-                </div>
-                <div class="header-action-right d-block d-lg-none">
-                    <div class="header-action-2">
-                        <div class="header-action-icon-2">
-                            <a href="shop-wishlist.html">
-                                <img alt="NSX" src="assets/img/icons/icon-heart.svg"/>
-                                <span class="pro-count white">4</span>
-                            </a>
-                        </div>
-                        <div class="header-action-icon-2">
-                            <a class="mini-cart-icon" href="shop-cart.html">
-                                <img alt="NSX" src="assets/img/icons/icon-cart.svg"/>
-                                <span class="pro-count white">2</span>
-                            </a>
-                            <div class="cart-dropdown-wrap cart-dropdown-hm2">
-                                <ul>
-                                    <li>
-                                        <div class="shopping-cart-img">
-                                            <a href="shop-product-right.html"><img alt="NSX"
-                                                                                   src="home.asset/img/product/03-Multi/strawberry.png"/></a>
-                                        </div>
-                                        <div class="shopping-cart-title">
-                                            <h4><a href="shop-product-right.html">Dâu tây Đà Lạt 100kg</a></h4>
-                                            <h3><span>1 × </span>800.000 vnd</h3>
-                                        </div>
-                                        <div class="shopping-cart-delete">
-                                            <a href="#"><i class="fi-rs-cross-small"></i></a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="shopping-cart-img">
-                                            <a href="shop-product-right.html"><img alt="NSX"
-                                                                                   src="home.asset/img/product/03-Multi/durian.jpg"/></a>
-                                        </div>
-                                        <div class="shopping-cart-title">
-                                            <h4><a href="shop-product-right.html">Sầu riêng Ri6 3 trái</a></h4>
-                                            <h3><span>1 × </span>320.000 vnd</h3>
-                                        </div>
-                                        <div class="shopping-cart-delete">
-                                            <a href="#"><i class="fi-rs-cross-small"></i></a>
-                                        </div>
-                                    </li>
-                                </ul>
-                                <div class="shopping-cart-footer">
-                                    <div class="shopping-cart-total">
-                                        <h4>Tổng <span>400.000 vnd</span></h4>
-                                    </div>
-                                    <div class="shopping-cart-button">
-                                        <a href="shop-cart.html">Xem giỏ hàng</a>
-                                        <a href="shop-checkout.html">Thanh toán</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</header>
-<!--end main header-->
-
-<!--mobile header-->
-<div class="mobile-header-active mobile-header-wrapper-style">
-    <div class="mobile-header-wrapper-inner">
-        <div class="mobile-header-top">
-            <div class="mobile-header-logo">
-                <a href="index.html"><img src="assets/img/logo.svg" alt="logo"/></a>
-            </div>
-            <div class="mobile-menu-close close-style-wrap close-style-position-inherit">
-                <button class="close-style search-close">
-                    <i class="icon-top"></i>
-                    <i class="icon-bottom"></i>
-                </button>
-            </div>
-        </div>
-        <div class="mobile-header-content-area">
-            <div class="mobile-search search-style-3 mobile-header-border">
-                <form action="#">
-                    <input type="text" placeholder="Tìm kiếm..."/>
-                    <button type="submit"><i class="fi-rs-search"></i></button>
-                </form>
-            </div>
-            <div class="mobile-menu-wrap mobile-header-border">
-                <!-- mobile menu start -->
-                <nav>
-                    <ul class="mobile-menu font-heading">
-                        <li class="ui-menu-item">
-                            <a href="index.html">Trang chủ</a>
-
-                        </li>
-                        <li>
-                            <a href="index.html">Sản phẩm</a>
-                        </li>
-                        <li>
-                            <a href="index.html">Tin đăng <i class="fi-rs-angle-down"></i></a>
-                            <ul class="sub-menu">
-                                <li><a href="index.html">Tin mua</a></li>
-                                <li><a href="index-2.html">Tin bán</a></li>
-
-                            </ul>
-                        </li>
-
-                        <li>
-                            <a href="products.html">Nhà cung cấp <i class="fi-rs-angle-down"></i></a>
-                            <ul class="sub-menu">
-                                <li><a href="products.html">Đã xác minh</a></li>
-                                <li><a href="shop-grid-left.html">Tin cậy</a></li>
-
-                            </ul>
-                        </li>
-
-                        <li class="menu-item-has-children">
-                            <a href="#">Ngôn ngữ</a>
-                            <ul class="dropdown">
-                                <li>
-                                    <a href="#"><img src="" alt=""/>Vietnamese</a>
-                                </li>
-                                <li>
-                                    <a href="#"><img src="" alt=""/>English</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </nav>
-                <!-- mobile menu end -->
-            </div>
-            <div class="mobile-header-info-wrap">
-                <div class="single-mobile-header-info">
-                    <a href="index.html"><i class="fi-rs-marker"></i> Our location </a>
-                </div>
-                <div class="single-mobile-header-info">
-                    <a href="index.html"><i class="fi-rs-user"></i>Log In / Sign Up </a>
-                </div>
-                <div class="single-mobile-header-info">
-                    <a href="#"><i class="fi-rs-headphones"></i>(+01) - 2345 - 6789 </a>
-                </div>
-            </div>
-            <div class="mobile-social-icon mb-50">
-                <h6 class="mb-15">Follow Us</h6>
-                <a href="#"><img src="assets/img/icons/icon-facebook-white.svg" alt=""/></a>
-                <a href="#"><img src="assets/img/icons/icon-twitter-white.svg" alt=""/></a>
-                <a href="#"><img src="assets/img/icons/icon-instagram-white.svg" alt=""/></a>
-                <a href="#"><img src="assets/img/icons/icon-pinterest-white.svg" alt=""/></a>
-                <a href="#"><img src="assets/img/icons/icon-youtube-white.svg" alt=""/></a>
-            </div>
-            <div class="site-copyright">Copyright 2021 © NSX. All rights reserved.</div>
-        </div>
-    </div>
-</div>
+<div id="header"></div>
 <!--end header-->
 <main class="main">
     <!--banner section -->
@@ -1116,7 +516,9 @@ $result = mysqli_query($conn, $sql);
                                 }
                                 ?>
                                 <?php
-                                foreach ($resultArray as $item) {
+                                foreach ($resultArray
+
+                                         as $item) {
                                     ?>
 
                                     <div class="col-6 col-md-4 col-lg-3 p-0">
@@ -1125,10 +527,7 @@ $result = mysqli_query($conn, $sql);
                                                 <img
                                                         class="ps-product__thumbnail"
                                                         src="<?= "data/Product_Img_Upload/" . $item['Img']; ?>"
-                                                        alt="alt"/></a><a class="ps-product__expand"
-                                                                          href="" data-toggle="modal"
-                                                                          data-target="#popupQuickview"><i
-                                                        class="icon-expand"></i></a>
+                                                        alt="alt"/></a>
                                             <div class="ps-product__content">
                                                 <p class="ps-product__type"><i
                                                             class="fi fi-rs-home "></i>
@@ -1140,236 +539,30 @@ $result = mysqli_query($conn, $sql);
                                                        href="<?= "Product_Details.php?ProductId=" . $item['Id'] ?>"><?= $item['Name']; ?></a>
                                                 </h5>
 
+                                                <div class="Price-Unit">
+                                                    <p class="ps-product__unit">300g</p>
 
-                                                <p class="ps-product-price-block"><span
-                                                            class="ps-product__price-default"><?= $item['Price']; ?> vnđ</span>
-                                                </p>
+                                                    <p class="ps-product-price-block">
+                                                        <span class="ps-product__sale">$<?= $item['Price']; ?> đ</span>
+                                                    </p>
+                                                </div>
+
+                                                <div class="ps-product__box">
+                                                    <button class="ps-product__addcart"
+                                                            href="Cart.php"><i
+                                                                class="fi-rs-shopping-cart pr-10"></i>Thêm
+                                                    </button>
+                                                    <button class="ps-product__wishlist"><i
+                                                                class="fa fi-rs-heart"></i></button>
+                                                </div>
                                             </div>
 
-                                            <div class="">
-                                                <button class="ps-product__addcart" data-toggle="modal"
-                                                        data-target="#popupAddToCart"><i class="icon-cart"></i>Add to
-                                                    cart
-                                                </button>
-                                                <!--                                                <div class="ps-product__box"><a class="ps-product__wishlist"-->
-                                                <!--                                                        href="wishlist.html">Wishlist</a><a class="ps-product__compare"-->
-                                                <!--                                                        href="wishlist.html">Compare</a></div>-->
-                                            </div>
+
                                         </div>
 
                                     </div>
                                 <?php } ?>
 
-
-                                <div class="col-6 col-md-4 col-lg-3 p-0">
-                                    <div class="ps-product--standard"><a href="product-default.html"><img
-                                                    class="ps-product__thumbnail" src="img/products/01-Fresh/01_16a.jpg"
-                                                    alt="alt"/></a><a class="ps-product__expand"
-                                                                      href="javascript:void(0);" data-toggle="modal"
-                                                                      data-target="#popupQuickview"><i
-                                                    class="icon-expand"></i></a><span
-                                                class="ps-badge ps-product__offbadge">35% Off </span>
-                                        <div class="ps-product__content">
-                                            <p class="ps-product__type"><i class="icon-store"></i>Karery Store</p>
-                                            <h5><a class="ps-product__name" href="product-default.html">Broccoli
-                                                    Crowns</a></h5>
-                                            <p class="ps-product__unit">300g</p>
-                                            <div class="ps-product__rating">
-                                                <select class="rating-stars">
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                    <option value="5" selected="selected">5</option>
-                                                </select><span>(4)</span>
-                                            </div>
-                                            <p class="ps-product-price-block"><span
-                                                        class="ps-product__sale">$3.90</span><span
-                                                        class="ps-product__price">$9.99</span>
-                                            </p>
-                                        </div>
-                                        <div class="ps-product__footer">
-                                            <div class="def-number-input number-input safari_only">
-                                                <button class="minus"
-                                                        onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                                                    <i
-                                                            class="icon-minus"></i></button>
-                                                <input class="quantity" min="0" name="quantity" value="1"
-                                                       type="number"/>
-                                                <button class="plus"
-                                                        onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                                                    <i
-                                                            class="icon-plus"></i></button>
-                                            </div>
-                                            <div class="ps-product__total">Total: <span>$3.90</span>
-                                            </div>
-                                            <button class="ps-product__addcart" data-toggle="modal"
-                                                    data-target="#popupAddToCart"><i class="icon-cart"></i>Add to
-                                                cart
-                                            </button>
-                                            <div class="ps-product__box"><a class="ps-product__wishlist"
-                                                                            href="wishlist.html">Wishlist</a><a
-                                                        class="ps-product__compare"
-                                                        href="wishlist.html">Compare</a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-md-4 col-lg-3 p-0">
-                                    <div class="ps-product--standard"><a href="product-default.html"><img
-                                                    class="ps-product__thumbnail" src="img/products/01-Fresh/01_17a.jpg"
-                                                    alt="alt"/></a><a class="ps-product__expand"
-                                                                      href="javascript:void(0);" data-toggle="modal"
-                                                                      data-target="#popupQuickview"><i
-                                                    class="icon-expand"></i></a>
-                                        <div class="ps-product__content">
-                                            <p class="ps-product__type"><i class="icon-store"></i>Farmart</p>
-                                            <h5><a class="ps-product__name" href="product-default.html">Tomato
-                                                    Nature Sweet Glor</a></h5>
-                                            <p class="ps-product__unit">300g</p>
-                                            <div class="ps-product__rating">
-                                                <select class="rating-stars">
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                    <option value="5">5</option>
-                                                </select><span>(0)</span>
-                                            </div>
-                                            <p class="ps-product-price-block"><span
-                                                        class="ps-product__price-default">$12.00</span>
-                                            </p>
-                                        </div>
-                                        <div class="ps-product__footer">
-                                            <div class="def-number-input number-input safari_only">
-                                                <button class="minus"
-                                                        onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                                                    <i
-                                                            class="icon-minus"></i></button>
-                                                <input class="quantity" min="0" name="quantity" value="1"
-                                                       type="number"/>
-                                                <button class="plus"
-                                                        onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                                                    <i
-                                                            class="icon-plus"></i></button>
-                                            </div>
-                                            <div class="ps-product__total">Total: <span>$12.00</span>
-                                            </div>
-                                            <button class="ps-product__addcart" data-toggle="modal"
-                                                    data-target="#popupAddToCart"><i class="icon-cart"></i>Add to
-                                                cart
-                                            </button>
-                                            <div class="ps-product__box"><a class="ps-product__wishlist"
-                                                                            href="wishlist.html">Wishlist</a><a
-                                                        class="ps-product__compare"
-                                                        href="wishlist.html">Compare</a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-md-4 col-lg-3 p-0">
-                                    <div class="ps-product--standard"><a href="product-default.html"><img
-                                                    class="ps-product__thumbnail" src="img/products/01-Fresh/01_18a.jpg"
-                                                    alt="alt"/></a><a class="ps-product__expand"
-                                                                      href="javascript:void(0);" data-toggle="modal"
-                                                                      data-target="#popupQuickview"><i
-                                                    class="icon-expand"></i></a><span
-                                                class="ps-badge ps-product__stock">Out of stock </span>
-                                        <div class="ps-product__content">
-                                            <p class="ps-product__type"><i class="icon-store"></i>Sun Farm</p>
-                                            <h5><a class="ps-product__name" href="product-default.html">Oniins,
-                                                    Green</a></h5>
-                                            <p class="ps-product__unit">300g</p>
-                                            <div class="ps-product__rating">
-                                                <select class="rating-stars">
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4" selected="selected">4</option>
-                                                    <option value="5">5</option>
-                                                </select><span>(2)</span>
-                                            </div>
-                                            <p class="ps-product-price-block"><span
-                                                        class="ps-product__sale">$6.90</span><span
-                                                        class="ps-product__price">$9.99</span><span
-                                                        class="ps-product__off">35% Off</span>
-                                            </p>
-                                        </div>
-                                        <div class="ps-product__footer">
-                                            <div class="def-number-input number-input safari_only">
-                                                <button class="minus"
-                                                        onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                                                    <i
-                                                            class="icon-minus"></i></button>
-                                                <input class="quantity" min="0" name="quantity" value="1"
-                                                       type="number"/>
-                                                <button class="plus"
-                                                        onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                                                    <i
-                                                            class="icon-plus"></i></button>
-                                            </div>
-                                            <div class="ps-product__total">Total: <span>$6.90</span>
-                                            </div>
-                                            <button class="ps-product__addcart" data-toggle="modal"
-                                                    data-target="#popupAddToCart"><i class="icon-cart"></i>Add to
-                                                cart
-                                            </button>
-                                            <div class="ps-product__box"><a class="ps-product__wishlist"
-                                                                            href="wishlist.html">Wishlist</a><a
-                                                        class="ps-product__compare"
-                                                        href="wishlist.html">Compare</a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-md-4 col-lg-3 p-0">
-                                    <div class="ps-product--standard"><a href="product-default.html"><img
-                                                    class="ps-product__thumbnail" src="img/products/01-Fresh/01_31a.jpg"
-                                                    alt="alt"/></a><a class="ps-product__expand"
-                                                                      href="javascript:void(0);" data-toggle="modal"
-                                                                      data-target="#popupQuickview"><i
-                                                    class="icon-expand"></i></a>
-                                        <div class="ps-product__content">
-                                            <p class="ps-product__type"><i class="icon-store"></i>Farmart</p>
-                                            <h5><a class="ps-product__name" href="product-default.html">Pork Steak
-                                                    Jumbo Pack</a></h5>
-                                            <p class="ps-product__unit">1kg</p>
-                                            <div class="ps-product__rating">
-                                                <select class="rating-stars">
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                    <option value="5">5</option>
-                                                </select><span>(0)</span>
-                                            </div>
-                                            <p class="ps-product-price-block"><span
-                                                        class="ps-product__price-default">$6.99</span>
-                                            </p>
-                                        </div>
-                                        <div class="ps-product__footer">
-                                            <div class="def-number-input number-input safari_only">
-                                                <button class="minus"
-                                                        onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                                                    <i
-                                                            class="icon-minus"></i></button>
-                                                <input class="quantity" min="0" name="quantity" value="1"
-                                                       type="number"/>
-                                                <button class="plus"
-                                                        onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                                                    <i
-                                                            class="icon-plus"></i></button>
-                                            </div>
-                                            <div class="ps-product__total">Total: <span>$6.99</span>
-                                            </div>
-                                            <button class="ps-product__addcart" data-toggle="modal"
-                                                    data-target="#popupAddToCart"><i class="icon-cart"></i>Add to
-                                                cart
-                                            </button>
-                                            <div class="ps-product__box"><a class="ps-product__wishlist"
-                                                                            href="wishlist.html">Wishlist</a><a
-                                                        class="ps-product__compare"
-                                                        href="wishlist.html">Compare</a></div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -3223,7 +2416,7 @@ $result = mysqli_query($conn, $sql);
     </div>
     <div class="container pt-30">
         <!--End Deals-->
-        <section class="ps-home--block section-featured--default section-padding mb-30">
+        <section class="ps-home--block section-featured--default section-padding">
             <div class="container">
                 <div class="row">
                     <div class="col-xl-3 col-lg-4 col-md-6 mb-sm-5 mb-md-0 wow animate__animated animate__fadeInUp"
@@ -3512,140 +2705,14 @@ $result = mysqli_query($conn, $sql);
             </div>
         </section>
         <!--End 4 columns-->
-        <section class="section-recent--default ps-home--block">
-            <div class="container">
-                <div class="ps-block__header">
-                    <h3 class="ps-block__title">Your Recent Viewed</h3><a class="ps-block__view"
-                                                                          href="shop-categories.html">View all <i
-                                class="icon-chevron-right"></i></a>
-                </div>
-                <div class="recent__content">
-                    <div class="owl-carousel" data-owl-auto="true" data-owl-loop="true" data-owl-speed="5000"
-                         data-owl-gap="0" data-owl-nav="true" data-owl-dots="true" data-owl-item="8"
-                         data-owl-item-xs="3" data-owl-item-sm="3" data-owl-item-md="5" data-owl-item-lg="8"
-                         data-owl-item-xl="8" data-owl-duration="1000" data-owl-mousedrag="on"><a class="recent-item"
-                                                                                                  href="index-2.html"><img
-                                    src="img/products/01-Fresh/01_1a.jpg" alt="alt"/></a><a
-                                class="recent-item" href="index-2.html"><img src="img/products/01-Fresh/01_2a.jpg"
-                                                                             alt="alt"/></a><a class="recent-item"
-                                                                                               href="index-2.html"><img
-                                    src="img/products/01-Fresh/01_30a.jpg" alt="alt"/></a><a class="recent-item"
-                                                                                             href="index-2.html"><img
-                                    src="img/products/01-Fresh/01_10a.jpg" alt="alt"/></a><a
-                                class="recent-item" href="index-2.html"><img src="img/products/01-Fresh/01_18a.jpg"
-                                                                             alt="alt"/></a><a class="recent-item"
-                                                                                               href="index-2.html"><img
-                                    src="img/products/01-Fresh/01_28b.jpg" alt="alt"/></a><a class="recent-item"
-                                                                                             href="index-2.html"><img
-                                    src="img/products/01-Fresh/01_16a.jpg" alt="alt"/></a><a
-                                class="recent-item" href="index-2.html"><img src="img/products/01-Fresh/01_31a.jpg"
-                                                                             alt="alt"/></a><a class="recent-item"
-                                                                                               href="index-2.html"><img
-                                    src="img/products/01-Fresh/01_15a.jpg" alt="alt"/></a><a class="recent-item"
-                                                                                             href="index-2.html"><img
-                                    src="img/products/01-Fresh/01_5a.jpg" alt="alt"/></a><a
-                                class="recent-item" href="index-2.html"><img src="img/products/01-Fresh/01_32a.jpg"
-                                                                             alt="alt"/></a>
-                    </div>
-                </div>
-            </div>
-        </section>
+
     </div>
+
+    <div id="footer"></div>
 
 </main>
 
 <!--Footer -->
-<footer class="main">
-    <section class="section-padding footer-mid">
-        <div class="container pt-15 pb-20">
-            <div class="row">
-                <div class="col-lg-3">
-                    <div class="widget-about font-md mb-md-3 mb-lg-3 mb-xl-0">
-                        <div class="logo mb-10" id="logo-footer">
-                            <a href="index.html" class="mb-10">
-                                <img src="assets/img/global/2.jpg" alt="logo"/>
-                            </a>
-                            <p class="font-lg text-heading">Nền tảng giao dịch nông sản</p>
-                        </div>
-                        <ul class="contact-infor">
-                            <li>
-                                <img src="assets/img/global/" alt="NSX"/><strong>Địa chỉ: </strong>
-                                <span>Khu phố 6, phường Linh Trung, Tp. Thủ Đức</span>
-                            </li>
-                            <li>
-                                <img src="assets/img/icons/icon-contact.svg" alt="NSX"/><strong>Liên
-                                    hệ:</strong><span>(+84) - 888-250-764</span>
-                            </li>
-                            <li>
-                                <img src="assets/img/icons/icon-email-2.svg"
-                                     alt="NSX"/><strong>Email:</strong><span>12345678@uit.edu.vn</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="footer-link-widget col">
-                    <h5 class="widget-title">Chăm sóc Khách hàng</h5>
-                    <ul class="footer-list mb-sm-5 mb-md-0">
-                        <li><a href="#">Về Chúng tôi</a></li>
-                        <li><a href="#">Thông tin giao hàng</a></li>
-                        <li><a href="#">Chính sách bảo mật</a></li>
-                        <li><a href="#">Điều khoản &amp; Dịch vụ</a></li>
-                        <li><a href="#">Trung tâm hỗ trợ</a></li>
-                    </ul>
-                </div>
-                <div class="footer-link-widget col">
-                    <h5 class="widget-title">Tài khoản</h5>
-                    <ul class="footer-list mb-sm-5 mb-md-0">
-                        <li><a href="#">Đăng ký tài khoản</a></li>
-                        <li><a href="#">Đăng ký cửa hàng</a></li>
-                        <li><a href="#">Đăng tin mua bán</a></li>
-                        <li><a href="#">Sản phẩm yêu tích</a></li>
-                        <li><a href="#">Theo dõi đơn hàng</a></li>
-
-                    </ul>
-                </div>
-                <div class="col">
-                    <div class="widget-about font-md mb-md-3 mb-lg-3 mb-xl-0">
-                        <h5 class="widget-title">Follow Us</h5>
-                        <ul class="contact-infor">
-                            <li>
-                                <div class="mobile-social-icon pb-20" style="float: left">
-                                    <a href="#"><img src="assets/img/icons/icon-facebook-white.svg" alt=""/></a>
-                                    <a href="#"><img src="assets/img/icons/icon-twitter-white.svg" alt=""/></a>
-                                    <a href="#"><img src="assets/img/icons/icon-instagram-white.svg" alt=""/></a>
-                                    <a href="#"><img src="assets/img/icons/icon-pinterest-white.svg" alt=""/></a>
-                                    <a href="#"><img src="assets/img/icons/icon-youtube-white.svg" alt=""/></a>
-                                </div>
-                            </li>
-                            <li style="clear: left">
-                                <div class="hotline d-lg-inline-flex mr-30">
-                                    <img src="assets/img/icons/phone-call.svg" alt="hotline"/>
-                                    <p>1852 - 1952<span>Thời gian làm việc: 8:00 - 22:00</span></p>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="hotline d-lg-inline-flex">
-                                    <img src="assets/img/icons/phone-call.svg" alt="hotline"/>
-                                    <p>1900 - 8888<span>24/7 Hỗ trợ trực tuyến</span></p>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <div class="container pb-30">
-        <div>
-            >
-            <p class="font-sm mb-0" align="Center">
-                &copy; 2021, <strong class="text-brand">NSX</strong> - All rights
-                reserved.
-            </p>
-        </div>
-    </div>
-</footer>
-
 
 <!-- Vendor JS-->
 <script data-cfasync="false" src="home.asset/email-decode.min.js"></script>

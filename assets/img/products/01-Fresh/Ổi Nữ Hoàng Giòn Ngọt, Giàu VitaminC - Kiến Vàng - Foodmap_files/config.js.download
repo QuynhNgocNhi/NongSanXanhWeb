@@ -1,0 +1,5 @@
+
+window[window["TiktokAnalyticsObject"]].instance("C5J7UK46J7TSRVQDLNBG").setAdvancedMatchingAvailableProperties({"email":false,"phone_number":false});
+window[window["TiktokAnalyticsObject"]].instance("C5J7UK46J7TSRVQDLNBG").setPixelInfo && window[window["TiktokAnalyticsObject"]].instance("C5J7UK46J7TSRVQDLNBG").setPixelInfo({status: 0, name: "Foodmap", advertiserID: "6970232763244937217", setupMode: 0, partner: "", is_onsite: false, enableAutoAM: false });
+window[window["TiktokAnalyticsObject"]].setPCMDomain && window[window["TiktokAnalyticsObject"]].setPCMDomain("foodmap.asia");
+window[window["TiktokAnalyticsObject"]].setPCMConfig && window[window["TiktokAnalyticsObject"]].setPCMConfig([]);

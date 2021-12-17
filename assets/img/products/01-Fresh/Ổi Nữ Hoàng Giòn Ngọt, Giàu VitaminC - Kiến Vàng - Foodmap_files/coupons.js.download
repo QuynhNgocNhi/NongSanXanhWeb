@@ -1,0 +1,63 @@
+(function($){
+    if($('input[name="group_id"]').length>0){
+        var groupid = $('input[name="group_id"]').val();
+        var code = $('input[name="group_code"]').val();
+        $.ajax({
+            type: 'GET',
+            url: '/products/coupon/get',
+            data: {id: groupid, code : code, is_not_mobile_app: true},
+            beforeSend: function(){
+                $('.coupon_body').html('<img src="/themes/storefront/public/images/loading.gif">');
+            },
+            success: function success(data) {
+                
+                if(data.coupon_content.length>0){
+                    $('.item.coupon').show();
+                    $('.coupon_body').html(data.coupon_content);
+                }
+                // if(data.labels.length>0){
+                    $('.coupon_label').html(data.labels);
+                // }
+            },
+            error: function error() {
+            }
+        });
+    }
+    $(document).on('click', '.coupon_save.disabled',function(e){
+        e.preventDefault();
+    });
+    $(document).on('click', '.coupon_save.enable',function(e){
+        var $this = $(this);
+        e.preventDefault();
+        var id = $(this).data('id');
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: 'POST',
+            url: '/ajax/add_coupon',
+            data: {id: id},
+
+            success: function success(data) {
+                if(data.errors){
+                    window.location.href = data.url+'?target='+window.location.pathname;
+                }
+                // console.log(data);
+                if(data.errors == false){
+                    $this.removeClass('enable').addClass('disabled');
+                }
+            },
+            error: function error() {
+            }
+        });
+    });
+
+    $(document).on('click','.item.coupon', function(e){
+        e.preventDefault();
+        $('.coupons_detail').toggleClass('show');
+    });
+})(jQuery);
+
+

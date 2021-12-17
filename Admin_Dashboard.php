@@ -22,7 +22,8 @@ if ($_SESSION['UserRoleId'] != 1) {
     <meta name="description" content="Responsive Bootstrap 4 and web Application ui kit.">
 
     <title>Thêm danh mục</title>
-    <link rel="icon" href="favicon.icon" type="image/x-icon">
+    <link rel="icon" href="assets/img/global/2.jpg" type="image/x-icon">
+
     <!-- Favicon-->
     <link rel="stylesheet" href="Admin_Store.asset/plugins/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="Admin_Store.asset/plugins/dropzone/dropzone.css">

@@ -22,7 +22,7 @@ session_start();
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/global/2.jpg"/>
     <!-- homepage CSS -->
     <link rel="stylesheet" href="home.asset/home.css?v=2.1"/>
-    <script src="plugins/jquery.min.js"></script>
+   <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
 
 <body>
 <!-- font -->
@@ -165,16 +165,16 @@ session_start();
                                 <a href="shop-wishlist.html"><span class="lable">Yêu thích</span></a>
                             </div>
                             <div class="header-action-icon-2">
-                                <a class="mini-cart-icon" href="shop-cart.html">
+                                <a class="mini-cart-icon" href="Cart.php">
                                     <img alt="NSX" src="assets/img/icons/icon-cart.svg"/>
                                     <span class="pro-count blue">2</span>
                                 </a>
-                                <a href="shop-cart.html"><span class="lable">Giỏ hàng</span></a>
+                                <a href="Cart.php"><span class="lable">Giỏ hàng</span></a>
                                 <div class="cart-dropdown-wrap cart-dropdown-hm2">
                                     <ul>
                                         <li>
                                             <div class="shopping-cart-img">
-                                                <a href="products.html"><img alt="NSX"
+                                                <a href="Products.php"><img alt="NSX"
                                                                              src="home.asset/img/product/03-Multi/strawberry.png"/></a>
                                             </div>
                                             <div class="shopping-cart-title">
@@ -208,14 +208,14 @@ session_start();
                                             <h4>Tổng <span>400.000 vnd</span></h4>
                                         </div>
                                         <div class="shopping-cart-button">
-                                            <a href="shop-cart.html" class="outline">Xem giỏ hàng</a>
-                                            <a href="shop-checkout.html">Thanh toán</a>
+                                            <a href="Cart.php" class="outline">Xem giỏ hàng</a>
+                                            <a href="Checkout.php">Thanh toán</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="header-action-icon-2">
-                                <a href="page-account.html">
+                                <a href="User_Account.php">
                                     <img class="svgInject" alt="NSX" src="assets/img/icons/icon-user.svg"/>
                                 </a>
                                 <?php
