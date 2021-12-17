@@ -139,12 +139,12 @@ document.getElementById("MainProductImg").addEventListener('change', function (e
     event.preventDefault();
 
 
-    var currentImageNumber = $('div.numberImage').length;
+    var CurrentImageNumber = $('div.numberImage').length;
 
-    for (var i = currentImageNumber, j = 0; i < 20; i++, j++) {
-        ImageData.append('Image' + i, $('#MainProductImg')[0].files[j])
+    for (var i = CurrentImageNumber, j = 0; i < 20; i++, j++) {
+        let ImageFile = $('#MainProductImg')[0].files[j];
+        ImageData.append('Image' + i, ImageFile, ImageFile.name);
         $('#image_preview').append("<div class='numberImage imageandtext image_grid'> <label for='IMG" + i + "'> <img class='img-fluid img-thumbnail' src='" + URL.createObjectURL(event.target.files[j]) + "'> </label> <input type='checkbox' name='ProductImage' value ='" + URL.createObjectURL(event.target.files[j]) + "' id='IMG" + i + "'> <div class='caption' id='result" + i + "'> </div>  </div>");
 
     }
-
 })
