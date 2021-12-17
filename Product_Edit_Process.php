@@ -15,8 +15,11 @@ if ($_SESSION['UserRoleId'] == 3) {
 <?php
 
 if (isset($_POST)) {
+
     $StoreId = $_SESSION['StoreId'];
     $UserId = $_SESSION['Id'];
+
+    $ProductId = $_POST['ProductId'];
     $ProductStatus = $_POST['ProductStatus'];
     $ProductUnitId = $_POST['ProductUnits'];
     $ProductMainImage = $_POST['ProductMainImage'];
@@ -50,7 +53,8 @@ if (isset($_POST)) {
 //update product in database
     mysqli_query($conn, "SET FOREIGN_KEY_CHECKS=0;");
 
-    $sql = "UPDATE FROM products SET Name = '$Name', Price = '$Price', Description = '$Description', ProductCategoryId = '$ProductCategoryId',ProductCategory = '$ProductCategoryName', Img = '$ProductMainImage', ProductUnitId = '$ProductUnitId', ProductUnitName = '$ProductUnitName', ProductStatus = '$ProductStatus';";
+    $sql = "UPDATE products SET Name = '$Name', Price = '$Price', Description = '$Description', ProductCategoryId = '$ProductCategoryId',ProductCategory = '$ProductCategoryName', Img = '$ProductMainImage', ProductUnitId = '$ProductUnitId', ProductUnitName = '$ProductUnitName', ProductStatus = '$ProductStatus' WHERE Id = '$ProductId';";
+//    $sql = "UPDATE products SET Name = '$Name' Where Id = '$ProductId';";
     mysqli_query($conn, $sql);
     //insert product category name to products table
 
@@ -75,7 +79,7 @@ if (isset($_POST)) {
         mysqli_query($conn, $sql);
 
     }
-    echo json_encode(array('success' => 0));
+//    echo json_encode(array('success' => 0));
     echo "Product added!";
 
 } else {

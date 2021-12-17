@@ -44,7 +44,8 @@ $row = mysqli_fetch_assoc($result);
     <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
 
 </head>
-
+s
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <body class="theme-blush">
 <!-- Page Loader -->
 <div class="page-loader-wrapper">
@@ -146,16 +147,8 @@ $row = mysqli_fetch_assoc($result);
         <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="card">
-                    <form action="Product_Added.php" method="POST">
-                        <div class="header">
-                            <div id="ProductId">Mã sản phẩm: <?php echo $row['Id']; ?></div>
-                            <ul class="header-dropdown">
+                    <form action="Product_Edit.php" method="POST">
 
-                                <li class="remove">
-                                    <a role="button" class="boxs-close"><i class="zmdi zmdi-close"></i></a>
-                                </li>
-                            </ul>
-                        </div>
                         <div class="body">
                             <div class="demo-masked-input">
                                 <div class="row clearfix">
@@ -180,17 +173,21 @@ $row = mysqli_fetch_assoc($result);
                                         <select name="ProductCategory" class="form-control show-tick z-index"
                                                 data-live-search="true">
 
-                                            <option><?php echo $row['ProductCategory']; ?></option>
                                             <?php
 
                                             include "config.php";
 
                                             $sql3 = "select * from productcategory";
+
                                             $result3 = mysqli_query($conn, $sql3);
 
+
                                             if (mysqli_num_rows($result3) > 0) {
-                                                $index = 0;
+
                                                 while ($row3 = mysqli_fetch_row($result3)) {
+                                                    if ($row3[1] == $row['ProductCategory'])
+                                                        echo "<option selected value='$row3[0]'>$row3[1]</option>";
+                                                    else
                                                     echo "<option value='$row3[0]'>$row3[1]</option>";
 
                                                 }
@@ -201,7 +198,7 @@ $row = mysqli_fetch_assoc($result);
                                     </div>
                                     <div class="col-lg-3 col-md-6"><b>Đơn vị bán</b>
                                         <select class="form-control show-tick" id="ProductUnits">
-                                            <option><?php echo $row['ProductUnitName']; ?></option>
+
                                             <?php
                                             include "config.php";
 
@@ -211,6 +208,8 @@ $row = mysqli_fetch_assoc($result);
                                             if (mysqli_num_rows($result4) > 0) {
                                                 $index = 0;
                                                 while ($row4 = mysqli_fetch_row($result4)) {
+                                                    if ($row4[1] == $row['ProductUnitName'])
+                                                        echo "<option selected value='$row4[0]'>$row4[1]</option>";
                                                     echo "<option value='$row4[0]'>$row4[1]</option>";
 
                                                 }
@@ -221,14 +220,16 @@ $row = mysqli_fetch_assoc($result);
                                     </div>
                                     <div class="col-lg-3 col-md-6"><b>Trạng thái hàng</b>
                                         <select class="form-control show-tick" id="ProductStatus">
-                                            <?php if ($row['ProductStatus'] == 0)
-                                                echo "<option value='1'>Còn hàng</option>";
+                                            <?php if ($row['ProductStatus'] == 1)
+                                                echo "<option selected value='1'>Còn hàng</option>
+                                                        <option value='0'>Hết hàng</option> ";
                                             else
-                                                echo "<option value='0'>Hết hàng</option>";
+                                                echo "<option selected value='0'>Hết hàng</option>
+                                                        <option value='1'>Còn hàng</option>";
                                             ?>
 
-                                            <option value="1">Còn hàng</option>
-                                            <option value="0">Hết hàng</option>
+
+
 
                                         </select>
                                     </div>
@@ -236,10 +237,11 @@ $row = mysqli_fetch_assoc($result);
 
 
                                     </script>
+
                                     <div class="col-lg-6 p-b-50 col-md-6"><b>Hình ảnh sản phẩm</b>
+                                        <div id="ProductId" class="hide" style="display: none"><?php echo $row['Id']; ?></div>
                                         <!-- Thêm hình ảnh -->
                                         <div class="input-group">
-
 
 
                                             <form action="Product_Img_Upload.php" id="FileUpload"
@@ -263,7 +265,8 @@ $row = mysqli_fetch_assoc($result);
 
                                     </div>
                                     <!--                                    try-->
-                                    <div class="col-lg-6 p-b-50 col-md-6 p-t-20 "><b>Hình ảnh Hợp lệ</b> <p id="errorMessage" class="text-danger"></p>
+                                    <div class="col-lg-6 p-b-50 col-md-6 p-t-20 "><b>Hình ảnh Hợp lệ</b>
+                                        <p id="errorMessage" class="text-danger"></p>
                                         <div>
                                             <div class="grid-two p-t-20 imageandtext row" id="imageSuccess">
                                                 <?php
@@ -347,7 +350,8 @@ $row = mysqli_fetch_assoc($result);
 
                                     <div class="col-lg-12 col-md-12"><b>Mô tả sản phẩm</b>
                                         <div class="form-group">
-                                            <textarea id="Description" rows="5" class="form-control no-resize"><?=$row['Description']?></textarea>
+                                            <textarea id="Description" rows="5"
+                                                      class="form-control no-resize"  ><?php echo $row['Description'] ?></textarea>
                                         </div>
                                     </div>
 
@@ -380,7 +384,6 @@ $row = mysqli_fetch_assoc($result);
 <script src="Admin_Store.asset/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
 
 <!-- Bootstrap Tags Input Plugin Js -->
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <script src="Product_Edit.js"></script>
 </body>

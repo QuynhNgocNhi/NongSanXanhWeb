@@ -1,3 +1,15 @@
+function getName(Name) {
+
+
+    var index = Name.lastIndexOf("/");
+    var filename = Name;
+    if (index !== -1) {
+        filename = Name.substring(index + 1, Name.length);
+    }
+    // document.getElementById("result").value = filename;
+    return filename;
+}
+
 // Edit product
 document.getElementById("EditProduct").addEventListener('click', function (event) {
     // NOTE: You are clicking a submit button.  After this function runs,
@@ -9,31 +21,32 @@ document.getElementById("EditProduct").addEventListener('click', function (event
 
     // var MainImageSource = document.getElementById("IMG1").src;
     for (var i = 0; i < $('div#imageSuccess > img').length; i++) {
-        if (i == 0) {
-            var ImageMainId = $('div#imageSuccess > img')[i].id;
-            var MainImageName = getName(ImageMainId);
+        if (i === 0) {
+            ImageMainId = $('div#imageSuccess > img')[i].src;
+            MainImageName = getName(ImageMainId);
+
         }
-        var ImageId = $('div#imageSuccess > img')[i].id;
-        var ImageName = getName(ImageId);
+
+        var ImageNameSrc = $('div#imageSuccess > img')[i].src;
+        ImageName = getName(ImageNameSrc);
         ImageArray[i] = ImageName;
 
-
     }
+    // alert($('#Description').val());
     $.ajax({
         type: 'POST',
         url: 'Product_Edit_Process.php',
         data: {
-            "ProductId": $('#ProductId').val(),
-            "Name": $('#Name').val(),
-            "Price": $('#Price').val(),
-            "Description": $('#Description').val(),
-            "ProductMainImage": MainImageName,
-            "ProductImages": ImageArray,
-            "ProductCategoryId": $("[name ='ProductCategory']").val()[0],
+            "ProductId": $('#ProductId').text(),
             "ProductStatus": $('#ProductStatus').val(),
             "ProductUnits": $('#ProductUnits').val(),
+            "ProductMainImage": MainImageName,
+            "ProductImages": ImageArray,
+            "Name": $('#Name').val(),
+            "Price": $('#Price').val(),
+            "ProductCategoryId": $("[name ='ProductCategory']").val()[0],
+            "Description": $('#Description').val(),
         },
-
         success: function (data) {
             swal({
                 'title': 'Successful',

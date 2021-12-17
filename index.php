@@ -226,7 +226,7 @@ $result = mysqli_query($conn, $sql);
                                 </div>
                             </div>
                             <div class="header-action-icon-2">
-                                <a href="page-account.html">
+                                <a href="Admin_Dashboard.php">
                                     <img class="svgInject" alt="NSX" src="assets/img/icons/icon-user.svg"/>
                                 </a>
                                 <?php
@@ -248,12 +248,17 @@ $result = mysqli_query($conn, $sql);
                                         if (isset($_SESSION["Id"])) {
 
 
-                                            echo "<li><a href='User_Account.php'><i class='fi fi-rs-user mr-10'></i>Tài khoản của tôi</a></li>";
-                                            if ($_SESSION["UserRoleId"] == 2) {
-                                                echo "<li><a href='Vendor_Dashboard.php'><i class='fi fi-rs-home mr-10'></i>Cửa hàng</a></li>";
-                                            } else {
+                                            echo "<li><a href='User_Account.php'><i class='fi fi-rs-user mr-10'></i>Tài khoản</a></li>";
+                                            if ($_SESSION["UserRoleId"] == 1) {
+                                                echo "<li><a href='Admin_Dashboard.php'><i class='fi fi-rs-home mr-10'></i>Cửa hàng</a></li>";
+                                            } elseif($_SESSION["UserRoleId"] == 2)
+                                            {
+                                                echo "<li><a href='Vendor_Dashboard.php'><i class='fi fi-rs-home mr-10'></i>Dashboard</a></li>";
+                                            }
+                                            else {
                                                 echo "<li><a href='Store_Register.php'><i class='fi fi-rs-user mr-10'></i>Tạo cửa hàng</a></li>";
                                             }
+
                                         } else {
                                             echo "<li><a href='Store_Register.php'><i class='fi fi-rs-user mr-10'></i>Tạo cửa hàng</a></li>";
                                             echo "<li><a href='login.php'><i class='fi fi-rs-user mr-10'></i>Đăng nhập</a></li>";
@@ -1115,7 +1120,8 @@ $result = mysqli_query($conn, $sql);
                                     ?>
 
                                     <div class="col-6 col-md-4 col-lg-3 p-0">
-                                        <div class="ps-product--standard"><a href="<?="Product_Details.php?ProductId=" . $item['Id']?>">
+                                        <div class="ps-product--standard"><a
+                                                    href="<?= "Product_Details.php?ProductId=" . $item['Id'] ?>">
                                                 <img
                                                         class="ps-product__thumbnail"
                                                         src="<?= "data/Product_Img_Upload/" . $item['Img']; ?>"
@@ -1131,7 +1137,8 @@ $result = mysqli_query($conn, $sql);
                                                     </a>
                                                 </p>
                                                 <h5><a class="ps-product__name"
-                                                       href="<?="Product_Details.php?ProductId=" . $item['Id']?>"><?= $item['Name']; ?></a></h5>
+                                                       href="<?= "Product_Details.php?ProductId=" . $item['Id'] ?>"><?= $item['Name']; ?></a>
+                                                </h5>
 
 
                                                 <p class="ps-product-price-block"><span

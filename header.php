@@ -240,7 +240,11 @@ session_start();
                                             echo "<li><a href='User_Account.php'><i class='fi fi-rs-user mr-10'></i>Tài khoản của tôi</a></li>";
                                             if ($_SESSION["UserRoleId"] == 2) {
                                                 echo "<li><a href='Vendor_Dashboard.php'><i class='fi fi-rs-home mr-10'></i>Cửa hàng</a></li>";
-                                            } else {
+                                            } elseif($_SESSION["UserRoleId"] == 1)
+                                            {
+                                                echo "<li><a href='Vendor_Dashboard.php'><i class='fi fi-rs-home mr-10'></i>Dashboard</a></li>";
+                                            }
+                                            else {
                                                 echo "<li><a href='Store_Register.php'><i class='fi fi-rs-user mr-10'></i>Tạo cửa hàng</a></li>";
                                             }
                                         } else {
@@ -252,17 +256,17 @@ session_start();
                                         ?>
 
                                         <li>
-                                            <a href="page-account.html"><i
+                                            <a href="Orders.php"><i
                                                         class="fi fi-rs-location-alt mr-10"></i>Đơn
                                                 mua</a>
                                         </li>
                                         <li>
-                                            <a href="page-account.html"><i
+                                            <a href="User_Account.php"><i
                                                         class="fi fi-rs-settings-sliders mr-10"></i>Cài
                                                 đặt</a>
                                         </li>
                                         <li>
-                                            <a href="page-login.html"><i class="fi fi-rs-sign-out mr-10"></i>Đăng
+                                            <a href="login.php"><i class="fi fi-rs-sign-out mr-10"></i>Đăng
                                                 xuất</a>
                                         </li>
                                     </ul>
@@ -295,24 +299,24 @@ session_start();
                                     <a id="home-page" class="nav-link-main" href="index.php">Trang chủ</a>
                                 </li>
                                 <li>
-                                    <a id="products-page" class="nav-link-main" href="products.html">Sản phẩm</a>
+                                    <a id="products-page" class="nav-link-main" href="Products.php">Sản phẩm</a>
                                 </li>
                                 <li>
-                                    <a id="posts-page" class="nav-link-main" href="index.html">Tin đăng <i
+                                    <a id="posts-page" class="nav-link-main" href="index.php">Tin đăng <i
                                                 class="fi-rs-angle-down"></i></a>
                                     <ul class="sub-menu">
-                                        <li><a href="index.html">Tin mua</a></li>
-                                        <li><a href="index-2.html">Tin bán</a></li>
+                                        <li><a href="index.php">Tin mua</a></li>
+                                        <li><a href="index.php">Tin bán</a></li>
 
                                     </ul>
                                 </li>
 
                                 <li>
-                                    <a id="sellers-page" class="nav-link-main" href="products.html">Nhà cung
+                                    <a id="sellers-page" class="nav-link-main" href="Vendors.php">Nhà cung
                                         cấp <i class="fi-rs-angle-down"></i></a>
                                     <ul class="sub-menu">
-                                        <li><a href="products.html">Đã xác minh</a></li>
-                                        <li><a href="shop-grid-left.html">Tin cậy</a></li>
+                                        <li><a href="index.php">Đã xác minh</a></li>
+                                        <li><a href="index.php">Tin cậy</a></li>
 
                                     </ul>
                                 </li>
@@ -505,13 +509,13 @@ session_start();
                 <div class="header-action-right d-block d-lg-none">
                     <div class="header-action-2">
                         <div class="header-action-icon-2">
-                            <a href="shop-wishlist.html">
+                            <a href="WishList.php">
                                 <img alt="NSX" src="assets/img/icons/icon-heart.svg"/>
                                 <span class="pro-count white">4</span>
                             </a>
                         </div>
                         <div class="header-action-icon-2">
-                            <a class="mini-cart-icon" href="shop-cart.html">
+                            <a class="mini-cart-icon" href="Cart.php">
                                 <img alt="NSX" src="assets/img/icons/icon-cart.svg"/>
                                 <span class="pro-count white">2</span>
                             </a>
@@ -549,8 +553,8 @@ session_start();
                                         <h4>Tổng <span>400.000 vnd</span></h4>
                                     </div>
                                     <div class="shopping-cart-button">
-                                        <a href="shop-cart.html">Xem giỏ hàng</a>
-                                        <a href="shop-checkout.html">Thanh toán</a>
+                                        <a href="Cart.php">Xem giỏ hàng</a>
+                                        <a href="Checkout.php">Thanh toán</a>
                                     </div>
                                 </div>
                             </div>
@@ -569,7 +573,7 @@ session_start();
     <div class="mobile-header-wrapper-inner">
         <div class="mobile-header-top">
             <div class="mobile-header-logo">
-                <a href="index.html"><img src="assets/img/global/Logo.png" alt="logo"/></a>
+                <a href="index.php"><img src="assets/img/global/Logo.png" alt="logo"/></a>
             </div>
             <div class="mobile-menu-close close-style-wrap close-style-position-inherit">
                 <button class="close-style search-close">
@@ -590,26 +594,26 @@ session_start();
                 <nav>
                     <ul class="mobile-menu font-heading">
                         <li class="ui-menu-item">
-                            <a href="index.html">Trang chủ</a>
+                            <a href="index.php">Trang chủ</a>
 
                         </li>
                         <li>
-                            <a href="index.html">Sản phẩm</a>
+                            <a href="Products.php">Sản phẩm</a>
                         </li>
                         <li>
-                            <a href="index.html">Tin đăng <i class="fi-rs-angle-down"></i></a>
+                            <a href="index.php">Tin đăng <i class="fi-rs-angle-down"></i></a>
                             <ul class="sub-menu">
-                                <li><a href="index.html">Tin mua</a></li>
-                                <li><a href="index-2.html">Tin bán</a></li>
+                                <li><a href="index.php">Tin mua</a></li>
+                                <li><a href="index.php">Tin bán</a></li>
 
                             </ul>
                         </li>
 
                         <li>
-                            <a href="products.html">Nhà cung cấp <i class="fi-rs-angle-down"></i></a>
+                            <a href="Vendors.php">Nhà cung cấp <i class="fi-rs-angle-down"></i></a>
                             <ul class="sub-menu">
-                                <li><a href="products.html">Đã xác minh</a></li>
-                                <li><a href="shop-grid-left.html">Tin cậy</a></li>
+                                <li><a href="index.php">Đã xác minh</a></li>
+                                <li><a href="index.php">Tin cậy</a></li>
 
                             </ul>
                         </li>
@@ -631,10 +635,10 @@ session_start();
             </div>
             <div class="mobile-header-info-wrap">
                 <div class="single-mobile-header-info">
-                    <a href="page-contact.html"><i class="fi-rs-marker"></i> Our location </a>
+                    <a href="index.php"><i class="fi-rs-marker"></i> Our location </a>
                 </div>
                 <div class="single-mobile-header-info">
-                    <a href="page-login.html"><i class="fi-rs-user"></i>Log In / Sign Up </a>
+                    <a href="login.php"><i class="fi-rs-user"></i>Log In / Sign Up </a>
                 </div>
                 <div class="single-mobile-header-info">
                     <a href="#"><i class="fi-rs-headphones"></i>(+01) - 2345 - 6789 </a>

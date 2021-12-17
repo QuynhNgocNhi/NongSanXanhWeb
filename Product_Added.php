@@ -100,7 +100,7 @@ if ($_SESSION['UserRoleId'] == 3) {
                     </div>
 
 
-                    <a href="Login.php" title="Sign out"><i class="zmdi zmdi-power"></i></a>
+                    <a href="login.php" title="Sign out"><i class="zmdi zmdi-power"></i></a>
                 </div>
             </li>
             <li class="header">Quản lý cửa hàng</li>
