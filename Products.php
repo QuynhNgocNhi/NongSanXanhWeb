@@ -8,6 +8,19 @@ require_once('config.php');
 $sql = "SELECT * FROM products ORDER BY Id DESC";
 $result = mysqli_query($conn, $sql);
 
+if (isset($_GET['pageno'])) {
+    $pageno = $_GET['pageno'];
+} else {
+    $pageno = 1;
+}
+$no_of_records_per_page = 1;
+$offset = ($pageno - 1) * $no_of_records_per_page;
+
+$total_pages_sql = "SELECT COUNT(*) from products";
+$result = mysqli_query($conn, $total_pages_sql);
+$total_rows = mysqli_fetch_array($result)[0];
+$total_pages = ceil($total_rows / $no_of_records_per_page);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -439,7 +452,7 @@ $result = mysqli_query($conn, $sql);
                             <a class="ps-button shop__link" href="shop-view-listing.html">Shop all product<i
                                         class="icon-chevron-right"></i></a>
                             <div class="result__header">
-                                <h4 class="title">29<span>Product Found</span></h4>
+                                <h4 class="title"><?php echo $total_rows . " Products Found"?> </h4>
                                 <div class="page">page
                                     <input type="text" value="1" disabled>of 3
                                 </div>
@@ -505,75 +518,99 @@ $result = mysqli_query($conn, $sql);
                                 </div>
                             </div>
                             <div class="result__header mobile">
-                                <h4 class="title">29<span>Product Found</span></h4>
+                                <h4 class="title"><?php echo $total_rows . " Products Found"?> </h4>
                             </div>
                             <div class="result__content">
                                 <div class="categories__products">
-                                    <div class="row m-0">
+                                    <div class="row m-0"></div>
+                                    <?php
 
-                                        <?php
-                                        $resultArray = array();
-                                        while ($Products = mysqli_fetch_array($result)) {
-                                            $resultArray[] = $Products;
-                                        }
+                                    $sql = "SELECT * FROM products LIMIT $offset, $no_of_records_per_page";
+                                    $res_data = mysqli_query($conn, $sql);
+                                    while ($item = mysqli_fetch_array($res_data)) {
                                         ?>
-                                        <?php
-                                        foreach ($resultArray
+                                        <div class="col-8 col-md-4 col-lg-3 p-0">
+                                            <div class="ps-product--standard"><a
+                                                        href="<?= "Product_Details.php?ProductId=" . $item['Id'] ?>">
+                                                    <img
+                                                            class="ps-product__thumbnail"
+                                                            src="<?= "data/Product_Img_Upload/" . $item['Img']; ?>"
+                                                            alt="alt"/></a>
+                                                <div class="ps-product__content">
+                                                    <p class="ps-product__type"><i
+                                                                class="fi fi-rs-home "></i>
+                                                        <a href="">
+                                                            <?= $item['StoreName']; ?>
+                                                        </a>
+                                                    </p>
+                                                    <h3><a class="ps-product__name"
+                                                           href="<?= "Product_Details.php?ProductId=" . $item['Id'] ?>"><?= $item['Name']; ?></a>
+                                                    </h3>
 
-                                                 as $item) {
-                                            ?>
+                                                    <div class="Price-Unit">
+                                                        <p class="ps-product__unit">298g</p>
 
-                                            <div class="col-6 col-md-4 col-lg-3 p-0">
-                                                <div class="ps-product--standard"><a
-                                                            href="<?= "Product_Details.php?ProductId=" . $item['Id'] ?>">
-                                                        <img
-                                                                class="ps-product__thumbnail"
-                                                                src="<?= "data/Product_Img_Upload/" . $item['Img']; ?>"
-                                                                alt="alt"/></a>
-                                                    <div class="ps-product__content">
-                                                        <p class="ps-product__type"><i
-                                                                    class="fi fi-rs-home "></i>
-                                                            <a href="">
-                                                                <?= $item['StoreName']; ?>
-                                                            </a>
+                                                        <p class="ps-product-price-block">
+                                                            <span class="ps-product__sale">$<?= $item['Price']; ?> đ</span>
                                                         </p>
-                                                        <h5><a class="ps-product__name"
-                                                               href="<?= "Product_Details.php?ProductId=" . $item['Id'] ?>"><?= $item['Name']; ?></a>
-                                                        </h5>
-
-                                                        <div class="Price-Unit">
-                                                            <p class="ps-product__unit">300g</p>
-
-                                                            <p class="ps-product-price-block">
-                                                                <span class="ps-product__sale">$<?= $item['Price']; ?> đ</span>
-                                                            </p>
-                                                        </div>
-
-                                                        <div class="ps-product__box">
-                                                            <button class="ps-product__addcart"
-                                                                    href="Cart.php"><i
-                                                                        class="fi-rs-shopping-cart pr-10"></i>Thêm
-                                                            </button>
-                                                            <button class="ps-product__wishlist"><i
-                                                                        class="fa fi-rs-heart"></i></button>
-                                                        </div>
                                                     </div>
 
-
+                                                    <div class="ps-product__box">
+                                                        <button class="ps-product__addcart"
+                                                                href="Cart.php"><i
+                                                                    class="fi-rs-shopping-cart pr-12"></i>Thêm
+                                                        </button>
+                                                        <button class="ps-product__wishlist"><i
+                                                                    class="fa fi-rs-heart"></i></button>
+                                                    </div>
                                                 </div>
 
-                                            </div>
-                                        <?php } ?>
 
-                                    </div>
+                                            </div>
+
+                                        </div>
+                                        <?php
+                                    }
+                                    mysqli_close($conn);
+                                    ?>
+                                    <!---->
+                                    <!--                                    <li class="chevron"><a href="#"><i class="icon-chevron-left"></i></a></li>-->
+                                    <!--                                    <li class="active"><a href="#">1</a></li>-->
+                                    <!--                                    <li><a href="#">2</a></li>-->
+                                    <!--                                    <li><a href="#">3</a></li>-->
+                                    <!--                                    <li class="chevron"><a href="#"><i class="icon-chevron-right"></i></a></li>-->
+
                                 </div>
                                 <div class="ps-pagination blog--pagination">
                                     <ul class="pagination">
-                                        <li class="chevron"><a href="#"><i class="icon-chevron-left"></i></a></li>
-                                        <li class="active"><a href="#">1</a></li>
-                                        <li><a href="#">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li class="chevron"><a href="#"><i class="icon-chevron-right"></i></a></li>
+                                        <li><a href="?pageno=1">First</a></li>
+                                        <li class="<?php if ($pageno <= 1) {
+                                            echo 'disabled';
+                                        } ?>">
+                                            <a href="<?php if ($pageno <= 1) {
+                                                echo '#';
+                                            } else {
+                                                echo "?pageno=" . ($pageno - 1);
+                                            } ?>">Prev</a>
+                                        </li>
+                                        <li class="<?php if ($pageno >= $total_pages) {
+                                            echo 'disabled';
+                                        } ?>">
+                                            <a href="<?php if ($pageno >= $total_pages) {
+                                                echo '#';
+                                            } else {
+                                                echo "?pageno=" . ($pageno + 1);
+                                            } ?>">Next</a>
+                                        </li>
+                                        <li><a href="?pageno=<?php echo $total_pages; ?>">Last</a></li>
+                                        <?php
+                                        for ($i = 1; $i <= $total_pages; $i++) {
+                                            echo
+                                                '<li class="page - item"><a class="page - link"
+                                                                     href=" ?pageno=' . $i . '">' . $i . '</a></li>
+                                            ';
+                                        }
+                                        ?>
                                     </ul>
                                 </div>
                             </div>
