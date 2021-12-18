@@ -1,12 +1,19 @@
 <?php
 ob_start();
 session_start();
-session_destroy();
 ?>
 <?php
 require_once('config.php');
-$sql = "SELECT * FROM products ORDER BY Id DESC";
-$result = mysqli_query($conn, $sql);
+
+if (isset($_GET['CategoryId'])) {
+    $ProductCategoryId = $_GET['CategoryId'];
+    $sql = "SELECT * FROM products  WHERE ProductCategoryId = '$ProductCategoryId' ORDER BY Id DESC";
+    $result = mysqli_query($conn, $sql);
+
+} else {
+    $sql = "SELECT * FROM products ORDER BY Id DESC";
+    $result = mysqli_query($conn, $sql);
+}
 
 ?>
 <!DOCTYPE html>
@@ -83,63 +90,27 @@ $result = mysqli_query($conn, $sql);
                         <div class="col-12 col-lg-3">
                             <div class="ps-shop--sidebar">
                                 <div class="sidebar__category">
-                                    <div class="sidebar__title">ALL CATEGORIES</div>
-                                    <div class="sidebar__title">ALL CATEGORIES</div>
+
+                                    <div class="sidebar__title daily-deals">Danh mục</div>
                                     <ul class="menu--mobile">
-                                        <li class="daily-deals category-item"><a href="flash-sale.html">Daily Deals</a>
-                                        </li>
-                                        <li class="category-item"><a href="shop-categories.html">Top Promotions</a></li>
-                                        <li class="category-item"><a href="shop-categories.html">New Arrivals</a></li>
-                                        <li class="menu-item-has-children category-item"><a href="shop-categories.html">Fresh</a><span
-                                                    class="sub-toggle"><i class="icon-chevron-down"></i></span>
-                                            <ul class="sub-menu">
-                                                <li><a href="shop-view-grid.html">Meat & Poultry</a></li>
-                                                <li><a href="shop-view-grid.html">Fruit</a></li>
-                                                <li><a href="shop-view-grid.html">Vegetables</a></li>
-                                                <li><a href="shop-view-grid.html">Milks, Butter & Eggs</a></li>
-                                                <li><a href="shop-view-grid.html">Fish</a></li>
-                                                <li><a href="shop-view-grid.html">Frozen</a></li>
-                                                <li><a href="shop-view-grid.html">Cheese</a></li>
-                                                <li><a href="shop-view-grid.html">Pasta & Sauce</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="menu-item-has-children category-item"><a href="shop-categories.html">Food
-                                                Cupboard</a><span class="sub-toggle"><i
-                                                        class="icon-chevron-down"></i></span>
-                                            <ul class="sub-menu">
-                                                <li><a href="shop-view-grid.html">Crisps, Snacks & Nuts</a></li>
-                                                <li><a href="shop-view-grid.html">Breakfast Cereals</a></li>
-                                                <li><a href="shop-view-grid.html">Tins & Cans</a></li>
-                                                <li><a href="shop-view-grid.html">Chocolate & Sweets</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="category-item"><a href="shop-categories.html">Bakery</a></li>
-                                        <li class="category-item"><a href="shop-categories.html">Frozen Foods</a></li>
-                                        <li class="menu-item-has-children category-item"><a href="shop-categories.html">Ready
-                                                Meals</a><span class="sub-toggle"><i
-                                                        class="icon-chevron-down"></i></span>
-                                            <ul class="sub-menu">
-                                                <li><a href="shop-view-grid.html">Traditional British</a></li>
-                                                <li><a href="shop-view-grid.html">Indian</a></li>
-                                                <li><a href="shop-view-grid.html">Italian</a></li>
-                                                <li><a href="shop-view-grid.html">Chinese</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="menu-item-has-children category-item"><a href="shop-categories.html">Drinks,
-                                                Tea &amp; Coffee</a><span class="sub-toggle"><i
-                                                        class="icon-chevron-down"></i></span>
-                                            <ul class="sub-menu">
-                                                <li><a href="shop-view-grid.html">Tea & Coffee</a></li>
-                                                <li><a href="shop-view-grid.html">Hot Drinks</a></li>
-                                                <li><a href="shop-view-grid.html">Fizzy Drinks</a></li>
-                                                <li><a href="shop-view-grid.html">Water</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="category-item"><a href="shop-categories.html">Beer, Wine &
-                                                Spirits</a></li>
-                                        <li class="category-item"><a href="shop-categories.html">Baby & Child</a></li>
-                                        <li class="category-item"><a href="shop-categories.html">Kitchen & Dining</a>
-                                        </li>
+                                        <?php
+
+                                        include "config.php";
+
+                                        $sql1 = "select * from productcategory";
+                                        $result1 = mysqli_query($conn, $sql1);
+
+                                        if (mysqli_num_rows($result1) > 0) {
+
+                                            while ($row1 = mysqli_fetch_row($result1)) {
+
+                                                echo "<li class='category-item'><a href='Products.php?CategoryId=$row1[0]'>$row1[1]</a></li>";
+
+                                            }
+                                        }
+                                        ?>
+
+
                                     </ul>
                                 </div>
                                 <div class="sidebar__sort">
@@ -252,89 +223,7 @@ $result = mysqli_query($conn, $sql);
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="sidebar__block open">
-                                        <div class="sidebar__title">AVG. REVIEW<span class="shop-widget-toggle"><i
-                                                        class="icon-minus"></i></span></div>
-                                        <div class="block__content">
-                                            <ul>
-                                                <li>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" id="avg5"
-                                                               value="">
-                                                        <label for="rating5">
-                                                            <select class="rating-stars" id="rating5">
-                                                                <option value="1">1</option>
-                                                                <option value="2">2</option>
-                                                                <option value="3">3</option>
-                                                                <option value="4">4</option>
-                                                                <option value="5" selected="selected">5</option>
-                                                            </select><span class="text-up">& Up</span>
-                                                        </label>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" id="avg4"
-                                                               value="">
-                                                        <label for="rating4">
-                                                            <select class="rating-stars" id="rating4">
-                                                                <option value="1">1</option>
-                                                                <option value="2">2</option>
-                                                                <option value="3">3</option>
-                                                                <option value="4" selected="selected">4</option>
-                                                                <option value="5">5</option>
-                                                            </select><span class="text-up">& Up</span>
-                                                        </label>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" id="avg3"
-                                                               value="">
-                                                        <label for="rating3">
-                                                            <select class="rating-stars" id="rating3">
-                                                                <option value="1">1</option>
-                                                                <option value="2">2</option>
-                                                                <option value="3" selected="selected">3</option>
-                                                                <option value="4">4</option>
-                                                                <option value="5">5</option>
-                                                            </select><span class="text-up">& Up</span>
-                                                        </label>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" id="avg2"
-                                                               value="">
-                                                        <label for="rating2">
-                                                            <select class="rating-stars" id="rating2">
-                                                                <option value="1">1</option>
-                                                                <option value="2" selected="selected">2</option>
-                                                                <option value="3">3</option>
-                                                                <option value="4">4</option>
-                                                                <option value="5">5</option>
-                                                            </select><span class="text-up">& Up</span>
-                                                        </label>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" id="avg1"
-                                                               value="">
-                                                        <label for="rating1">
-                                                            <select class="rating-stars" id="rating1">
-                                                                <option value="1" selected="selected">1</option>
-                                                                <option value="2">2</option>
-                                                                <option value="3">3</option>
-                                                                <option value="4">4</option>
-                                                                <option value="5">5</option>
-                                                            </select><span class="text-up">& Up</span>
-                                                        </label>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
+
                                     <div class="sidebar__block open">
                                         <div class="sidebar__title">SOLD BY<span class="shop-widget-toggle"><i
                                                         class="icon-minus"></i></span></div>
@@ -438,12 +327,12 @@ $result = mysqli_query($conn, $sql);
 
                             <a class="ps-button shop__link" href="shop-view-listing.html">Shop all product<i
                                         class="icon-chevron-right"></i></a>
-                            <div class="result__header">
-                                <h4 class="title">29<span>Product Found</span></h4>
-                                <div class="page">page
-                                    <input type="text" value="1" disabled>of 3
-                                </div>
-                            </div>
+                            <!--                            <div class="result__header">-->
+                            <!--                                <h4 class="title">29<span>Product Found</span></h4>-->
+                            <!--                                <div class="page">page-->
+                            <!--                                    <input type="text" value="1" disabled>of 3-->
+                            <!--                                </div>-->
+                            <!--                            </div>-->
                             <div class="filter__mobile">
                                 <div class="viewtype--block">
                                     <div class="viewtype__sortby">
@@ -468,7 +357,22 @@ $result = mysqli_query($conn, $sql);
                             <div class="result__filter ps-mobile-result">
                                 <h5>Your filters:</h5>
                                 <ul>
-                                    <li>Min: $15.00<i class="icon-cross"></i></li>
+                                    <?php
+
+
+                                    if (isset($_GET['CategoryId'])) {
+                                        $sqlCategoryName = "SELECT * FROM productcategory  WHERE Id = '$ProductCategoryId'";
+                                        $resultCategoryName = mysqli_query($conn, $sqlCategoryName);
+                                        $rowCategoryName = mysqli_fetch_assoc($resultCategoryName);
+                                        $CategoryName = $rowCategoryName['Name'];
+//                                       todo:lấy tên category note fetch các loại đều ảnh hưởng nhau
+                                        echo "<li>";
+                                        echo $CategoryName;
+                                        echo "<i class='fi-rs-cross'></i></li>";
+
+                                    }
+                                    ?>
+                                    <li>Min: $15.00<i class="fi-rs-cross"></i></li>
                                     <li>Max: $132.00<i class="icon-cross"></i></li>
                                     <li>FreshMarket<i class="icon-cross"></i></li>
                                     <li>Gluten Free<i class="icon-cross"></i></li>
@@ -477,30 +381,16 @@ $result = mysqli_query($conn, $sql);
                             </div>
                             <div class="result__sort">
                                 <div class="viewtype--block">
-                                    <div class="viewtype__sortby">
+
+                                    <div class="viewtype__select"><span class="text">Sắp xếp theo:</span>
                                         <div class="select">
-                                            <select class="single-select2-no-search" name="state">
-                                                <option value="popularity" selected="selected">Sort by popularity
+                                            <select class="single-select2-no-search" name="View" id="View">
+                                                <option value="popularity" selected="selected">Mới nhất
                                                 </option>
-                                                <option value="price">Sort by price</option>
-                                                <option value="sale">Sort by sale of</option>
+                                                <option value="price">Giá cao nhất</option>
+                                                <option value="sale">Giá thấp nhất</option>
                                             </select>
                                         </div>
-                                    </div>
-                                    <div class="viewtype__select"><span class="text">View: </span>
-                                        <div class="select">
-                                            <select class="single-select2-no-search" name="state">
-                                                <option value="25" selected="selected">25 per page</option>
-                                                <option value="12">12 per page</option>
-                                                <option value="5">5 per page</option>
-                                            </select>
-                                        </div>
-                                        <div class="type"><a href="shop-view-grid.html"><span class="active"><i
-                                                            class="icon-icons"></i></span></a><a
-                                                    href="shop-view-extended.html"><span><i
-                                                            class="icon-grid3"></i></span></a><a
-                                                    href="shop-view-listing.html"><span><i
-                                                            class="icon-list4"></i></span></a></div>
                                     </div>
                                 </div>
                             </div>
@@ -511,13 +401,12 @@ $result = mysqli_query($conn, $sql);
                                 <div class="categories__products">
                                     <div class="row m-0">
 
+
                                         <?php
                                         $resultArray = array();
                                         while ($Products = mysqli_fetch_array($result)) {
                                             $resultArray[] = $Products;
                                         }
-                                        ?>
-                                        <?php
                                         foreach ($resultArray
 
                                                  as $item) {
@@ -542,7 +431,7 @@ $result = mysqli_query($conn, $sql);
                                                         </h5>
 
                                                         <div class="Price-Unit">
-                                                            <p class="ps-product__unit">300g</p>
+                                                            <p class="ps-product__unit"><?= $item['ProductUnitName']; ?></p>
 
                                                             <p class="ps-product-price-block">
                                                                 <span class="ps-product__sale">$<?= $item['Price']; ?> đ</span>
@@ -586,6 +475,50 @@ $result = mysqli_query($conn, $sql);
     <div id="footer"></div>
 
 </main>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#View").change(function () {
+            var ViewValue = $this.val();
+            Sort(ViewValue);
+
+        });
+
+    });
+
+    function Sort(ViewValue) {
+        $.ajax({
+            type: 'POST',
+            url: 'Products_Process.php',
+            data: {
+
+                "Name": $('#Name').val(),
+
+            },
+
+            success: function (data) {
+                swal({
+                    'title': 'Successful',
+
+                    text: "Thành công!",
+                    icon: "success"
+
+                }).then(function () {
+                    window.open('Product_List.php', '_self')
+                });
+            },
+            error: function (data) {
+                swal({
+                    'title': 'error',
+                    text: "Thất bại!",
+                    icon: "warning",
+                    dangerMode: true
+
+                })
+            }
+        });
+    }
+</script>
+
 </body>
 </html>
 

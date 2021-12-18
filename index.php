@@ -55,7 +55,7 @@ $result = mysqli_query($conn, $sql);
 
     <script>
         function CallActivePage() {
-            document.getElementById("products-page").classList.add("active");
+            document.getElementById("home-page").classList.add("active");
         }
 
         $(document).ready(function () {
@@ -540,7 +540,7 @@ $result = mysqli_query($conn, $sql);
                                                 </h5>
 
                                                 <div class="Price-Unit">
-                                                    <p class="ps-product__unit">300g</p>
+                                                    <p class="ps-product__unit"><?= $item['ProductUnitName']; ?></p>
 
                                                     <p class="ps-product-price-block">
                                                         <span class="ps-product__sale">$<?= $item['Price']; ?> đ</span>
