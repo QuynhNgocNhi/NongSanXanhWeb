@@ -1470,6 +1470,7 @@ label {
   color: #687188;
   padding: 0;
   vertical-align: middle;
+  padding-left: 1.95em;
 }
 
 .custome-checkbox .form-check-label::before {
@@ -2888,7 +2889,7 @@ label {
 .breadcrumb span {
   position: relative;
   text-align: center;
-  padding: 0 10px;
+
 }
 
 .breadcrumb span::before {
@@ -7754,6 +7755,7 @@ span.fi-rs-apps {
   font-weight: 700;
   color: #253D4E;
   font-family:  'Montserrat', sans-serif;
+  text-decoration: none;
 }
 
 .main-menu > nav > ul > li > a i {
@@ -11592,6 +11594,7 @@ footer .hotline img {
     text-align: center;
     height: fit-content;
     max-width: 50px;
+    min-width: 50px;
     font-size: 13px;
     color: #222;
     flex-grow: 1;
@@ -11618,4 +11621,8 @@ a.action-btn {
 }
 p.ps-product__type a{
    color: #7E7E7E; !important;
+}
+ul.shopping-cart-header{
+    height: 350px;
+    overflow-y: auto;
 }

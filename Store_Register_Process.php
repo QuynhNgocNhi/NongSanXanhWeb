@@ -39,6 +39,7 @@ echo "Create Store Successful!";
 
     $sql = "UPDATE users SET UserRoleId = 2, StoreId = '" .$StoreId."' WHERE Id = '".$UserId."'";
     $result = mysqli_query($conn, $sql);
+
     $row = mysqli_fetch_array($result);
 
 echo "Data inserted!";

@@ -22,7 +22,7 @@ if ($_SESSION['UserRoleId'] == 3) {
     <meta name="description" content="Responsive Bootstrap 4 and web Application ui kit.">
 
     <title>Tất cả sản phẩm</title>
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="assets/img/global/2.jpg" type="image/x-icon">
     <!-- Favicon-->
     <link rel="stylesheet" href="Admin_Store.asset/plugins/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="Admin_Store.asset/plugins/dropzone/dropzone.css">
@@ -124,7 +124,7 @@ if ($_SESSION['UserRoleId'] == 3) {
             <li class="active open"><a href="Product_List.php"><i class="zmdi zmdi-sort-amount-desc"></i><span>Tất cả sản phẩm</span>
                 </a></li>
             <li><a href="Order_List.php"><i class="zmdi zmdi-grid"></i><span>Đơn hàng</span> </a></li>
-            <li><a href="Customer-List.php"><i class="zmdi zmdi-label-alt"></i><span>Khách hàng</span> </a></li>
+            <li><a href="Customer_List.php"><i class="zmdi zmdi-label-alt"></i><span>Khách hàng</span> </a></li>
             <li><a href="Comision_List.php"><i class="zmdi zmdi-blogger"></i><span>Lợi nhuận</span> </a></li>
 ';
 
@@ -134,7 +134,7 @@ if ($_SESSION['UserRoleId'] == 3) {
             <li> <a href="Product_Added.php"><i class="zmdi zmdi-plus-circle"></i><span>Thêm sản phẩm</span> </a> </li>
             <li class="active open"><a href="Product_List.php"><i class="zmdi zmdi-sort-amount-desc"></i><span>Tất cả sản phẩm</span> </a> </li>
             <li><a href="Order_List.php"><i class="zmdi zmdi-grid"></i><span>Đơn hàng</span> </a> </li>
-            <li><a href="Customer-List.php"><i class="zmdi zmdi-label-alt"></i><span>Khách hàng</span> </a> </li>
+            <li><a href="Customer_List.php"><i class="zmdi zmdi-label-alt"></i><span>Khách hàng</span> </a> </li>
             <li><a href="Comision_List.php"><i class="zmdi zmdi-blogger"></i><span>Lợi nhuận</span> </a> </li>
 ';
             }
@@ -233,7 +233,7 @@ if ($_SESSION['UserRoleId'] == 3) {
                 <div class="card">
                     <div class="body table-responsive">
 
-                            <table class="table table-hover m-b-0 c_list">
+                        <table class="table table-hover m-b-0 c_list">
                             <thead>
                             <tr>
                                 <th>#</th>
@@ -252,7 +252,7 @@ if ($_SESSION['UserRoleId'] == 3) {
                             } else {
                                 $sql = "SELECT * FROM products WHERE StoreId = '" . $_SESSION['StoreId'] . "'";
                             }
-//todo: số trang
+                            //todo: số trang
                             $result = mysqli_query($conn, $sql);
                             if (mysqli_num_rows($result) > 0) {
                                 $index = 0;
@@ -278,8 +278,8 @@ if ($_SESSION['UserRoleId'] == 3) {
                                         <span><i class='zmdi'></i>" . $row['ProductUnitName'] . "</span>
                                     </td>
                                     <td>
-                                        <a href='Product_Edit.php?ProductId=" .$row['Id']. "'><button type='Submit' name='Edit' class='btn btn-default  btn-icon btn-success btn-icon-mini btn-round'><i class='zmdi zmdi-edit'></i></button></a>
-                                        <a href='Product_Delete_Process.php?ProductId=" .$row['Id']. "'><button type='Submit' name='Delete' class='btn btn-default btn-icon btn-danger btn-icon-mini btn-round'><i class='zmdi zmdi-delete'></i></button></a>
+                                        <a href='Product_Edit.php?ProductId=" . $row['Id'] . "'><button type='Submit' name='Edit' class='btn btn-default  btn-icon btn-success btn-icon-mini btn-round'><i class='zmdi zmdi-edit'></i></button></a>
+                                        <a href='Product_Delete_Process.php?ProductId=" . $row['Id'] . "'><button type='Submit' name='Delete' class='btn btn-default btn-icon btn-danger btn-icon-mini btn-round'><i class='zmdi zmdi-delete'></i></button></a>
                                     </td>
                                 </tr>";
                                 }

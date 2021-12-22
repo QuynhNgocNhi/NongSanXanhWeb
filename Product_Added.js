@@ -3,7 +3,6 @@ document.getElementById("AddProduct").addEventListener('click', function (event)
     // then the form will be submitted.  If you want to *stop* that, you can
     // use the following:
     event.preventDefault();
-
     var ImageArray = new Array(5);
 
     // var MainImageSource = document.getElementById("IMG1").src;
@@ -39,6 +38,7 @@ document.getElementById("AddProduct").addEventListener('click', function (event)
         },
 
         success: function (data) {
+            // alert(data);
             swal({
                 'title': 'Successful',
 

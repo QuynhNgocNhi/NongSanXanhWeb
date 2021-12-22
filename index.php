@@ -2,15 +2,12 @@
 session_start();
 ?>
 <?php
-
 require_once('config.php');
 $sql = "SELECT * FROM products ORDER BY Id DESC";
 $result = mysqli_query($conn, $sql);
-
 ?>
 <!DOCTYPE html>
 <html class="no-js" lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -57,7 +54,6 @@ $result = mysqli_query($conn, $sql);
         function CallActivePage() {
             document.getElementById("home-page").classList.add("active");
         }
-
         $(document).ready(function () {
             document.getElementById('header').innerHTML = loadPage('header.php');
             CallActivePage();
@@ -71,6 +67,7 @@ $result = mysqli_query($conn, $sql);
 <!--header-->
 <div id="header"></div>
 <!--end header-->
+
 <main class="main">
     <!--banner section -->
     <section class="home-slider position-relative mb-30">
@@ -2707,15 +2704,11 @@ $result = mysqli_query($conn, $sql);
         <!--End 4 columns-->
 
     </div>
-
+<!--Footer -->
     <div id="footer"></div>
 
-</main>
-
-<!--Footer -->
-
 <!-- Vendor JS-->
-<script data-cfasync="false" src="home.asset/email-decode.min.js"></script>
+<script data-cfasync="false" src="home.asset/js/email-decode.min.js"></script>
 <script src="assets/js/vendor/modernizr-3.6.0.min.js"></script>
 <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
 <script src="assets/js/vendor/jquery-migrate-3.3.0.min.js"></script>
@@ -2740,7 +2733,6 @@ $result = mysqli_query($conn, $sql);
 <script src="assets/js/mainf195.js?v=2.1"></script>
 <script src="assets/js/shopf195.js?v=2.1"></script>
 
-
+</main>
 </body>
-
 </html>

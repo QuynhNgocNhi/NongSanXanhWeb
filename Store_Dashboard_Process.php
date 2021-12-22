@@ -8,7 +8,7 @@ $row = mysqli_fetch_array($result);
 if($row){
     $_SESSION["StoreName"] = $row["StoreName"];
     $StoreName = $_SESSION['StoreName'];
-    $StoreId = $_SESSION['Id'];
+    $StoreId = $row['Id'];
 }
 else{
     header("location: Store_Register.php");

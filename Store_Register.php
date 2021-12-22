@@ -4,13 +4,16 @@ session_start();
 if (!isset($_SESSION['Id'])) {
     header("location: login.php");
 }
+if($_SESSION['UserRoleId']==2){
+        header("location: Vendor_Dashboard.php");
+
+}
 ?>
 <?php
 require_once('config.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
-// todo: Provider cannot vô trang store register
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">

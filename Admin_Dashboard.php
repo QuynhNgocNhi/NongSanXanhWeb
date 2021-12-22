@@ -57,7 +57,7 @@ if ($_SESSION['UserRoleId'] != 1) {
     <div class="col-12">
         <div class="navbar-header">
             <a href="javascript:void(0);" class="bars"></a>
-            <a class="navbar-brand" href="./index.html"><img src="Admin_Store.asset/images/logo.svg" width="30"
+            <a class="navbar-brand" href="./index.php"><img src="Admin_Store.asset/images/logo.svg" width="30"
                                                              alt="Compass"><span class="m-l-10">Nông sản xanh</span></a>
         </div>
         <ul class="nav navbar-nav navbar-left">
@@ -112,7 +112,9 @@ if ($_SESSION['UserRoleId'] != 1) {
                 </a></li>
             <li><a href="Product_List.php"><i class="zmdi zmdi-sort-amount-desc"></i><span>Tất cả sản phẩm</span>
                 </a></li>
-            <li><a href="Order_List.php"><i class="zmdi zmdi-grid"></i><span>Đơn hàng</span> </a></li>
+            <li><a href="Order_List.php"><i class="zmdi zmdi-grid"></i><span>Đơn hàng mới</span> </a>
+            </li>
+            <li><a href="All_Order_List.php"><i class="zmdi zmdi-grid"></i><span>Tất cả Đơn hàng</span> </a></li>
             <li><a href="Customer_List.php"><i class="zmdi zmdi-label-alt"></i><span>Khách hàng</span> </a></li>
             <li><a href="Comision_List.php"><i class="zmdi zmdi-blogger"></i><span>Lợi nhuận</span> </a></li>
 
@@ -133,7 +135,7 @@ if ($_SESSION['UserRoleId'] != 1) {
                     <i class="zmdi zmdi-plus"></i>
                 </button>
                 <ul class="breadcrumb float-md-right">
-                    <li class="breadcrumb-item"><a href="index.html"><i class="zmdi zmdi-home"></i> Compass</a></li>
+                    <li class="breadcrumb-item"><a href="index.php"><i class="zmdi zmdi-home"></i> Compass</a></li>
                     <li class="breadcrumb-item active">Dashboard 1</li>
                 </ul>
             </div>

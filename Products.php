@@ -4,17 +4,6 @@ session_start();
 ?>
 <?php
 require_once('config.php');
-
-if (isset($_GET['CategoryId'])) {
-    $ProductCategoryId = $_GET['CategoryId'];
-    $sql = "SELECT * FROM products  WHERE ProductCategoryId = '$ProductCategoryId' ORDER BY Id DESC";
-    $result = mysqli_query($conn, $sql);
-
-} else {
-    $sql = "SELECT * FROM products ORDER BY Id DESC";
-    $result = mysqli_query($conn, $sql);
-}
-
 if (isset($_GET['pageno'])) {
     $pageno = $_GET['pageno'];
 } else {
@@ -22,15 +11,31 @@ if (isset($_GET['pageno'])) {
 }
 $no_of_records_per_page = 2;
 $offset = ($pageno - 1) * $no_of_records_per_page;
+if (isset($_GET['CategoryId'])) {
+    $ProductCategoryId = $_GET['CategoryId'];
+    $data_sql = "SELECT * FROM products  WHERE ProductCategoryId = '$ProductCategoryId' ORDER BY Id DESC LIMIT $offset, $no_of_records_per_page";
+    $total_pages_sql = "SELECT COUNT(*) from products  WHERE ProductCategoryId = '$ProductCategoryId'";
 
-$total_pages_sql = "SELECT COUNT(*) from products";
-$result = mysqli_query($conn, $total_pages_sql);
-$total_rows = mysqli_fetch_array($result)[0];
-$total_pages = ceil($total_rows / $no_of_records_per_page);
+} else {
+    $data_sql = "SELECT * FROM products LIMIT $offset, $no_of_records_per_page";
+    $total_pages_sql = "SELECT COUNT(*) from products";
+
+}
+
+// Get data for current page
+$res_data = mysqli_query($conn, $data_sql);
+while ($Products = mysqli_fetch_array($res_data)) {
+    $resultArray[] = $Products;
+}
+
+// Get total pages
+$result_total_pages = mysqli_query($conn, $total_pages_sql);
+$total_products = mysqli_fetch_array($result_total_pages)[0];
+$total_page_number = ceil($total_products / $no_of_records_per_page);
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html class="no-js" lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -57,6 +62,11 @@ $total_pages = ceil($total_rows / $no_of_records_per_page);
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
     <!-- call header-footer -->
     <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <script src="Products.js"></script>
+
     <script type="text/javascript">
         function loadPage(href) {
             var xmlhttp = new XMLHttpRequest();
@@ -85,6 +95,9 @@ $total_pages = ceil($total_rows / $no_of_records_per_page);
 </head>
 
 <body>
+<?php
+//include_once ('header.php');
+?>
 <div id="header"></div>
 <main class="main pages">
     <div class="page-header breadcrumb-wrap">
@@ -341,12 +354,12 @@ $total_pages = ceil($total_rows / $no_of_records_per_page);
                             <a class="ps-button shop__link" href="shop-view-listing.html">Shop all product<i
                                         class="icon-chevron-right"></i></a>
                             <div class="result__header">
-                                <h4 class="title"><?php echo $total_rows . " Products Found" ?> </h4>
-                                <div class="page">page
-                                    <input type="text" value="1" disabled>of 3
-                                </div>
+                                <!--                                <div class="page">page-->
+                                <!--                                    <input type="text" value="1" disabled>of 3-->
+                                <!--                                </div>-->
                             </div>
                             <div class="filter__mobile">
+                                <p class="title"><?php echo $total_products . " Products Found" ?></p>
                                 <div class="viewtype--block">
                                     <div class="viewtype__sortby">
                                         <div class="select">
@@ -368,12 +381,13 @@ $total_pages = ceil($total_rows / $no_of_records_per_page);
                                 </div>
                             </div>
                             <div class="result__filter ps-mobile-result">
-                                <h5>Your filters:</h5>
+
                                 <ul>
                                     <?php
 
 
                                     if (isset($_GET['CategoryId'])) {
+                                        echo "<h5>Lọc theo:</h5>";
                                         $sqlCategoryName = "SELECT * FROM productcategory  WHERE Id = '$ProductCategoryId'";
                                         $resultCategoryName = mysqli_query($conn, $sqlCategoryName);
                                         $rowCategoryName = mysqli_fetch_assoc($resultCategoryName);
@@ -382,19 +396,21 @@ $total_pages = ceil($total_rows / $no_of_records_per_page);
                                         echo "<li>";
                                         echo $CategoryName;
                                         echo "<i class='fi-rs-cross'></i></li>";
+                                        echo "<li class='filter-clear'><a href='Products.php'>Xóa bộ lọc</a></li>";
 
                                     }
                                     ?>
-                                    <li>Min: $15.00<i class="fi-rs-cross"></i></li>
-                                    <li>Max: $132.00<i class="icon-cross"></i></li>
-                                    <li>FreshMarket<i class="icon-cross"></i></li>
-                                    <li>Gluten Free<i class="icon-cross"></i></li>
-                                    <li class="filter-clear">Clear all</li>
+                                    <!--                                    <li>Min: $15.00<i class="fi-rs-cross"></i></li>-->
+                                    <!--                                    <li>Max: $132.00<i class="icon-cross"></i></li>-->
+                                    <!--                                    <li>FreshMarket<i class="icon-cross"></i></li>-->
+                                    <!--                                    <li>Gluten Free<i class="icon-cross"></i></li>-->
+
                                 </ul>
                             </div>
                             <div class="result__sort">
                                 <div class="viewtype--block">
 
+                                    <p class="title">Có <?php echo $total_products . " kết quả tìm được." ?></p>
                                     <div class="viewtype__select"><span class="text">Sắp xếp theo:</span>
                                         <div class="select">
                                             <select class="single-select2-no-search" name="View" id="View">
@@ -408,73 +424,70 @@ $total_pages = ceil($total_rows / $no_of_records_per_page);
                                 </div>
                             </div>
                             <div class="result__header mobile">
-                                <h4 class="title"><?php echo $total_rows . " Products Found" ?> </h4>
+                                <h4 class="title"><?php echo $total_products . " Products Found" ?> </h4>
                             </div>
                             <div class="result__content">
                                 <div class="categories__products">
-                                    <div class="row m-0">
-                                        <?php
 
-                                        $sql = "SELECT * FROM products LIMIT $offset, $no_of_records_per_page";
-                                        $res_data = mysqli_query($conn, $sql);
-                                        while ($Products = mysqli_fetch_array($res_data)) {
-                                            $resultArray[] = $Products;
-                                        } ?>
-                                        <?php
-                                        foreach ($resultArray
+                                        <div class="row m-0">
 
-                                                 as $item) {
-                                            ?>
-                                            <div class="col-6 col-md-4 col-lg-3 p-0">
-                                                <div class="ps-product--standard"><a
-                                                            href="<?= "Product_Details.php?ProductId=" . $item['Id'] ?>">
-                                                        <img
-                                                                class="ps-product__thumbnail"
-                                                                src="<?= "data/Product_Img_Upload/" . $item['Img']; ?>"
-                                                                alt="alt"/></a>
-                                                    <div class="ps-product__content">
-                                                        <p class="ps-product__type"><i
-                                                                    class="fi fi-rs-home "></i>
-                                                            <a href="">
-                                                                <?= $item['StoreName']; ?>
-                                                            </a>
-                                                        </p>
-                                                        <h5><a class="ps-product__name"
-                                                               href="<?= "Product_Details.php?ProductId=" . $item['Id'] ?>"><?= $item['Name']; ?></a>
-                                                        </h5>
+                                            <?php
+                                            foreach ($resultArray
 
-                                                        <div class="Price-Unit">
-                                                            <p class="ps-product__unit"><?= $item['ProductUnitName']; ?></p>
+                                                     as $item) {
+                                                ?>
 
-                                                            <p class="ps-product-price-block">
-                                                                <span class="ps-product__sale">$<?= $item['Price']; ?> đ</span>
+                                                <div class="col-6 col-md-4 col-lg-3 p-0">
+                                                    <div class="ps-product--standard"><a
+                                                                href="<?= "Product_Details.php?ProductId=" . $item['Id'] ?>">
+                                                            <img
+                                                                    class="ps-product__thumbnail"
+                                                                    src="<?= "data/Product_Img_Upload/" . $item['Img']; ?>"
+                                                                    alt="alt"/></a>
+                                                        <div class="ps-product__content">
+                                                            <p class="ps-product__type"><i
+                                                                        class="fi fi-rs-home "></i>
+                                                                <a href="">
+                                                                    <?= $item['StoreName']; ?>
+                                                                </a>
                                                             </p>
+                                                            <h5><a class="ps-product__name"
+                                                                   href="<?= "Product_Details.php?ProductId=" . $item['Id'] ?>"><?= $item['Name']; ?></a>
+                                                            </h5>
+
+                                                            <div class="Price-Unit">
+                                                                <p class="ps-product__unit"><?= $item['ProductUnitName']; ?></p>
+
+                                                                <p class="ps-product-price-block">
+                                                                    <span class="ps-product__sale">$<?= $item['Price']; ?> đ</span>
+                                                                </p>
+                                                            </div>
+
+                                                            <div class="ps-product__box">
+                                                                <button onclick="AddToCart(<?= $item['Id'] ?>)" type="submit" id="<?= $item['Id'] ?>" name="<?= $item['Id'] ?>" class="ps-product__addcart" <i class="fi-rs-shopping-cart pr-10"></i>Thêm
+                                                                <button class="ps-product__wishlist"><i
+                                                                            class="fa fi-rs-heart"></i></button>
+                                                            </div>
                                                         </div>
 
-                                                        <div class="ps-product__box">
-                                                            <button class="ps-product__addcart"
-                                                                    href="Cart.php"><i
-                                                                        class="fi-rs-shopping-cart pr-10"></i>Thêm
-                                                            </button>
-                                                            <button class="ps-product__wishlist"><i
-                                                                        class="fa fi-rs-heart"></i></button>
-                                                        </div>
+
                                                     </div>
-
 
                                                 </div>
 
-                                            </div>
-                                            <?php
-                                        } ?>
 
-                                                                            <li class=""><a href="#"><i class="noUi-active fi-rs-angle-left"></i></a></li>
-                                        <!--                                    <li class="active"><a href="#">1</a></li>-->
-                                        <!--                                    <li><a href="#">2</a></li>-->
-                                        <!--                                    <li><a href="#">3</a></li>-->
-                                        <!--                                    <li class="chevron"><a href="#"><i class="icon-chevron-right"></i></a></li>-->
+                                                <?php
+                                            } ?>
 
-                                    </div>
+                                            <!--                                        <li class=""><a href="#"><i class="noUi-active fi-rs-angle-left"></i></a></li>-->
+                                            <!--                                    <li class="active"><a href="#">1</a></li>-->
+                                            <!--                                    <li><a href="#">2</a></li>-->
+                                            <!--                                    <li><a href="#">3</a></li>-->
+                                            <!--                                    <li class="chevron"><a href="#"><i class="icon-chevron-right"></i></a></li>-->
+
+                                        </div>
+
+
                                 </div>
                             </div>
                             <div class="ps-pagination blog--pagination">
@@ -490,24 +503,25 @@ $total_pages = ceil($total_rows / $no_of_records_per_page);
                                         } ?>"><i class="fi-rs-angle-small-left"></i></a>
                                     </li>
                                     <?php
-                                    for ($i = 1; $i <= $total_pages; $i++) {
+                                    for ($i = 1; $i <= $total_page_number; $i++) {
                                         echo
-                                            '<li class="page-item '.(($pageno == $i)?"active":"").
+                                            '<li class="page-item ' . (($pageno == $i) ? "active" : "") .
                                             '"><a class="" href=" ?pageno=' . $i . '">' . $i . '</a></li>
                                             ';
 
                                     }
                                     ?>
-                                    <li class="<?php if ($pageno >= $total_pages) {
+                                    <li class="<?php if ($pageno >= $total_page_number) {
                                         echo 'disabled';
                                     } ?>">
-                                        <a href="<?php if ($pageno >= $total_pages) {
+                                        <a href="<?php if ($pageno >= $total_page_number) {
                                             echo '#';
                                         } else {
                                             echo "?pageno=" . ($pageno + 1);
                                         } ?>"><i class="fi-rs-angle-small-right"></i></a>
                                     </li>
-                                    <li><a href="?pageno=<?php echo $total_pages; ?>"><i class="fi-rs-angle-double-small-right"></i></a></li>
+                                    <li><a href="?pageno=<?php echo $total_page_number; ?>"><i
+                                                    class="fi-rs-angle-double-small-right"></i></a></li>
 
                                 </ul>
                             </div>
@@ -517,54 +531,22 @@ $total_pages = ceil($total_rows / $no_of_records_per_page);
             </div>
         </section>
     </div>
-   
 
+    <!--Footer -->
     <div id="footer"></div>
-
 </main>
 <script type="text/javascript">
-    $(document).ready(function () {
-        $("#View").change(function () {
-            var ViewValue = $this.val();
-            Sort(ViewValue);
+    // $(document).ready(function () {
+    //     $(document).on("click",".ps-product__addcart",function () {
+    //     var ProductId = $this.attr("id");
+    //    alert(ProductId);
+    // });
+    //
+    // });
 
-        });
 
-    });
-
-    function Sort(ViewValue) {
-        $.ajax({
-            type: 'POST',
-            url: 'Products_Process.php',
-            data: {
-
-                "Name": $('#Name').val(),
-
-            },
-
-            success: function (data) {
-                swal({
-                    'title': 'Successful',
-
-                    text: "Thành công!",
-                    icon: "success"
-
-                }).then(function () {
-                    window.open('Product_List.php', '_self')
-                });
-            },
-            error: function (data) {
-                swal({
-                    'title': 'error',
-                    text: "Thất bại!",
-                    icon: "warning",
-                    dangerMode: true
-
-                })
-            }
-        });
-    }
 </script>
+<!--Footer -->
 
 </body>
 </html>

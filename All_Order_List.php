@@ -20,18 +20,29 @@ if ($_SESSION['UserRoleId'] == 3) {
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <meta name="description" content="">
 
-    <title>Đơn hàng</title>
+    <title>Tất cả Đơn hàng</title>
     <link rel="icon" href="assets/img/global/2.jpg" type="image/x-icon">
     <!-- Favicon-->
     <link rel="stylesheet" href="Admin_Store.asset/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="Admin_Store.asset/plugins/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="Admin_Store.asset/plugins/footable-bootstrap/css/footable.bootstrap.min.css"/>
     <link rel="stylesheet" href="Admin_Store.asset/plugins/footable-bootstrap/css/footable.standalone.min.css"/>
+
+    <link rel="stylesheet" href="Admin_Store.asset/plugins/bootstrap-select/css/bootstrap-select.css"/>
+    <script src="Admin_Store.asset/js/pages/forms/editors.js"></script>
+    <script src="Admin_Store.asset/bundles/libscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js -->
+    <script src="Admin_Store.asset/bundles/vendorscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js -->
 
     <!-- Custom Css -->
     <link rel="stylesheet" href="Admin_Store.asset/css/main.css">
     <link rel="stylesheet" href="Admin_Store.asset/css/ecommerce.css">
     <link rel="stylesheet" href="Admin_Store.asset/css/color_skins.css">
-     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <style>
+        .table-responsive {
+            overflow-x: unset;
+        }
+    </style>
 </head>
 <body class="theme-blush">
 <!-- Page Loader -->
@@ -68,7 +79,7 @@ if ($_SESSION['UserRoleId'] == 3) {
                 <a href="javascript:void(0);" class="fullscreen hidden-sm-down" data-provide="fullscreen"
                    data-close="true"><i class="zmdi zmdi-fullscreen"></i></a>
             </li>
-            <li><a href="login.php" class="mega-menu" data-close="true"><i class="zmdi zmdi-power"></i></a></li>
+            <li><a href="Login.php" class="mega-menu" data-close="true"><i class="zmdi zmdi-power"></i></a></li>
 
         </ul>
     </div>
@@ -81,12 +92,12 @@ if ($_SESSION['UserRoleId'] == 3) {
         <ul class="list">
             <li>
                 <div class="user-info">
-                    <div class="image"><a href="Vendor_Dashboard.php"><img src="Admin_Store.asset/images/profile_av.jpg"
-                                                                   alt="User"></a></div>
+                    <div class="image"><a href=""><img src="Admin_Store.asset/images/profile_av.jpg"
+                                                       alt="User"></a></div>
                     <div class="detail">
-                        <h4><?php if ($IsAdmin)  echo "Admin";
-                        else echo $StoreName?></h4>
-<!--                        <small>Chỉ bán Sầu riêng</small>-->
+                        <h4><?php if ($IsAdmin) echo "Admin";
+                            else echo $StoreName ?></h4>
+                        <!--                        <small>Chỉ bán Sầu riêng</small>-->
                     </div>
 
 
@@ -104,25 +115,25 @@ if ($_SESSION['UserRoleId'] == 3) {
                 </a></li>
             <li ><a href="Product_List.php"><i class="zmdi zmdi-sort-amount-desc"></i><span>Tất cả sản phẩm</span>
                 </a></li>
-            <li class="active open"><a href="Order_List.php"><i class="zmdi zmdi-grid"></i><span>Đơn hàng mới</span> </a></li>
+            <li ><a href="Order_List.php"><i class="zmdi zmdi-grid"></i><span>Đơn hàng mới</span> </a></li>
+            <li class="active open"><a href="All_Order_List.php"><i class="zmdi zmdi-grid"></i><span>Tất cả Đơn hàng</span> </a></li>
             <li><a href="Customer_List.php"><i class="zmdi zmdi-label-alt"></i><span>Khách hàng</span> </a></li>
             <li><a href="Comision_List.php"><i class="zmdi zmdi-blogger"></i><span>Lợi nhuận</span> </a></li>
 ';
 
-            }
-            else
-                echo'<li class="header">Quản lý cửa hàng</li>
+            } else
+                echo ' <li class="header">Quản lý cửa hàng</li>
             <li><a href="Vendor_Dashboard.php"><i class="zmdi zmdi-home"></i><span>Thông tin cửa hàng</span> </a></li>
             <li><a href="Product_Added.php"><i class="zmdi zmdi-plus-circle"></i><span>Thêm sản phẩm</span> </a></li>
             <li><a href="Product_List.php"><i class="zmdi zmdi-sort-amount-desc"></i><span>Tất cả sản phẩm</span> </a>
             </li>
-            <li class="active open"><a href="Order_List.php"><i class="zmdi zmdi-grid"></i><span>Đơn hàng mới</span> </a>
+            <li><a href="Order_List.php"><i class="zmdi zmdi-grid"></i><span>Đơn hàng mới</span> </a>
             </li>
-
-            <li ><a href="All_Order_List.php"><i class="zmdi zmdi-label-alt"></i><span>Tất cả đơn hàng</span> </a></li>
-            <li><a href="Comision_List.php"><i class="zmdi zmdi-blogger"></i><span>Lợi nhuận</span> </a></li>
-';
+            <li class="active open"><a href="All_Order_List.php"><i class="zmdi zmdi-label-alt"></i><span>Tất cả đơn hàng</span>
+                </a></li>
+            <li><a href="Comision_List.php"><i class="zmdi zmdi-blogger"></i><span>Lợi nhuận</span> </a></li>';
             ?>
+
 
         </ul>
     </div>
@@ -152,62 +163,102 @@ if ($_SESSION['UserRoleId'] == 3) {
             <div class="col-lg-12">
                 <div class="card product_item_list">
                     <div class="body table-responsive">
+
                         <table class="table table-hover m-b-0">
                             <thead>
                             <tr>
-                                <th>Mã đơn hàng</th>
+                                <?php
+                                if($IsAdmin){
+                                    echo "<th>Mã đơn hàng</th>
+                                <th>Mã chi tiết</th>";
+                                }
+                                else{
+                                    echo "<th>Mã đơn hàng</th>";
+                                }
+                                ?>
+
                                 <th>Tên sản phẩm</th>
                                 <th class="col-2">Lưu ý</th>
                                 <th>Số lượng</th>
                                 <th>Giá</th>
                                 <th>Tổng cộng</th>
-                                <th>Xác nhận/Hủy</th>
+                                <th>Trạng thái</th>
                             </tr>
                             </thead>
                             <tbody>
                             <?php
-                            $sqlOrderDetail="";
+                            $sqlOrderDetail = "";
                             if ($IsAdmin) {
                                 $sqlOrderDetail = "SELECT * FROM orderdetail";
                             } else
-                                $sqlOrderDetail = "SELECT * FROM orderdetail WHERE StoreId = '" . $StoreId . "' AND VendorConfirm = 0";
+                                $sqlOrderDetail = "SELECT * FROM orderdetail WHERE StoreId = '" . $StoreId . "'";
                             $resultOrderDetail = mysqli_query($conn, $sqlOrderDetail);
                             while ($rowOrderDetail = mysqli_fetch_assoc($resultOrderDetail)) {
-
+                                $StatusId = $rowOrderDetail['OrderStatus'];
                                 ?>
-                                <tr>
-                                    <td><?= $rowOrderDetail['Id'] ?></td>
+                                <tr id="<?= $rowOrderDetail['Id'] ?>">
+                                    <?php
+                                    if($IsAdmin){
+                                        echo "<td>" .$rowOrderDetail['OrderId'] ."</td>
+                                    <td>". $rowOrderDetail['Id']."</td>";
+
+                                    }
+                                    else
+                                        echo "<td>". $rowOrderDetail['Id'] ."</td>";
+
+                                    ?>
+
+
                                     <td><h5><?= $rowOrderDetail['ProductName'] ?></h5></td>
                                     <td><span class="text-muted"><?= $rowOrderDetail['Note'] ?></span></td>
                                     <td><?= $rowOrderDetail['Quantity'] ?></td>
                                     <td><?= $rowOrderDetail['Price'] ?></td>
                                     <td><span class="col-green">$<?= $rowOrderDetail['Total'] ?></span></td>
-                                    <td>
+
+                                    <?php
+
+                                    $sqlOrderStatus = "SELECT * FROM orderstatus WHERE Id = '$StatusId'";
+                                    $resultOrderStatus = mysqli_query($conn, $sqlOrderStatus);
+                                    $rowOrderStatus = mysqli_fetch_assoc($resultOrderStatus);
+                                    if ($rowOrderStatus) {
+                                    if ($rowOrderStatus['Id'] == 8)
+                                    echo "<td class='col-red'>" . $rowOrderStatus['OrderStatus'] . "</td>";
+                                    else {
+                                    if ($IsAdmin) {
+                                    $OrderId = $rowOrderDetail['Id'];
+
+                                    echo "<td class='col-lg-2'>"; ?>
+                                    <select id="<?= $rowOrderDetail['Id'] ?>"
+                                            onchange="UpdateStatus(<?= $rowOrderDetail['OrderId'] ?>,<?= $rowOrderDetail['Id'] ?>);">
+
                                         <?php
-                                        if($IsAdmin){
-                                            echo' <a href=""
-                                           class="btn btn-default disabled waves-effect waves-float waves-green"><i
-                                                    class="zmdi zmdi-check"></i></a>
-                                        <a href=""
-                                           class="btn btn-default disabled waves-effect waves-float waves-red"><i
-                                                    class="zmdi zmdi-close"></i></a>';
+                                        $sql3 = "select * from orderstatus ";
+                                        $result3 = mysqli_query($conn, $sql3);
+                                        if (mysqli_num_rows($result3) > 0) {
+
+                                            while ($row3 = mysqli_fetch_row($result3)) {
+                                                if ($row3[0] > $rowOrderStatus['Id'])
+                                                    echo "<option value='$row3[0]'>$row3[1]</option>";
+                                                else
+                                                    echo "<option selected class='text-success' value='$row3[0]'>$row3[1]</option>";
+                                            }
                                         }
-                                        else{
-                                            echo '<a href="javascript:Confirm('. $rowOrderDetail['Id'].');"
-                                           class="btn btn-default waves-effect waves-float waves-green"><i
-                                                    class="zmdi zmdi-check"></i></a>
-                                        <a href="javascript:Cancel('.$rowOrderDetail['Id'] .');"
-                                           class="btn btn-default waves-effect waves-float waves-red"><i
-                                                    class="zmdi zmdi-close"></i></a>';
+                                        echo "
+                                    </select></td>";
+                                        } else
+                                            echo "<td class='col-yellow'>" . $rowOrderStatus['OrderStatus'] . "</td>";
                                         }
+                                        } else
+                                            echo "<td class='col-yellow'><a href='Order_List.php'>Đang chờ xử lý</a></td>";
                                         ?>
 
-                                    </td>
+
                                 </tr>
                             <?php } ?>
 
                             </tbody>
                         </table>
+
                     </div>
                 </div>
                 <div class="card">
@@ -229,78 +280,60 @@ if ($_SESSION['UserRoleId'] == 3) {
     </div>
 </section>
 <script type="text/javascript">
-    function Confirm(OrderId){
+    function UpdateStatus(OrderId, OrderDetailId) {
+        QueryToStatusId = "select#".concat(OrderDetailId).concat(" > option:selected");
+        StatusId = $(QueryToStatusId).val();
+        alert(StatusId);
+        $.ajax({
+            type: 'POST',
+            url: 'All_Order_List_Process.php',
+            data: {
+                "OrderId": OrderId,
+                "OrderDetailId": OrderDetailId,
+                "StatusId": StatusId
+            },
+            success: function (data) {
+                swal({
+                    'title': 'Thành công!',
 
-    $.ajax({
-        type: 'POST',
-        url: 'Order_List_Process.php',
-        data: {
-            "OrderId": OrderId,
-            "Confirm": 2
-        },
-        success: function (data) {
-            swal({
-                'title': 'Thành công!',
+                    text: "Cập nhật trạng thái đơn hàng thành công",
+                    icon: "success"
 
-                text: "Đã chấp nhận đơn hàng",
-                icon: "success"
-
-            }).then(function () {
-                window.open('Order_List.php', '_self')
-            });
+                })
 
 
-        },
-        error: function (data) {
-            swal({
-                'title': 'Opps',
-                text: "Có lỗi rồi! >.<",
-                icon: "warning",
-                // dangerMode: true
+            },
+            error: function (data) {
+                swal({
+                    'title': 'Opps',
+                    text: "Có lỗi rồi! >.<",
+                    icon: "warning",
+                    // dangerMode: true
 
-            })
-        }
-    });
-
-    }
-    function Cancel(OrderId){
-    $.ajax({
-        type: 'POST',
-        url: 'Order_List_Process.php',
-        data: {
-            "OrderId": OrderId,
-            "Confirm": 3
-        },
-        success: function (data) {
-            swal({
-                'title': 'Thành công!',
-
-                text: "Đã Hủy đơn hàng!",
-                icon: "success"
-
-            }).then(function () {
-                window.open('Order_List.php', '_self')
-            });
-        },
-        error: function (data) {
-            swal({
-                'title': 'Opps',
-                text: "Có lỗi rồi! >.<",
-                icon: "warning",
-                // dangerMode: true
-
-            })
-        }
-    });
+                })
+            }
+        });
 
     }
 </script>
+
+<!-- Jquery Core Js -->
+<script src="Admin_Store.asset/bundles/libscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js -->
+<script src="Admin_Store.asset/bundles/footable.bundle.js"></script> <!-- Lib Scripts Plugin Js -->
+<script src="Admin_Store.asset/js/pages/blog/blog.js"></script>
+<script src="Admin_Store.asset/js/pages/tables/footable.js"></script>
 <!-- Jquery Core Js -->
 <script src="Admin_Store.asset/bundles/libscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js -->
 <script src="Admin_Store.asset/bundles/vendorscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js -->
-<script src="Admin_Store.asset/bundles/footable.bundle.js"></script> <!-- Lib Scripts Plugin Js -->
-<script src="Admin_Store.asset/bundles/mainscripts.bundle.js"></script><!-- Custom Js -->
-<script src="Admin_Store.asset/js/pages/blog/blog.js"></script>
-<script src="Admin_Store.asset/js/pages/tables/footable.js"></script>
+
+
+<script src="Admin_Store.asset/plugins/ckeditor/ckeditor.js"></script> <!-- Ckeditor -->
+
+<script src="Admin_Store.asset/bundles/mainscripts.bundle.js"></script>
+
+<!-- Custom Js -->
+<script src="Admin_Store.asset/js/pages/forms/editors.js"></script>
+
+
 </body>
 </html>

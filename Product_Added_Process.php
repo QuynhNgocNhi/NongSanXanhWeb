@@ -8,7 +8,6 @@ if (!isset($_SESSION['Id'])) {
 if ($_SESSION['UserRoleId'] == 3) {
     header("location: Store_Register.php");
 } else {
-
     require_once('Store_Dashboard_Process.php');
 }
 ?>
@@ -62,13 +61,15 @@ if (isset($_POST)) {
 //    $sql = "UPDATE products SET ProductCategory = '" . $ProductCategoryName . "';";
 //    mysqli_query($conn,$sql);
 
-//    get product id
-    $sql = "SELECT * FROM products WHERE StoreId = '" . $StoreId . "' AND Name = '" . $Name . "'";
-    $result = mysqli_query($conn, $sql);
-    if ($result) {
-        $row = mysqli_fetch_array($result, MYSQLI_BOTH);
-        $ProductId = $row["Id"];
-    }
+//    get product id xưa ròi diễm ơi
+//    $sql = "SELECT * FROM products WHERE StoreId = '" . $StoreId . "' AND Name = '" . $Name . "'";
+//    $result = mysqli_query($conn, $sql);
+//    if ($result) {
+//        $row = mysqli_fetch_array($result, MYSQLI_BOTH);
+//
+//    }
+//    Đây mới là chân ái
+    $ProductId = mysqli_insert_id($conn);
 
 //    add Product images to db
     for ($i = 0; $i < count($ProductImages); $i++) {
@@ -82,7 +83,7 @@ if (isset($_POST)) {
         mysqli_query($conn, $sql);
 
     }
-    echo json_encode(array('success' => 0));
+//    echo json_encode(array('success' => 0));
     echo "Product added!";
 
 } else {

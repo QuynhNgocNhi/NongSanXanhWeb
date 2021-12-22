@@ -21,11 +21,13 @@ if ($_SESSION['UserRoleId'] == 3) {
     <meta name="description" content="Responsive Bootstrap 4 and web Application ui kit.">
 
     <title>Thêm sản phẩm</title>
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+        <link rel="icon" href="assets/img/global/2.jpg" type="image/x-icon">
+
     <!-- Favicon-->
     <link rel="stylesheet" href="Admin_Store.asset/plugins/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="Admin_Store.asset/plugins/dropzone/dropzone.css">
     <link rel="stylesheet" href="Admin_Store.asset/plugins/bootstrap-select/css/bootstrap-select.css"/>
+    <link rel="stylesheet" href="Admin_Store.asset/plugins/bootstrap-select/css/bootstrap-select.min.css"/>
     <!-- Custom Css -->
     <link rel="stylesheet" href="Admin_Store.asset/css/main.css">
     <link rel="stylesheet" href="Admin_Store.asset/css/blog.css">
@@ -58,7 +60,7 @@ if ($_SESSION['UserRoleId'] == 3) {
         <div class="navbar-header">
             <a href="javascript:void(0);" class="bars"></a>
             <a class="navbar-brand" href="./index.php"><img src="Admin_Store.asset/images/logo.svg" width="30"
-                                                             alt="Compass"><span class="m-l-10">Nông sản xanh</span></a>
+                                                            alt="Compass"><span class="m-l-10">Nông sản xanh</span></a>
         </div>
         <ul class="nav navbar-nav navbar-left">
             <li><a href="javascript:void(0);" class="ls-toggle-btn" data-close="true"><i
@@ -310,13 +312,11 @@ if ($_SESSION['UserRoleId'] == 3) {
                                         </select>
                                     </div>
                                     <div class="col-lg-3 col-md-6">
-                                        <p><b>Display Count</b></p>
-                                        <select class="form-control show-tick" multiple
-                                                data-selected-text-format="count">
+                                        <p><b>Disabled Option</b></p>
+                                        <select class="form-control show-tick">
                                             <option>Mustard</option>
-                                            <option>Ketchup</option>
+                                            <option disabled>Ketchup</option>
                                             <option>Relish</option>
-                                            <option>Onions</option>
                                         </select>
                                     </div>
                                     <div class="col-lg-3 col-md-6">

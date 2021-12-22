@@ -26,12 +26,14 @@ require_once('config.php');
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/global/2.jpg"/>
     <!-- Template CSS -->
     <link rel="stylesheet" href="assets/css/mainf195.css?v=2.1"/>
+
     <!-- font -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
     <!-- homepage CSS -->
     <link rel="stylesheet" href="buyers-account.asset/acount.css"/>
     <!-- call global -->
     <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
+
     <script type="text/javascript">
         function loadPage(href) {
             var xmlhttp = new XMLHttpRequest();
@@ -126,15 +128,14 @@ require_once('config.php');
                                     <div class="card">
                                         <div class="card-header">
                                             <?php
-                                if (isset($_SESSION["UserName"])) {
-                                    echo "<a href='User_Account.php'><span class='h3 text-brand lable ml-0'> Chào ".$_SESSION["UserName"];
+                                            if (isset($_SESSION["UserName"])) {
+                                                echo "<a href='User_Account.php'><span class='h3 text-brand lable ml-0'> Chào " . $_SESSION["UserName"];
 
-                                }
-                                else{
-                                    echo "<h3 href='Amin_Dashboard.php'><span class='lable ml-0'>Admin</span></h3>";
-                                }
-                                ?>
-<!--                                            <h3 class="mb-0">Xin chào Rosie!</h3>-->
+                                            } else {
+                                                echo "<h3 href='Amin_Dashboard.php'><span class='lable ml-0'>Admin</span></h3>";
+                                            }
+                                            ?>
+                                            <!--                                            <h3 class="mb-0">Xin chào Rosie!</h3>-->
                                         </div>
                                         <div class="row">
                                             <div class="row-cols-4">
@@ -150,8 +151,8 @@ require_once('config.php');
                                                 if ($result) {
                                                     $row = mysqli_fetch_array($result, MYSQLI_BOTH);
                                                     $images = $row["ImgUrl"]; ?>
-<!--                                                        Thêm role-->
-                                                    <img  class="justify-content-around rounded-circle center"
+                                                    <!--                                                        Thêm role-->
+                                                    <img class="justify-content-around rounded-circle center"
                                                          src="data/Avartar_Upload/<?= $images ?>">
                                                     <?php
 
@@ -427,38 +428,49 @@ require_once('config.php');
                                         </div>
                                         <div class="card-body">
                                             <div class="table-responsive">
-                                                <table class="table">
+                                                <table class="table table-hover">
                                                     <thead>
                                                     <tr>
-                                                        <th>Mã đơn hàng</th>
-                                                        <th>Ngày</th>
-                                                        <th>Tính trạng</th>
-                                                        <th>Tổng tiền</th>
-                                                        <th></th>
+                                                        <th>Mã đơn hàng</th>
+                                                        <th width="100px">Ngày mua</th>
+                                                        <th class="hidden-sm-down">Sản phẩm</th>
+                                                        <th class="hidden-sm-down">Tổng tiền</th>
+                                                        <th>Trạng thái</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <tr>
-                                                        <td>#2468</td>
-                                                        <td>15 Tháng 3, 2020</td>
-                                                        <td>Đang tiến hành</td>
-                                                        <td>$125.00</td>
-                                                        <td><a href="#" class="btn-small d-block">Xem chi tiết</a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>#2015</td>
-                                                        <td>20 Tháng 4, 2019</td>
-                                                        <td>Hoàn thành</td>
-                                                        <td>$364.00</td>
-                                                        <td><a href="#" class="btn-small d-block">Xem chi tiết</a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>#1357</td>
-                                                        <td>25 Tháng 5, 2019</td>
-                                                        <td>Hoàn thành</td>
-                                                        <td>$280.00</td>
-                                                        <td><a href="#" class="btn-small d-block">Xem chi tiết</a></td>
-                                                    </tr>
+                                                    <?php
+                                                    $sqlOrder = "SELECT * FROM orders WHERE UserId = '" . $_SESSION['Id'] . "'";
+                                                    $resultOrder = mysqli_query($conn, $sqlOrder);
+
+                                                    while ($rowOrder = mysqli_fetch_assoc($resultOrder)) {
+                                                        ?>
+                                                        <tr>
+                                                            <td>
+                                                                <a href="Invoice.php?OrderId=<?= $rowOrder['Id'] ?>"><?php preg_match_all('!\d+!', $rowOrder['OrderDate'], $matches);
+                                                                    echo implode('', $matches[0]); ?></a></td>
+                                                            <td><?= $rowOrder['OrderDate'] ?></td>
+
+                                                            <td class="hidden-sm-down"><?= $rowOrder['MainProductName'] ?></td>
+                                                            <td><?= $rowOrder['OrderTotal'] ?></td>
+                                                            <?php
+                                                            $OrderStatusId = $rowOrder['OrderStatusId'];
+
+                                                            $sqlOrderStatus = "SELECT * FROM orderstatus WHERE Id = '$OrderStatusId'";
+                                                            $resultOrderStatus = mysqli_query($conn, $sqlOrderStatus);
+                                                            $rowOrderStatus = mysqli_fetch_assoc($resultOrderStatus);
+                                                            if ($rowOrderStatus) {
+                                                                if ($rowOrderStatus['Id'] == 8)
+                                                                    echo "<td class='text-danger'>" . $rowOrderStatus['OrderStatus'] . "</td>";
+                                                                else {
+                                                                    echo "<td class='text-success'>" . $rowOrderStatus['OrderStatus'] . "</td>";
+                                                                }
+                                                            }
+                                                            ?>
+
+                                                        </tr>
+                                                    <?php } ?>
+
                                                     </tbody>
                                                 </table>
                                             </div>

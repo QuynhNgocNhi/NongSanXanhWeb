@@ -6,16 +6,15 @@
     padding: 10px;
 }
 
-.table tr {
+.table tr ,  .table td{
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     border-radius: 10px
 }
 
-.card-body .viewed-product-item, .table tr {
+.card-body .viewed-product-item, .table tr{
     background-color: #ffffff;
     border: 1px solid #c4c4c4;
-
     padding: 10px;
     margin: 10px;
 }

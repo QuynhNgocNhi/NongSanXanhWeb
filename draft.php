@@ -1,541 +1,188 @@
 <?php
-ob_start();
-session_start();
-if (!isset($_SESSION['Id'])) {
-    header("location: login.php");
+
+//index.php
+
+$connect = new PDO("mysql:host=localhost;dbname=test", "root", "");
+
+$message = '';
+
+if (isset($_POST["add_to_cart"])) {
+    if (isset($_COOKIE["shopping_cart"])) {
+        $cookie_data = stripslashes($_COOKIE['shopping_cart']);
+
+        $cart_data = json_decode($cookie_data, true);
+    } else {
+        $cart_data = array();
+    }
+
+    $item_id_list = array_column($cart_data, 'item_id');
+
+    if (in_array($_POST["hidden_id"], $item_id_list)) {
+        foreach ($cart_data as $keys => $values) {
+            if ($cart_data[$keys]["item_id"] == $_POST["hidden_id"]) {
+                $cart_data[$keys]["item_quantity"] = $cart_data[$keys]["item_quantity"] + $_POST["quantity"];
+            }
+        }
+    } else {
+        $item_array = array(
+            'item_id' => $_POST["hidden_id"],
+            'item_name' => $_POST["hidden_name"],
+            'item_price' => $_POST["hidden_price"],
+            'item_quantity' => $_POST["quantity"]
+        );
+        $cart_data[] = $item_array;
+    }
+
+
+    $item_data = json_encode($cart_data);
+    setcookie('shopping_cart', $item_data, time() + (86400 * 30));
+    header("location:index.php?success=1");
 }
 
-if ($_SESSION['UserRoleId'] == 3) {
-    header("location: Store_Register.php");
-    require_once('Store_Dashboard_Process.php');
+if (isset($_GET["action"])) {
+    if ($_GET["action"] == "delete") {
+        $cookie_data = stripslashes($_COOKIE['shopping_cart']);
+        $cart_data = json_decode($cookie_data, true);
+        foreach ($cart_data as $keys => $values) {
+            if ($cart_data[$keys]['item_id'] == $_GET["id"]) {
+                unset($cart_data[$keys]);
+                $item_data = json_encode($cart_data);
+                setcookie("shopping_cart", $item_data, time() + (86400 * 30));
+                header("location:index.php?remove=1");
+            }
+        }
+    }
+    if ($_GET["action"] == "clear") {
+        setcookie("shopping_cart", "", time() - 3600);
+        header("location:index.php?clearall=1");
+    }
 }
+
+if (isset($_GET["success"])) {
+    $message = '
+ <div class="alert alert-success alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    Item Added into Cart
+ </div>
+ ';
+}
+
+if (isset($_GET["remove"])) {
+    $message = '
+ <div class="alert alert-success alert-dismissible">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  Item removed from Cart
+ </div>
+ ';
+}
+if (isset($_GET["clearall"])) {
+    $message = '
+ <div class="alert alert-success alert-dismissible">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  Your Shopping Cart has been clear...
+ </div>
+ ';
+}
+
+
 ?>
-<!doctype html>
-<html class="no-js " lang="en">
-
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="utf-8">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <meta name="description" content="Responsive Bootstrap 4 and web Application ui kit.">
-
-    <title>Thêm sản phẩm</title>
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <!-- Favicon-->
-    <link rel="stylesheet" href="Admin_Store.asset/plugins/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="Admin_Store.asset/plugins/dropzone/dropzone.css">
-    <link rel="stylesheet" href="Admin_Store.asset/plugins/bootstrap-select/css/bootstrap-select.css"/>
-    <!-- Custom Css -->
-    <link rel="stylesheet" href="Admin_Store.asset/css/main.css">
-    <link rel="stylesheet" href="Admin_Store.asset/css/blog.css">
-    <link rel="stylesheet" href="Admin_Store.asset/css/color_skins.css">
-    <!-- Bootstrap Tagsinput Css -->
-    <link rel="stylesheet" href="Admin_Store.asset/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css">
-    <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
-
+    <title>Webslesson Demo | Simple PHP Mysql Shopping Cart</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </head>
+<body>
+<br/>
+<div class="container">
+    <br/>
+    <h3 align="center">Simple PHP Mysql Shopping Cart using Cookies</h3><br/>
+    <br/><br/>
+    <?php
+    $query = "SELECT * FROM tbl_product ORDER BY id ASC";
+    $statement = $connect->prepare($query);
+    $statement->execute();
+    $result = $statement->fetchAll();
+    foreach ($result as $row) {
+        ?>
+        <div class="col-md-3">
+            <form method="post">
+                <div style="border:1px solid #333; background-color:#f1f1f1; border-radius:5px; padding:16px;"
+                     align="center">
+                    <img src="images/<?php echo $row["image"]; ?>" class="img-responsive"/><br/>
 
-<body class="theme-blush">
-<!-- Page Loader -->
-<div class="page-loader-wrapper">
-    <div class="loader">
-        <div class="m-t-30"><img class="zmdi-hc-spin" src="Admin_Store.asset/images/logo.svg" width="48" height="48"
-                                 alt="NSX"></div>
-        <p>Chờ xíu đê...</p>
+                    <h4 class="text-info"><?php echo $row["name"]; ?></h4>
+
+                    <h4 class="text-danger">$ <?php echo $row["price"]; ?></h4>
+
+                    <input type="text" name="quantity" value="1" class="form-control"/>
+                    <input type="hidden" name="hidden_name" value="<?php echo $row["name"]; ?>"/>
+                    <input type="hidden" name="hidden_price" value="<?php echo $row["price"]; ?>"/>
+                    <input type="hidden" name="hidden_id" value="<?php echo $row["id"]; ?>"/>
+                    <input type="submit" name="add_to_cart" style="margin-top:5px;" class="btn btn-success"
+                           value="Add to Cart"/>
+                </div>
+            </form>
+        </div>
+        <?php
+    }
+    ?>
+
+
+    <div style="clear:both"></div>
+    <br/>
+    <h3>Order Details</h3>
+    <div class="table-responsive">
+        <?php echo $message; ?>
+        <div align="right">
+            <a href="index.php?action=clear"><b>Clear Cart</b></a>
+        </div>
+        <table class="table table-bordered">
+            <tr>
+                <th width="40%">Item Name</th>
+                <th width="10%">Quantity</th>
+                <th width="20%">Price</th>
+                <th width="15%">Total</th>
+                <th width="5%">Action</th>
+            </tr>
+            <?php
+            if (isset($_COOKIE["shopping_cart"])) {
+                $total = 0;
+                $cookie_data = stripslashes($_COOKIE['shopping_cart']);
+                $cart_data = json_decode($cookie_data, true);
+                foreach ($cart_data as $keys => $values) {
+                    ?>
+                    <tr>
+                        <td><?php echo $values["item_name"]; ?></td>
+                        <td><?php echo $values["item_quantity"]; ?></td>
+                        <td>$ <?php echo $values["item_price"]; ?></td>
+                        <td>$ <?php echo number_format($values["item_quantity"] * $values["item_price"], 2); ?></td>
+                        <td><a href="index.php?action=delete&id=<?php echo $values["item_id"]; ?>"><span
+                                        class="text-danger">Remove</span></a></td>
+                    </tr>
+                    <?php
+                    $total = $total + ($values["item_quantity"] * $values["item_price"]);
+                }
+                ?>
+                <tr>
+                    <td colspan="3" align="right">Total</td>
+                    <td align="right">$ <?php echo number_format($total, 2); ?></td>
+                    <td></td>
+                </tr>
+                <?php
+            } else {
+                echo '
+    <tr>
+     <td colspan="5" align="center">No Item in Cart</td>
+    </tr>
+    ';
+            }
+            ?>
+        </table>
     </div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
-    $(document).ready(function () {
-
-        $("#UploadMainImgBtn").click(function (e) {
-            e.preventDefault();
-            let formData = new FormData();
-            let image = $("#MainProductImg")[0].files;
-
-            // Check image selected or not
-            if (image.length > 0) {
-                formData.append('Product_Image', image[0]);
-                $.ajax({
-                    url: 'Product_Img_Upload.php',
-                    type: 'post',
-                    data: formData,
-                    contentType: false,
-                    processData: false,
-                    success: function (data) {
-                        data = JSON.parse(data);
-                        if (data.error !== 1) {
-                            mainImage = data.src
-                            let path = "data/Product_Img_Upload/" + mainImage;
-                            $("#previousImage").attr("src", path);
-                        } else {
-                            $("#errorMessage").text(data.error_message);
-                        }
-                    }
-                });
-
-            } else {
-                $("#errorMessage").text("Please select an image.");
-            }
-        });
-
-    });
-</script>
-<!-- Overlay For Sidebars -->
-<div class="overlay"></div>
-
-<!-- Call Top Bar -->
-<nav class="navbar">
-    <div class="col-12">
-        <div class="navbar-header">
-            <a href="javascript:void(0);" class="bars"></a>
-            <a class="navbar-brand" href="./index.html"><img src="Admin_Store.asset/images/logo.svg" width="30"
-                                                             alt="Compass"><span class="m-l-10">Nông sản xanh</span></a>
-        </div>
-        <ul class="nav navbar-nav navbar-left">
-            <li><a href="javascript:void(0);" class="ls-toggle-btn" data-close="true"><i
-                            class="zmdi zmdi-swap"></i></a></li>
-            <li class="hidden-sm-down">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search...">
-                    <span class="input-group-addon">
-                            <i class="zmdi zmdi-search"></i>
-                        </span>
-                </div>
-            </li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown"><a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
-                                    role="button"><i class="zmdi zmdi-notifications"></i>
-                    <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-right slideDown">
-                    <li class="header">NOTIFICATIONS</li>
-                    <li class="body">
-                        <ul class="menu list-unstyled">
-                            <li><a href="javascript:void(0);">
-                                    <div class="icon-circle bg-blue"><i class="zmdi zmdi-account"></i></div>
-                                    <div class="menu-info">
-                                        <h4>8 New Members joined</h4>
-                                        <p><i class="zmdi zmdi-time"></i> 14 mins ago </p>
-                                    </div>
-                                </a></li>
-                            <li><a href="javascript:void(0);">
-                                    <div class="icon-circle bg-amber"><i class="zmdi zmdi-shopping-cart"></i></div>
-                                    <div class="menu-info">
-                                        <h4>4 Sales made</h4>
-                                        <p><i class="zmdi zmdi-time"></i> 22 mins ago </p>
-                                    </div>
-                                </a></li>
-                            <li><a href="javascript:void(0);">
-                                    <div class="icon-circle bg-red"><i class="zmdi zmdi-delete"></i></div>
-                                    <div class="menu-info">
-                                        <h4><b>Nancy Doe</b> Deleted account</h4>
-                                        <p><i class="zmdi zmdi-time"></i> 3 hours ago </p>
-                                    </div>
-                                </a></li>
-                            <li><a href="javascript:void(0);">
-                                    <div class="icon-circle bg-green"><i class="zmdi zmdi-edit"></i></div>
-                                    <div class="menu-info">
-                                        <h4><b>Nancy</b> Changed name</h4>
-                                        <p><i class="zmdi zmdi-time"></i> 2 hours ago </p>
-                                    </div>
-                                </a></li>
-                            <li><a href="javascript:void(0);">
-                                    <div class="icon-circle bg-grey"><i class="zmdi zmdi-comment-text"></i></div>
-                                    <div class="menu-info">
-                                        <h4><b>John</b> Commented your post</h4>
-                                        <p><i class="zmdi zmdi-time"></i> 4 hours ago </p>
-                                    </div>
-                                </a></li>
-                            <li><a href="javascript:void(0);">
-                                    <div class="icon-circle bg-purple"><i class="zmdi zmdi-refresh"></i></div>
-                                    <div class="menu-info">
-                                        <h4><b>John</b> Updated status</h4>
-                                        <p><i class="zmdi zmdi-time"></i> 3 hours ago </p>
-                                    </div>
-                                </a></li>
-                            <li><a href="javascript:void(0);">
-                                    <div class="icon-circle bg-light-blue"><i class="zmdi zmdi-settings"></i></div>
-                                    <div class="menu-info">
-                                        <h4>Settings Updated</h4>
-                                        <p><i class="zmdi zmdi-time"></i> Yesterday </p>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="footer"><a href="javascript:void(0);">View All Notifications</a></li>
-                </ul>
-            </li>
-            <li class="dropdown"><a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
-                                    role="button"><i class="zmdi zmdi-flag"></i>
-                    <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-right slideDown">
-                    <li class="header">TASKS</li>
-                    <li class="body">
-                        <ul class="menu tasks list-unstyled">
-                            <li><a href="javascript:void(0);">
-                                    <div class="progress-container progress-primary">
-                                        <span class="progress-badge">Footer display issue</span>
-                                        <div class="progress">
-                                            <div class="progress-bar progress-bar-warning" role="progressbar"
-                                                 aria-valuenow="86" aria-valuemin="0" aria-valuemax="100"
-                                                 style="width: 86%;">
-                                                <span class="progress-value">86%</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li><a href="javascript:void(0);">
-                                    <div class="progress-container progress-info">
-                                        <span class="progress-badge">Answer GitHub questions</span>
-                                        <div class="progress">
-                                            <div class="progress-bar progress-bar-warning" role="progressbar"
-                                                 aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"
-                                                 style="width: 35%;">
-                                                <span class="progress-value">35%</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li><a href="javascript:void(0);">
-                                    <div class="progress-container progress-success">
-                                        <span class="progress-badge">Solve transition issue</span>
-                                        <div class="progress">
-                                            <div class="progress-bar progress-bar-warning" role="progressbar"
-                                                 aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"
-                                                 style="width: 72%;">
-                                                <span class="progress-value">72%</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li><a href="javascript:void(0);">
-                                    <div class="progress-container">
-                                        <span class="progress-badge"> Create new dashboard</span>
-                                        <div class="progress">
-                                            <div class="progress-bar progress-bar-warning" role="progressbar"
-                                                 aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"
-                                                 style="width: 45%;">
-                                                <span class="progress-value">45%</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li><a href="javascript:void(0);">
-                                    <div class="progress-container progress-warning">
-                                        <span class="progress-badge">Panding Project</span>
-                                        <div class="progress">
-                                            <div class="progress-bar progress-bar-warning" role="progressbar"
-                                                 aria-valuenow="29" aria-valuemin="0" aria-valuemax="100"
-                                                 style="width: 29%;">
-                                                <span class="progress-value">29%</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="footer"><a href="javascript:void(0);">View All</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="javascript:void(0);" class="fullscreen hidden-sm-down" data-provide="fullscreen"
-                   data-close="true"><i class="zmdi zmdi-fullscreen"></i></a>
-            </li>
-            <li><a href="Login.php" class="mega-menu" data-close="true"><i class="zmdi zmdi-power"></i></a></li>
-
-        </ul>
-    </div>
-</nav>
-
-<!-- Call Left Sidebar -->
-<aside id="leftsidebar" class="sidebar">
-    <!-- Menu -->
-    <div class="menu">
-        <ul class="list">
-            <li>
-                <div class="user-info">
-                    <div class="image"><a href="profile.html"><img src="Admin_Store.asset/images/profile_av.jpg"
-                                                                   alt="User"></a></div>
-                    <div class="detail">
-                        <h4>Sầu riêng Ri6</h4>
-                        <small>Chỉ bán Sầu riêng</small>
-                    </div>
-
-
-                    <a href="Login.php" title="Sign out"><i class="zmdi zmdi-power"></i></a>
-                </div>
-            </li>
-            <li class="header">Quản lý cửa hàng</li>
-            <li><a href="Vendor_Dashboard.php"><i class="zmdi zmdi-home"></i><span>Thông tin cửa hàng</span> </a>
-            </li>
-            <li class="active open"><a href="Product_Added.php"><i class="zmdi zmdi-plus-circle"></i><span>Thêm sản
-                            phẩm</span> </a></li>
-            <li><a href="Product_List.html"><i class="zmdi zmdi-sort-amount-desc"></i><span>Tất cả sản phẩm</span>
-                </a></li>
-            <li><a href="Order_List.html"><i class="zmdi zmdi-grid"></i><span>Đơn hàng</span> </a></li>
-            <li><a href="Customer-List.html"><i class="zmdi zmdi-label-alt"></i><span>Khách hàng</span> </a></li>
-            <li><a href="Comision_List.html"><i class="zmdi zmdi-blogger"></i><span>Lợi nhuận</span> </a></li>
-
-        </ul>
-    </div>
-    <!-- #Menu -->
-</aside>
-
-
-<section class="content blog-page">
-    <div class="block-header">
-        <div class="row">
-            <div class="col-lg-7 col-md-6 col-sm-12">
-                <h2>New Post
-                    <small>Welcome to Compass</small>
-                </h2>
-            </div>
-            <div class="col-lg-5 col-md-6 col-sm-12">
-                <ul class="breadcrumb float-md-right">
-                    <li class="breadcrumb-item"><a href="index.php"><i class="zmdi zmdi-home"></i>Nông Sản Xanh</a></li>
-                    <li class="breadcrumb-item"><a href="Vendor_Dashboard.php">Cửa hàng</a></li>
-                    <li class="breadcrumb-item active">Thêm sản phẩm</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="container-fluid">
-        <!-- Masked Input -->
-        <div class="row clearfix">
-            <div class="col-lg-12 col-md-12 col-sm-12">
-                <div class="card">
-                    <form action="Product_Added.php" method="POST">
-                        <div class="header">
-
-                            <ul class="header-dropdown">
-                                <li class="dropdown"><a href="javascript:void(0);" class="dropdown-toggle"
-                                                        data-toggle="dropdown" role="button" aria-haspopup="true"
-                                                        aria-expanded="false"> <i class="zmdi zmdi-more"></i> </a>
-                                    <ul class="dropdown-menu dropdown-menu-right">
-                                        <li><a href="javascript:void(0);">Action</a></li>
-                                        <li><a href="javascript:void(0);">Another action</a></li>
-                                        <li><a href="javascript:void(0);">Something else</a></li>
-                                    </ul>
-                                </li>
-                                <li class="remove">
-                                    <a role="button" class="boxs-close"><i class="zmdi zmdi-close"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="body">
-                            <div class="demo-masked-input">
-                                <div class="row clearfix">
-
-                                    <div class="col-lg-6 col-md-6"><b>Tên Sản phẩm</b>
-                                        <div class="input-group ">
-                                            <span class="input-group-addon"><i class="zmdi zmdi-info"></i></span>
-                                            <input type="text" class="form-control" id="Name"
-                                                   placeholder="vd: Sầu riêng Ri6">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6"><b>Giá (Vnđ)</b>
-                                        <div class="input-group">
-                                            <span class="input-group-addon"><i class="zmdi zmdi-money"></i></span>
-                                            <input type="number" id="Price" class="form-control business_money-coins"
-                                                   placeholder="Ex: 125.000 vnđ">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6"><b>Danh mục</b>
-
-                                        <select class="form-control show-tick" id="ProductCategory" multiple>
-                                            <optgroup label="Condiments" data-max-options="2">
-                                                <option>Mustard</option>
-                                                <option>Ketchup</option>
-                                                <option>Relish</option>
-                                            </optgroup>
-                                            <optgroup label="Breads" data-max-options="2">
-                                                <option>Plain</option>
-                                                <option>Steamed</option>
-                                                <option>Toasted</option>
-                                            </optgroup>
-                                        </select>
-                                    </div>
-                                    <div class="col-lg-3 col-md-6"><b>Đơn vị bán</b>
-                                        <select class="form-control show-tick" id="ProductUnits">
-                                            <option>Chọn đơn vị --</option>
-                                            <option>Kg</option>
-                                            <option>10kg</option>
-
-                                        </select>
-                                    </div>
-                                    <div class="col-lg-3 col-md-6"><b>Trạng thái hàng</b>
-                                        <select class="form-control show-tick" id="ProductStatus">
-                                            <option>Còn hàng/hết hàng --</option>
-                                            <option>Còn hàng</option>
-                                            <option>Hết hàng</option>
-
-                                        </select>
-                                    </div>
-
-                                    <script>
-
-                                        $(document).ready(function () {
-                                            $('form').ajaxForm(function () {
-                                                alert("Uploaded SuccessFully");
-                                            });
-                                        });
-
-                                        function preview_image() {
-                                            var total_file = document.getElementById("upload_file").files.length;
-                                            for (var i = 0; i < 5; i++) {
-                                                $('#image_preview').append("<img class='img-fluid col-2 img-thumbnail' src='" + URL.createObjectURL(event.target.files[i]) + "'>");
-
-                                            }
-                                        }
-                                    </script>
-
-                                    <div class="col-lg-6 col-md-6"><b>Hình ảnh sản phẩm</b>
-                                        <!-- Thêm hình ảnh -->
-                                        <div class="input-group">
-
-                                            <div id="wrapper">
-                                                <div id="wrapper">
-                                                    <form action="#" method="post" enctype="multipart/form-data">
-                                                        <input type="file" id="upload_file" name="upload_file[]"
-                                                               onchange="preview_image();" multiple/>
-                                                        <input type="submit" name='submit_image' value="UploadImage"/>
-                                                    </form>
-                                                    <div id="image_preview"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <?php
-                                    if (isset($_POST['submit_image'])) {
-                                        for ($i = 0; $i < count($_FILES["upload_file"]["name"]); $i++) {
-                                            $uploadfile = $_FILES["upload_file"]["tmp_name"][$i];
-                                            $folder = "data/Product_Img_Upload/";
-                                            move_uploaded_file($_FILES["upload_file"]["tmp_name"][$i], "$folder" . $_FILES["upload_file"]["name"][$i]);
-                                        }
-                                        exit();
-                                    }
-                                    ?>
-
-                                    <div class="col-lg-6 col-md-6"><b>Tag sản phẩm</b>
-                                        <!-- Thêm Tag -->
-
-                                        <div class="body">
-                                            <div class="form-group demo-tagsinput-area">
-                                                <div class="form-line">
-                                                    <input id="Tags" type="text" class="form-control"
-                                                           data-role="tagsinput"
-                                                           value="Amsterdam,Washington,Sydney,Beijing,Cairo">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Thông tin thêm -->
-                                    <div class="col-lg-3 col-md-6">
-                                        <p><b>Max Selection Limit: 2</b></p>
-                                        <select class="form-control show-tick" multiple>
-                                            <optgroup label="Condiments" data-max-options="2">
-                                                <option>Mustard</option>
-                                                <option>Ketchup</option>
-                                                <option>Relish</option>
-                                            </optgroup>
-                                            <optgroup label="Breads" data-max-options="2">
-                                                <option>Plain</option>
-                                                <option>Steamed</option>
-                                                <option>Toasted</option>
-                                            </optgroup>
-                                        </select>
-                                    </div>
-                                    <div class="col-lg-3 col-md-6">
-                                        <p><b>Display Count</b></p>
-                                        <select class="form-control show-tick" multiple
-                                                data-selected-text-format="count">
-                                            <option>Mustard</option>
-                                            <option>Ketchup</option>
-                                            <option>Relish</option>
-                                            <option>Onions</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-lg-3 col-md-6">
-                                        <p><b>Multiple Select</b></p>
-                                        <select class="form-control show-tick" multiple>
-                                            <option>Mustard</option>
-                                            <option>Ketchup</option>
-                                            <option>Relish</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-lg-3 col-md-6">
-                                        <p><b>With Search Bar</b></p>
-                                        <select class="form-control show-tick z-index" data-live-search="true">
-                                            <option>Hot Dog, Fries and a Soda</option>
-                                            <option>Burger, Shake and a Smile</option>
-                                            <option>Sugar, Spice and all things nice</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-lg-12 col-md-12"><b>Mô tả sản phẩm</b>
-                                        <div class="form-group">
-                                            <textarea id="Description" rows="5" class="form-control no-resize"
-                                                      placeholder="Mô tả chung"></textarea>
-                                        </div>
-                                    </div>
-                                    <button type="submit" id="AddProduct"
-                                            class="btn btn-lg btn-brand btn-primary btn-rounded">Đăng sản phẩm
-                                    </button>
-
-                                </div>
-                            </div>
-
-
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</section>
-<!-- Jquery Core Js -->
-<script src="Admin_Store.asset/bundles/libscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js -->
-<script src="Admin_Store.asset/bundles/vendorscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js -->
-
-<script src="Admin_Store.asset/plugins/dropzone/dropzone.js"></script> <!-- Dropzone Plugin Js -->
-<script src="Admin_Store.asset/plugins/ckeditor/ckeditor.js"></script> <!-- Ckeditor -->
-
-<script src="Admin_Store.asset/bundles/mainscripts.bundle.js"></script>
-<!-- Custom Js -->
-<script src="Admin_Store.asset/js/pages/forms/editors.js"></script>
-<script src="Admin_Store.asset/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
-
-<!-- Bootstrap Tags Input Plugin Js -->
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
-<script src="Product_Added.js"></script>
+<br/>
 </body>
-
 </html>
-<!--                    <p id="errorMessage"></p>-->
-<!---->
-<!--<form action="Product_Img_Upload.php" id="FileUpload"-->
-<!--      class="dropzone m-b-20 m-t-20"-->
-<!--      method="post" enctype="multipart/form-data">-->
-<!---->
-<!--    <div class="fallback">-->
-<!--        <input id="MainProductImg" name="FileName" type="file" multiple/>-->
-<!--    </div>-->
-<!--    <input id="UploadMainImgBtn" class="button button-input" type="submit"-->
-<!--           name="AddMain" value="Thêm hình ảnh">-->
-<!--</form>-->
-<!--<div class="fallback">-->
-<!--    <input id="ProductImg" name="FileName" type="file" multiple/>-->
-<!--    <button id="upload" value="Thêm ảnh"/>-->
-<!--</div>-->

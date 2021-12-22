@@ -30,7 +30,7 @@ $row = mysqli_fetch_assoc($result);
     <meta name="description" content="Responsive Bootstrap 4 and web Application ui kit.">
 
     <title>Sửa sản phẩm</title>
-    <link rel="icon" href="favicon.icon" type="image/x-icon">
+    <link rel="icon" href="assets/img/global/2.jpg" type="image/x-icon">
     <!-- Favicon-->
     <link rel="stylesheet" href="Admin_Store.asset/plugins/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="Admin_Store.asset/plugins/dropzone/dropzone.css">
@@ -188,7 +188,7 @@ s
                                                     if ($row3[1] == $row['ProductCategory'])
                                                         echo "<option selected value='$row3[0]'>$row3[1]</option>";
                                                     else
-                                                    echo "<option value='$row3[0]'>$row3[1]</option>";
+                                                        echo "<option value='$row3[0]'>$row3[1]</option>";
 
                                                 }
                                             }
@@ -229,8 +229,6 @@ s
                                             ?>
 
 
-
-
                                         </select>
                                     </div>
                                     <script>
@@ -239,7 +237,8 @@ s
                                     </script>
 
                                     <div class="col-lg-6 p-b-50 col-md-6"><b>Hình ảnh sản phẩm</b>
-                                        <div id="ProductId" class="hide" style="display: none"><?php echo $row['Id']; ?></div>
+                                        <div id="ProductId" class="hide"
+                                             style="display: none"><?php echo $row['Id']; ?></div>
                                         <!-- Thêm hình ảnh -->
                                         <div class="input-group">
 
@@ -351,7 +350,7 @@ s
                                     <div class="col-lg-12 col-md-12"><b>Mô tả sản phẩm</b>
                                         <div class="form-group">
                                             <textarea id="Description" rows="5"
-                                                      class="form-control no-resize"  ><?php echo $row['Description'] ?></textarea>
+                                                      class="form-control no-resize"><?php echo $row['Description'] ?></textarea>
                                         </div>
                                     </div>
 
