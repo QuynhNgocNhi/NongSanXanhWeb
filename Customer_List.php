@@ -6,9 +6,8 @@ if (!isset($_SESSION['Id'])) {
     header("location: login.php");
 }
 
-if ($_SESSION['UserRoleId'] == 3) {
-    header("location: Store_Register.php");
-    require_once('Store_Dashboard_Process.php');
+if ($_SESSION['UserRoleId'] != 1) {
+    header("location: login.php");
 }
 ?>
 <!doctype html>
@@ -91,7 +90,7 @@ if ($_SESSION['UserRoleId'] == 3) {
         <ul class="list">
             <li>
                 <div class="user-info">
-                    <div class="image"><a href="profile.html"><img src="Admin_Store.asset/images/profile_av.jpg"
+                    <div class="image"><a href="Admin_Dashboard.php"><img src="Admin_Store.asset/images/profile_av.jpg"
                                                                    alt="User"></a></div>
                     <div class="detail">
                         <h4>Sầu riêng Ri6</h4>
@@ -113,7 +112,9 @@ if ($_SESSION['UserRoleId'] == 3) {
                 </a></li>
             <li ><a href="Product_List.php"><i class="zmdi zmdi-sort-amount-desc"></i><span>Tất cả sản phẩm</span>
                 </a></li>
-            <li><a href="Order_List.php"><i class="zmdi zmdi-grid"></i><span>Đơn hàng</span> </a></li>
+            <li><a href="Order_List.php"><i class="zmdi zmdi-grid"></i><span>Đơn hàng mới</span> </a></li>
+                        <li><a href="All_Order_List.php"><i class="zmdi zmdi-grid"></i><span>Tất cả Đơn hàng</span> </a></li>
+
             <li class="active open"><a href="Customer_List.php"><i class="zmdi zmdi-label-alt"></i><span>Khách hàng</span> </a></li>
             <li><a href="Comision_List.php"><i class="zmdi zmdi-blogger"></i><span>Lợi nhuận</span> </a></li>
 ';

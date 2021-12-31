@@ -1,6 +1,7 @@
 ﻿<?php
 ob_start();
 session_start();
+require_once('config.php');
 if (!isset($_SESSION['Id'])) {
     header("location: login.php");
 }
@@ -26,43 +27,24 @@ require_once('config.php');
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/global/2.jpg"/>
     <!-- Template CSS -->
     <link rel="stylesheet" href="assets/css/mainf195.css?v=2.1"/>
-
+    <link rel="stylesheet" href="assets/css/User_Acount.css"/>
     <!-- font -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
-    <!-- homepage CSS -->
-    <link rel="stylesheet" href="buyers-account.asset/acount.css"/>
     <!-- call global -->
     <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
-
-    <script type="text/javascript">
-        function loadPage(href) {
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.open("GET", href, false);
-            xmlhttp.send();
-            return xmlhttp.responseText;
-        }
-
-    </script>
-    <script>
-        $(document).ready(function () {
-            document.getElementById('header').innerHTML = loadPage('header.php');
-            document.getElementById('footer').innerHTML = loadPage('footer.php');
-        });
-
-    </script>
-
-
 </head>
 
 <body>
 
-<div id="header"></div>
+<?php
+require_once('header.php');
+?>
 <!-- Begin container -->
 <main class="main pages">
     <div class="page-header breadcrumb-wrap">
         <div class="container">
             <div class="breadcrumb">
-                <a href="index.html" rel="nofollow"><i class="fi-rs-home mr-5"></i>Trang chủ</a>
+                <a href="index.php" rel="nofollow"><i class="fi-rs-home mr-5"></i>Trang chủ</a>
                 <span> Tài khoản</span>
             </div>
         </div>
@@ -466,6 +448,7 @@ require_once('config.php');
                                                                     echo "<td class='text-success'>" . $rowOrderStatus['OrderStatus'] . "</td>";
                                                                 }
                                                             }
+                                                            else echo "<td class='text-success'>Đang chờ xử lý</td>";
                                                             ?>
 
                                                         </tr>

@@ -1,40 +1,16 @@
-<?php
-session_start();
-?>
-<!DOCTYPE html>
-<html class="no-js" lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Nông Sản Xanh</title>
-    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
-    <meta name="description" content=""/>
-    <meta property="og:title" content=""/>
-    <meta property="og:type" content=""/>
-    <meta property="og:url" content=""/>
-    <meta property="og:image" content=""/>
-
-    <!-- Template CSS -->
-    <link rel="stylesheet" href="assets/css/mainf195.css?v=2.1"/>
-    <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="assets/img/global/2.jpg"/>
-    <!-- homepage CSS -->
-    <link rel="stylesheet" href="home.asset/home.css?v=2.1"/>
-
-<body>
+<!-- Template CSS -->
+<link rel="stylesheet" href="assets/css/mainf195.css?v=2.1"/>
+<!-- homepage CSS -->
+<link rel="stylesheet" href="home.asset/home.css?v=2.1"/>
 <!-- font -->
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
 <!--header-->
 <header class="header-area header-style-1 header-height-2">
     <!--mobile front header-->
-
     <div class="mobile-promotion">
         <span>Miễn phí vận chuyển duy nhất trong ngày 11/11.</span>
     </div>
     <!--end mobile front header-->
-
     <!--top header-->
     <div class="header-top header-top-ptb-1 d-none d-lg-block">
         <div class="container">
@@ -45,7 +21,7 @@ session_start();
                             <li><a href="index.php">Về Nông Sản Xanh</a></li>
                             <li><a href="User_Account.php">Tài khoản</a></li>
                             <li><a href="WishList.php">Yêu thích</a></li>
-                            <li><a href="User_Account.php#orders">Theo dõi đơn hàng</a></li>
+                            <li><a href="User_Account.php?orders">Theo dõi đơn hàng</a></li>
                             <li><a href="">Trợ giúp</a></li>
                         </ul>
                     </div>
@@ -117,7 +93,7 @@ session_start();
     <!--end top header-->
 
     <!--mid header-->
-    <div class="header-middle header-middle-ptb-1 d-none d-lg-block">
+    <div class="header-middle header-middle-ptb-1 d-none d-lg-block sticky-bar">
         <div class="container">
 
             <div class="header-wrap justify-content-center">
@@ -127,29 +103,30 @@ session_start();
                 <div class="header-right">
 
                     <div class="search-style-2">
-                        <form action="#">
-                            <select class="select-active">
-                                <option>Danh mục</option>
-                                <option>Trái cây</option>
-                                <option>Đặc sản vùng miền</option>
-                                <option>Rau, củ, quả và nấm</option>
-                                <option>Đậu, ngũ cốc, các loại hạt và nhân</option>
-                                <option>Đồ uống</option>
-                                <option>Dược liệu</option>
-                                <option>Thực phẩm chế biến sẵn</option>
-                                <option>Sữa, Mật - Sản phẩm từ Sữa, mật</option>
-                                <option>Gia vị thực phẩm</option>
-                                <option>Thủy - Hải sản</option>
-                                <option>Gia súc & Sản phẩm Động vật</option>
-                                <option>Chiết xuất thực vật & dầu</option>
-                                <option>Sợi thực vật & gỗ</option>
-                                <option>Cây giống - Con giống</option>
-                                <option>Vật tư nông nghiệpt</option>
-                                <option>Máy móc & Thiết bị Nông nghiệp</option>
-                                <option>Sản phẩm - dịch vụ khác</option>
-                                <option>Danh mục khác</option>
+                        <form action="Products.php" method="post">
+
+                            <select class="select-active" name="Category">
+                                <option value="0">Danh mục</option>
+                                <?php
+
+                                include "config.php";
+
+                                $sqlCategory = "select * from productcategory";
+                                $resultCategory = mysqli_query($conn, $sqlCategory);
+
+                                if (mysqli_num_rows($resultCategory) > 0) {
+                                    $index = 1;
+                                    while ($rowCategory = mysqli_fetch_row($resultCategory)) {
+                                        echo "<option value='$index'>$rowCategory[1]</option>";
+                                        $index++;
+
+                                    }
+                                } ?>
+
                             </select>
-                            <input type="text" placeholder="Tìm kiếm..."/>
+                            <input onchange="" name="Search" type="text" placeholder="Tìm kiếm..."/>
+                            <button type="submit" name="submit" style="background-color: unset !important;"><img
+                                        src="assets/imgs/theme/icons/search.png"></button>
                         </form>
                     </div>
                     <div class="header-action-right">
@@ -157,21 +134,31 @@ session_start();
 
 
                             <div class="header-action-icon-2">
-                                <a target="_blank" href="shop-wishlist.html">
+                                <a target="_blank" href="WishList.php">
                                     <img class="svgInject" alt="NSX" src="assets/img/icons/icon-heart.svg"/>
-                                    <span class="pro-count blue">6</span>
+                                    <span class="pro-count blue" id="wishlist-count"><?php
+                                        if (!empty($_COOKIE['WishList'])) {
+                                            $cookie_data_wishlist = stripslashes($_COOKIE['WishList']);
+                                            $WishListData = json_decode($cookie_data_wishlist, true);
+                                            $WishList_Array_Length = count($WishListData);
+                                            $wishlist_id_list = array_column($WishListData, 'Id');
+
+                                            echo $WishList_Array_Length;
+                                        } else echo "0";
+
+                                        ?></span>
                                 </a>
-                                <a target="_blank" href="shop-wishlist.html"><span class="lable">Yêu
+                                <a target="_blank" href="WishList.php"><span class="lable ">Yêu
                                             thích</span></a>
                             </div>
                             <div class="header-action-icon-2">
                                 <a target="_blank" class="mini-cart-icon" href="Cart.php">
                                     <img alt="NSX" src="assets/img/icons/icon-cart.svg"/>
-                                    <span class="pro-count blue">
+                                    <span class="pro-count blue" id="cart-count">
                                         <?php
                                         if (!empty($_COOKIE['Cart'])) {
-                                            $cookie_data = stripslashes($_COOKIE['Cart']);
-                                            $CartData = json_decode($cookie_data, true);
+                                            $cookie_data_cart = stripslashes($_COOKIE['Cart']);
+                                            $CartData = json_decode($cookie_data_cart, true);
                                             $Cart_Array_Length = count($CartData);
                                             echo $Cart_Array_Length;
                                         } else echo "0";
@@ -183,119 +170,49 @@ session_start();
                                 <a target="_blank" href="Cart.php"><span class="lable">Giỏ hàng</span></a>
                                 <div class="cart-dropdown-wrap cart-dropdown-hm2">
                                     <ul class="shopping-cart-header">
-                                        <li>
-                                            <div class="shopping-cart-img">
-                                                <a href="products.html"><img alt="NSX"
-                                                                             src="home.asset/img/product/03-Multi/strawberry.png"/></a>
-                                            </div>
-                                            <div class="shopping-cart-title">
-                                                <h4>
-                                                    <a href="products.html">Dâu tây Đà lạt 100kg</a>
-                                                </h4>
-                                                <h4><span>1 × </span>800.000 vnd</h4>
-                                            </div>
-                                            <div class="shopping-cart-delete">
-                                                <a href="#"><i class="fi-rs-cross-small"></i></a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="shopping-cart-img">
-                                                <a href="products.html"><img alt="NSX"
-                                                                             src="home.asset/img/product/03-Multi/strawberry.png"/></a>
-                                            </div>
-                                            <div class="shopping-cart-title">
-                                                <h4>
-                                                    <a href="products.html">Dâu tây Đà lạt 100kg</a>
-                                                </h4>
-                                                <h4><span>1 × </span>800.000 vnd</h4>
-                                            </div>
-                                            <div class="shopping-cart-delete">
-                                                <a href="#"><i class="fi-rs-cross-small"></i></a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="shopping-cart-img">
-                                                <a href="products.html"><img alt="NSX"
-                                                                             src="home.asset/img/product/03-Multi/strawberry.png"/></a>
-                                            </div>
-                                            <div class="shopping-cart-title">
-                                                <h4>
-                                                    <a href="products.html">Dâu tây Đà lạt 100kg</a>
-                                                </h4>
-                                                <h4><span>1 × </span>800.000 vnd</h4>
-                                            </div>
-                                            <div class="shopping-cart-delete">
-                                                <a href="#"><i class="fi-rs-cross-small"></i></a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="shopping-cart-img">
-                                                <a href="products.html"><img alt="NSX"
-                                                                             src="home.asset/img/product/03-Multi/strawberry.png"/></a>
-                                            </div>
-                                            <div class="shopping-cart-title">
-                                                <h4>
-                                                    <a href="products.html">Dâu tây Đà lạt 100kg</a>
-                                                </h4>
-                                                <h4><span>1 × </span>800.000 vnd</h4>
-                                            </div>
-                                            <div class="shopping-cart-delete">
-                                                <a href="#"><i class="fi-rs-cross-small"></i></a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="shopping-cart-img">
-                                                <a href="products.html"><img alt="NSX"
-                                                                             src="home.asset/img/product/03-Multi/strawberry.png"/></a>
-                                            </div>
-                                            <div class="shopping-cart-title">
-                                                <h4>
-                                                    <a href="products.html">Dâu tây Đà lạt 100kg</a>
-                                                </h4>
-                                                <h4><span>1 × </span>800.000 vnd</h4>
-                                            </div>
-                                            <div class="shopping-cart-delete">
-                                                <a href="#"><i class="fi-rs-cross-small"></i></a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="shopping-cart-img">
-                                                <a href="products.html"><img alt="NSX"
-                                                                             src="home.asset/img/product/03-Multi/strawberry.png"/></a>
-                                            </div>
-                                            <div class="shopping-cart-title">
-                                                <h4>
-                                                    <a href="products.html">Dâu tây Đà lạt 100kg</a>
-                                                </h4>
-                                                <h4><span>1 × </span>800.000 vnd</h4>
-                                            </div>
-                                            <div class="shopping-cart-delete">
-                                                <a href="#"><i class="fi-rs-cross-small"></i></a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="shopping-cart-img">
-                                                <a href="products.html"><img alt="NSX"
-                                                                             src="home.asset/img/product/03-Multi/durian.jpg"/></a>
-                                            </div>
-                                            <div class="shopping-cart-title">
-                                                <h4>
-                                                    <a href="products.html">Sầu riêng Ri6 3 trái</a>
-                                                </h4>
-                                                <h4><span>1 × </span>320.000 vnd</h4>
-                                            </div>
-                                            <div class="shopping-cart-delete">
-                                                <a href="#"><i class="fi-rs-cross-small"></i></a>
-                                            </div>
-                                        </li>
+                                        <?php
+
+                                        if (!empty($_COOKIE['Cart'])) {
+                                            $total = 0;
+                                            $cookie_data_cart = stripslashes($_COOKIE['Cart']);
+                                            $CartData = json_decode($cookie_data_cart, true);
+                                            foreach ($CartData
+
+                                                     as $keys => $values) {
+                                                ?>
+                                                <li>
+
+                                                    <div class="shopping-cart-img">
+                                                        <img
+                                                                alt="NSX"
+                                                                src="data/Product_Img_Upload/<?= $values['Image'] ?>"/>
+                                                    </div>
+                                                    <div style="padding: 0px" class="shopping-cart-title col-lg-7">
+                                                        <h4>
+                                                            <a href="<?= "Product_Details.php?ProductId=" . $values['Id'] ?>"> <?= $values['Name'] ?></a>
+                                                        </h4>
+                                                        <h3>
+                                                            <span> <?= $values['Quantity'] ?> × </span> <?= $values['Price'] ?>
+                                                        </h3>
+                                                    </div>
+                                                    <div class="shopping-cart-delete">
+                                                        <a href="Cart.php?action=delete&Id=<?php echo $values["Id"]; ?>"><i
+                                                                    class="fi-rs-cross-small"></i></a>
+                                                    </div>
+
+
+                                                </li>
+                                            <?php }
+                                        } ?>
+
                                     </ul>
                                     <div class="shopping-cart-footer">
-                                        <div class="shopping-cart-total">
-                                            <h4>Tổng <span>400.000 vnd</span></h4>
-                                        </div>
+                                        <!--                                        <div class="shopping-cart-total">-->
+                                        <!--                                            <h4>Tổng <span>400.000 vnd</span></h4>-->
+                                        <!--                                        </div>-->
                                         <div class="shopping-cart-button">
-                                            <a href="shop-cart.html" class="outline">Xem giỏ hàng</a>
-                                            <a href="shop-checkout.html">Thanh toán</a>
+                                            <a href="Cart.php" class="outline">Xem giỏ hàng</a>
+                                            <a href="Checkout.php">Thanh toán</a>
                                         </div>
                                     </div>
                                 </div>
@@ -333,8 +250,9 @@ session_start();
                                             }
 
                                         } else {
-                                            echo "<li><a href='Store_Register.php'><i class='fi fi-rs-user mr-10'></i>Tạo cửa hàng</a></li>";
+                                            echo "<li><a href='Account_Registration.php'><i class='fi fi-rs-user mr-10'></i>Đăng ký tài khoản</a></li>";
                                             echo "<li><a href='login.php'><i class='fi fi-rs-user mr-10'></i>Đăng nhập</a></li>";
+                                            echo "<li><a href='Store_Register.php'><i class='fi fi-rs-user mr-10'></i>Tạo cửa hàng</a></li>";
 
                                         }
 
@@ -342,7 +260,7 @@ session_start();
 
 
                                         <li>
-                                            <a href="User_Account.php#orders"><i
+                                            <a href="User_Account.php?orders"><i
                                                         class="fi fi-rs-location-alt mr-10"></i>Đơn
                                                 mua</a>
                                         </li>
@@ -351,10 +269,14 @@ session_start();
                                                         class="fi fi-rs-settings-sliders mr-10"></i>Cài
                                                 đặt</a>
                                         </li>
-                                        <li>
+                                        <?php
+                                        if (isset($_SESSION['Id'])) {
+                                            echo '<li>
                                             <a href="login.php"><i class="fi fi-rs-sign-out mr-10"></i>Đăng
                                                 xuất</a>
-                                        </li>
+                                        </li>';
+                                        }
+                                        ?>
                                     </ul>
                                 </div>
                             </div>
@@ -367,7 +289,7 @@ session_start();
     <!--end mid header-->
 
     <!-- main header-->
-    <div class="header-bottom header-bottom-bg-color sticky-bar header-nav">
+    <div class="header-bottom header-bottom-bg-color header-nav">
         <div class="container">
             <div class="header-wrap header-space-between position-relative ">
                 <!-- mobile logo center -->
@@ -387,15 +309,15 @@ session_start();
                                 <li>
                                     <a id="products-page" class="nav-link-main" href="Products.php">Sản phẩm</a>
                                 </li>
-                                <li>
-                                    <a id="posts-page" class="nav-link-main" href="index.php">Tin đăng <i
-                                                class="fi-rs-angle-down"></i></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="index.php">Tin mua</a></li>
-                                        <li><a href="index.php">Tin bán</a></li>
-
-                                    </ul>
-                                </li>
+                                <!--                                <li>-->
+                                <!--                                    <a id="posts-page" class="nav-link-main" href="index.php">Tin đăng <i-->
+                                <!--                                                class="fi-rs-angle-down"></i></a>-->
+                                <!--                                    <ul class="sub-menu">-->
+                                <!--                                        <li><a href="index.php">Tin mua</a></li>-->
+                                <!--                                        <li><a href="index.php">Tin bán</a></li>-->
+                                <!---->
+                                <!--                                    </ul>-->
+                                <!--                                </li>-->
 
                                 <li>
                                     <a id="sellers-page" class="nav-link-main" href="Vendors.php">Nhà cung
@@ -414,175 +336,9 @@ session_start();
 
                 </div>
 
-                <!-- Recently viewed product -->
-                <div
-                        class="col-2 navigation-text main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block font-heading">
-                    <ul class="menu">
-                        <li class="menu-item-has-children has-mega-menu">
-                            <a class="nav-link" href="javascript:void(0);">Xem gần đây <i
-                                        class="fi-rs-angle-down"></i></a>
-                            <span class="sub-toggle"></span>
-                            <div class="mega-menu recent-view">
-                                <div class="mega-anchor"></div>
-                                <div class="container">
+                <!-- Saved wishlist product -->
 
-                                    <div class="slick-many-item slick-initialized slick-slider">
-                                        <button class="btn-small slick-nav slick-left slick-arrow">
-                                            <i class="fi-rs-angle-double-small-left "></i>
-                                        </button>
-                                        <div aria-live="polite" class="slick-list draggable">
-                                            <div class="slick-track" role="listbox"
-                                                 style="opacity: 1; width: 3591px; transform: translate3d(-1064px, 0px, 0px);">
-                                                <a class="recent-item slick-slide slick-cloned" href="index.php"
-                                                   data-slick-index="-8" id="" aria-hidden="true" tabindex="-1"
-                                                   style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_10a.jpg"
-                                                         alt="alt"></a><a
-                                                        class="recent-item slick-slide slick-cloned" href="index.php"
-                                                        data-slick-index="-7" id="" aria-hidden="true" tabindex="-1"
-                                                        style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_18a.jpg"
-                                                         alt="alt"></a><a
-                                                        class="recent-item slick-slide slick-cloned" href="index.php"
-                                                        data-slick-index="-6" id="" aria-hidden="true" tabindex="-1"
-                                                        style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_28b.jpg"
-                                                         alt="alt"></a><a
-                                                        class="recent-item slick-slide slick-cloned" href="index.php"
-                                                        data-slick-index="-5" id="" aria-hidden="true" tabindex="-1"
-                                                        style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_16a.jpg"
-                                                         alt="alt"></a><a
-                                                        class="recent-item slick-slide slick-cloned" href="index.php"
-                                                        data-slick-index="-4" id="" aria-hidden="true" tabindex="-1"
-                                                        style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_31a.jpg"
-                                                         alt="alt"></a><a
-                                                        class="recent-item slick-slide slick-cloned" href="index.php"
-                                                        data-slick-index="-3" id="" aria-hidden="true" tabindex="-1"
-                                                        style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_15a.jpg"
-                                                         alt="alt"></a><a
-                                                        class="recent-item slick-slide slick-cloned" href="index.php"
-                                                        data-slick-index="-2" id="" aria-hidden="true" tabindex="-1"
-                                                        style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_5a.jpg"
-                                                         alt="alt"></a><a
-                                                        class="recent-item slick-slide slick-cloned" href="index.php"
-                                                        data-slick-index="-1" id="" aria-hidden="true" tabindex="-1"
-                                                        style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_32a.jpg"
-                                                         alt="alt"></a><a
-                                                        class="recent-item slick-slide slick-current slick-active"
-                                                        href="index.php" data-slick-index="0" aria-hidden="false"
-                                                        tabindex="-1" role="option" style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_1a.jpg"
-                                                         alt="alt"></a><a
-                                                        class="recent-item slick-slide slick-active" href="index.php"
-                                                        data-slick-index="1" aria-hidden="false" tabindex="-1"
-                                                        role="option" style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_2a.jpg"
-                                                         alt="alt"></a><a
-                                                        class="recent-item slick-slide slick-active" href="index.php"
-                                                        data-slick-index="2" aria-hidden="false" tabindex="-1"
-                                                        role="option" style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_30a.jpg"
-                                                         alt="alt"></a><a
-                                                        class="recent-item slick-slide slick-active" href="index.php"
-                                                        data-slick-index="3" aria-hidden="false" tabindex="-1"
-                                                        role="option" style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_10a.jpg"
-                                                         alt="alt"></a><a
-                                                        class="recent-item slick-slide slick-active" href="index.php"
-                                                        data-slick-index="4" aria-hidden="false" tabindex="-1"
-                                                        role="option" style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_18a.jpg"
-                                                         alt="alt"></a><a
-                                                        class="recent-item slick-slide slick-active" href="index.php"
-                                                        data-slick-index="5" aria-hidden="false" tabindex="-1"
-                                                        role="option" style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_28b.jpg"
-                                                         alt="alt"></a><a
-                                                        class="recent-item slick-slide slick-active" href="index.php"
-                                                        data-slick-index="6" aria-hidden="false" tabindex="-1"
-                                                        role="option" style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_16a.jpg"
-                                                         alt="alt"></a><a
-                                                        class="recent-item slick-slide slick-active" href="index.php"
-                                                        data-slick-index="7" aria-hidden="false" tabindex="-1"
-                                                        role="option" style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_31a.jpg"
-                                                         alt="alt"></a><a class="recent-item slick-slide"
-                                                                          href="index.php" data-slick-index="8"
-                                                                          aria-hidden="true"
-                                                                          tabindex="-1" role="option"
-                                                                          style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_15a.jpg"
-                                                         alt="alt"></a><a class="recent-item slick-slide"
-                                                                          href="index.php" data-slick-index="9"
-                                                                          aria-hidden="true"
-                                                                          tabindex="-1" role="option"
-                                                                          style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_5a.jpg"
-                                                         alt="alt"></a><a class="recent-item slick-slide"
-                                                                          href="index.php" data-slick-index="10"
-                                                                          aria-hidden="true"
-                                                                          tabindex="-1" role="option"
-                                                                          style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_32a.jpg"
-                                                         alt="alt"></a><a
-                                                        class="recent-item slick-slide slick-cloned" href="index.php"
-                                                        data-slick-index="11" id="" aria-hidden="true" tabindex="-1"
-                                                        style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_1a.jpg"
-                                                         alt="alt"></a><a
-                                                        class="recent-item slick-slide slick-cloned" href="index.php"
-                                                        data-slick-index="12" id="" aria-hidden="true" tabindex="-1"
-                                                        style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_2a.jpg"
-                                                         alt="alt"></a><a
-                                                        class="recent-item slick-slide slick-cloned" href="index.php"
-                                                        data-slick-index="13" id="" aria-hidden="true" tabindex="-1"
-                                                        style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_30a.jpg"
-                                                         alt="alt"></a><a
-                                                        class="recent-item slick-slide slick-cloned" href="index.php"
-                                                        data-slick-index="14" id="" aria-hidden="true" tabindex="-1"
-                                                        style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_10a.jpg"
-                                                         alt="alt"></a><a
-                                                        class="recent-item slick-slide slick-cloned" href="index.php"
-                                                        data-slick-index="15" id="" aria-hidden="true" tabindex="-1"
-                                                        style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_18a.jpg"
-                                                         alt="alt"></a><a
-                                                        class="recent-item slick-slide slick-cloned" href="index.php"
-                                                        data-slick-index="16" id="" aria-hidden="true" tabindex="-1"
-                                                        style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_28b.jpg"
-                                                         alt="alt"></a><a
-                                                        class="recent-item slick-slide slick-cloned" href="index.php"
-                                                        data-slick-index="17" id="" aria-hidden="true" tabindex="-1"
-                                                        style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_16a.jpg"
-                                                         alt="alt"></a><a
-                                                        class="recent-item slick-slide slick-cloned" href="index.php"
-                                                        data-slick-index="18" id="" aria-hidden="true" tabindex="-1"
-                                                        style="width: 133px;">
-                                                    <img src="home.asset/img/product/01-Fresh/01_31a.jpg" alt="alt">
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <button class="btn-small slick-nav slick-right slick-arrow">
-                                            <i class="fi-rs-angle-double-small-right"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <!-- end Recently viewed product -->
+                <!-- end Saved wishlist product -->
 
                 <!-- mobile menu -->
                 <div class="header-act  ion-icon-2 d-block d-lg-none">
@@ -607,19 +363,7 @@ session_start();
                             </a>
                             <div class="cart-dropdown-wrap cart-dropdown-hm2">
                                 <ul>
-                                    <li>
-                                        <div class="shopping-cart-img">
-                                            <a href="products.html"><img alt="NSX"
-                                                                         src="home.asset/img/product/03-Multi/strawberry.png"/></a>
-                                        </div>
-                                        <div class="shopping-cart-title">
-                                            <h4><a href="products.html">Dâu tây Đà Lạt 100kg</a></h4>
-                                            <h3><span>1 × </span>800.000 vnd</h3>
-                                        </div>
-                                        <div class="shopping-cart-delete">
-                                            <a href="#"><i class="fi-rs-cross-small"></i></a>
-                                        </div>
-                                    </li>
+
                                     <li>
                                         <div class="shopping-cart-img">
                                             <a href="products.html"><img alt="NSX"
@@ -745,31 +489,31 @@ session_start();
 <!--end header-->
 
 <!-- Vendor JS-->
-<script data-cfasync="false" src="home.asset/js/email-decode.min.js"></script>
-<script src="assets/js/vendor/modernizr-3.6.0.min.js"></script>
-<script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
-<script src="assets/js/vendor/jquery-migrate-3.3.0.min.js"></script>
-<script src="assets/js/vendor/bootstrap.bundle.min.js"></script>
-<script src="assets/js/plugins/slick.js"></script>
-<script src="assets/js/plugins/jquery.syotimer.min.js"></script>
-<script src="assets/js/plugins/wow.js"></script>
-<script src="assets/js/plugins/jquery-ui.js"></script>
-<script src="assets/js/plugins/perfect-scrollbar.js"></script>
-<script src="assets/js/plugins/magnific-popup.js"></script>
-<script src="assets/js/plugins/select2.min.js"></script>
-<script src="assets/js/plugins/waypoints.js"></script>
-<script src="assets/js/plugins/counterup.js"></script>
-<script src="assets/js/plugins/jquery.countdown.min.js"></script>
-<script src="assets/js/plugins/images-loaded.js"></script>
-<script src="assets/js/plugins/isotope.js"></script>
-<script src="assets/js/plugins/scrollup.js"></script>
-<script src="assets/js/plugins/jquery.vticker-min.js"></script>
-<script src="assets/js/plugins/jquery.theia.sticky.js"></script>
-<script src="assets/js/plugins/jquery.elevatezoom.js"></script>
+<!--<script data-cfasync="false" src="home.asset/js/email-decode.min.js"></script>-->
+<!--<script src="assets/js/vendor/modernizr-3.6.0.min.js"></script>-->
+<!--<script src="assets/js/vendor/jquery-3.6.0.min.js"></script>-->
+<!--<script src="assets/js/vendor/jquery-migrate-3.3.0.min.js"></script>-->
+<!--<script src="assets/js/vendor/bootstrap.bundle.min.js"></script>-->
+<!--<script src="assets/js/plugins/slick.js"></script>-->
+<!--<script src="assets/js/plugins/jquery.syotimer.min.js"></script>-->
+<!--<script src="assets/js/plugins/wow.js"></script>-->
+<!--<script src="assets/js/plugins/jquery-ui.js"></script>-->
+<!--<script src="assets/js/plugins/perfect-scrollbar.js"></script>-->
+<!--<script src="assets/js/plugins/magnific-popup.js"></script>-->
+<!--<script src="assets/js/plugins/select2.min.js"></script>-->
+<!--<script src="assets/js/plugins/waypoints.js"></script>-->
+<!--<script src="assets/js/plugins/counterup.js"></script>-->
+<!--<script src="assets/js/plugins/jquery.countdown.min.js"></script>-->
+<!--<script src="assets/js/plugins/images-loaded.js"></script>-->
+<!--<script src="assets/js/plugins/isotope.js"></script>-->
+<!--<script src="assets/js/plugins/scrollup.js"></script>-->
+<!--<script src="assets/js/plugins/jquery.vticker-min.js"></script>-->
+<!--<script src="assets/js/plugins/jquery.theia.sticky.js"></script>-->
+<!--<script src="assets/js/plugins/jquery.elevatezoom.js"></script>-->
 <!-- Template  JS -->
-<script src="assets/js/mainf195.js?v=2.1"></script>
-<script src="assets/js/shopf195.js?v=2.1"></script>
+<!--<script src="assets/js/mainf195.js?v=2.1"></script>-->
+<!--<script src="assets/js/shopf195.js?v=2.1"></script>-->
 
-</body>
-
-</html>
+<!--</body>-->
+<!---->
+<!--</html>-->

@@ -8,8 +8,8 @@ if (!isset($_SESSION['Id'])) {
 
 if ($_SESSION['UserRoleId'] == 3) {
     header("location: Store_Register.php");
-    require_once('Store_Dashboard_Process.php');
 }
+    require_once('Store_Dashboard_Process.php');
 ?>
 <!doctype html>
 <html class="no-js " lang="en">
@@ -123,7 +123,9 @@ if ($_SESSION['UserRoleId'] == 3) {
                 </a></li>
             <li class="active open"><a href="Product_List.php"><i class="zmdi zmdi-sort-amount-desc"></i><span>Tất cả sản phẩm</span>
                 </a></li>
-            <li><a href="Order_List.php"><i class="zmdi zmdi-grid"></i><span>Đơn hàng</span> </a></li>
+            <li><a href="Order_List.php"><i class="zmdi zmdi-grid"></i><span>Đơn hàng mới</span> </a></li>
+                        <li><a href="All_Order_List.php"><i class="zmdi zmdi-grid"></i><span>Tất cả Đơn hàng</span> </a></li>
+
             <li><a href="Customer_List.php"><i class="zmdi zmdi-label-alt"></i><span>Khách hàng</span> </a></li>
             <li><a href="Comision_List.php"><i class="zmdi zmdi-blogger"></i><span>Lợi nhuận</span> </a></li>
 ';
@@ -285,36 +287,6 @@ if ($_SESSION['UserRoleId'] == 3) {
                                 }
                             }
                             ?>
-                            <!--                            <tr>-->
-                            <!--                                <td>-->
-                            <!--                                    <div class="checkbox">-->
-                            <!--                                        <input id="delete_2" type="checkbox">-->
-                            <!--                                        <label for="delete_2">&nbsp;</label>-->
-                            <!--                                    </div>-->
-                            <!--                                </td>-->
-                            <!--                                <td>-->
-                            <!--                                    <img src="assets/images/xs/avatar1.jpg" class="rounded-circle avatar" alt="">-->
-                            <!--                                    <p class="c_name">John Smith <span-->
-                            <!--                                                class="badge badge-default m-l-10 hidden-sm-down">Family</span></p>-->
-                            <!--                                </td>-->
-                            <!--                                <td>-->
-                            <!--                                    <span class="phone"><i class="zmdi zmdi-phone m-r-10"></i>264-625-2583</span>-->
-                            <!--                                </td>-->
-                            <!--                                <td>-->
-                            <!--                                    <span class="email"><a href="javascript:void(0);" title=""><i-->
-                            <!--                                                    class="zmdi zmdi-email m-r-5"></i> johnsmith@gmail.com</a></span>-->
-                            <!--                                </td>-->
-                            <!--                                <td>-->
-                            <!--                                    <address><i class="zmdi zmdi-pin"></i>123 6th St. Melbourne, FL 32904</address>-->
-                            <!--                                </td>-->
-                            <!--                                <td>-->
-                            <!--                                    <button class="btn btn-default btn-icon btn-simple btn-icon-mini btn-round"><i-->
-                            <!--                                                class="zmdi zmdi-edit"></i></button>-->
-                            <!--                                    <button class="btn btn-default btn-icon btn-simple btn-icon-mini btn-round"><i-->
-                            <!--                                                class="zmdi zmdi-delete"></i></button>-->
-                            <!--                                </td>-->
-                            <!--                            </tr>-->
-
                             </tbody>
                         </table>
 

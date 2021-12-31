@@ -62,30 +62,12 @@ if (empty($_COOKIE['Cart'])) {
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-
-    <script type="text/javascript">
-        function loadPage(href) {
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.open("GET", href, false);
-            xmlhttp.send();
-            return xmlhttp.responseText;
-        }
-
-    </script>
-
-    <script>
-
-        $(document).ready(function () {
-            document.getElementById('header').innerHTML = loadPage('header.php');
-            document.getElementById('footer').innerHTML = loadPage('footer.php');
-        });
-
-
-    </script>
 <body>
 
 <!--header-->
-<div id="header"></div>
+<?php
+require_once('header.php');
+?>
 <!--end header-->
 <main class="no-main main pages">
     <div class="page-header breadcrumb-wrap">
@@ -121,7 +103,7 @@ if (empty($_COOKIE['Cart'])) {
                     <div class="row">
 
                         <div class="col-12 col-lg-7 ">
-                            <h3 class="checkout__title">Billing Details</h3>
+                            <h3 class="checkout__title">Chi tiết đơn hàng</h3>
                             <div class="checkout__form">
 
                                 <div class="form-row">

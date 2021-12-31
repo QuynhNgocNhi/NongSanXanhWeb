@@ -9,6 +9,7 @@ if ($_SESSION['UserRoleId'] == 3) {
     header("location: Store_Register.php");
     require_once('Store_Dashboard_Process.php');
 }
+
 ?>
 <!doctype html>
 <html class="no-js " lang="en">
@@ -18,10 +19,10 @@ if ($_SESSION['UserRoleId'] == 3) {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <meta name="description" content="Responsive Bootstrap 4 and web Application ui kit.">
+    <meta name="description" content="">
 
     <title>Thêm danh mục</title>
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/global/2.jpg"/>
     <!-- Favicon-->
     <link rel="stylesheet" href="Admin_Store.asset/plugins/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="Admin_Store.asset/plugins/dropzone/dropzone.css">
@@ -33,6 +34,7 @@ if ($_SESSION['UserRoleId'] == 3) {
     <!-- Bootstrap Tagsinput Css -->
     <link rel="stylesheet" href="Admin_Store.asset/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css">
     <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 </head>
 
@@ -45,7 +47,7 @@ if ($_SESSION['UserRoleId'] == 3) {
         <p>Chờ xíu đê...</p>
     </div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <!-- Overlay For Sidebars -->
 <div class="overlay"></div>
@@ -55,7 +57,7 @@ if ($_SESSION['UserRoleId'] == 3) {
     <div class="col-12">
         <div class="navbar-header">
             <a href="javascript:void(0);" class="bars"></a>
-            <a class="navbar-brand" href="./index.html"><img src="Admin_Store.asset/images/logo.svg" width="30"
+            <a class="navbar-brand" href="index.php"><img src="Admin_Store.asset/images/logo.svg" width="30"
                                                              alt="Compass"><span class="m-l-10">Nông sản xanh</span></a>
         </div>
         <ul class="nav navbar-nav navbar-left">
@@ -71,152 +73,11 @@ if ($_SESSION['UserRoleId'] == 3) {
             </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown"><a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
-                                    role="button"><i class="zmdi zmdi-notifications"></i>
-                    <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-right slideDown">
-                    <li class="header">NOTIFICATIONS</li>
-                    <li class="body">
-                        <ul class="menu list-unstyled">
-                            <li><a href="javascript:void(0);">
-                                    <div class="icon-circle bg-blue"><i class="zmdi zmdi-account"></i></div>
-                                    <div class="menu-info">
-                                        <h4>8 New Members joined</h4>
-                                        <p><i class="zmdi zmdi-time"></i> 14 mins ago </p>
-                                    </div>
-                                </a></li>
-                            <li><a href="javascript:void(0);">
-                                    <div class="icon-circle bg-amber"><i class="zmdi zmdi-shopping-cart"></i></div>
-                                    <div class="menu-info">
-                                        <h4>4 Sales made</h4>
-                                        <p><i class="zmdi zmdi-time"></i> 22 mins ago </p>
-                                    </div>
-                                </a></li>
-                            <li><a href="javascript:void(0);">
-                                    <div class="icon-circle bg-red"><i class="zmdi zmdi-delete"></i></div>
-                                    <div class="menu-info">
-                                        <h4><b>Nancy Doe</b> Deleted account</h4>
-                                        <p><i class="zmdi zmdi-time"></i> 3 hours ago </p>
-                                    </div>
-                                </a></li>
-                            <li><a href="javascript:void(0);">
-                                    <div class="icon-circle bg-green"><i class="zmdi zmdi-edit"></i></div>
-                                    <div class="menu-info">
-                                        <h4><b>Nancy</b> Changed name</h4>
-                                        <p><i class="zmdi zmdi-time"></i> 2 hours ago </p>
-                                    </div>
-                                </a></li>
-                            <li><a href="javascript:void(0);">
-                                    <div class="icon-circle bg-grey"><i class="zmdi zmdi-comment-text"></i></div>
-                                    <div class="menu-info">
-                                        <h4><b>John</b> Commented your post</h4>
-                                        <p><i class="zmdi zmdi-time"></i> 4 hours ago </p>
-                                    </div>
-                                </a></li>
-                            <li><a href="javascript:void(0);">
-                                    <div class="icon-circle bg-purple"><i class="zmdi zmdi-refresh"></i></div>
-                                    <div class="menu-info">
-                                        <h4><b>John</b> Updated status</h4>
-                                        <p><i class="zmdi zmdi-time"></i> 3 hours ago </p>
-                                    </div>
-                                </a></li>
-                            <li><a href="javascript:void(0);">
-                                    <div class="icon-circle bg-light-blue"><i class="zmdi zmdi-settings"></i></div>
-                                    <div class="menu-info">
-                                        <h4>Settings Updated</h4>
-                                        <p><i class="zmdi zmdi-time"></i> Yesterday </p>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="footer"><a href="javascript:void(0);">View All Notifications</a></li>
-                </ul>
-            </li>
-            <li class="dropdown"><a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
-                                    role="button"><i class="zmdi zmdi-flag"></i>
-                    <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-right slideDown">
-                    <li class="header">TASKS</li>
-                    <li class="body">
-                        <ul class="menu tasks list-unstyled">
-                            <li><a href="javascript:void(0);">
-                                    <div class="progress-container progress-primary">
-                                        <span class="progress-badge">Footer display issue</span>
-                                        <div class="progress">
-                                            <div class="progress-bar progress-bar-warning" role="progressbar"
-                                                 aria-valuenow="86" aria-valuemin="0" aria-valuemax="100"
-                                                 style="width: 86%;">
-                                                <span class="progress-value">86%</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li><a href="javascript:void(0);">
-                                    <div class="progress-container progress-info">
-                                        <span class="progress-badge">Answer GitHub questions</span>
-                                        <div class="progress">
-                                            <div class="progress-bar progress-bar-warning" role="progressbar"
-                                                 aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"
-                                                 style="width: 35%;">
-                                                <span class="progress-value">35%</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li><a href="javascript:void(0);">
-                                    <div class="progress-container progress-success">
-                                        <span class="progress-badge">Solve transition issue</span>
-                                        <div class="progress">
-                                            <div class="progress-bar progress-bar-warning" role="progressbar"
-                                                 aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"
-                                                 style="width: 72%;">
-                                                <span class="progress-value">72%</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li><a href="javascript:void(0);">
-                                    <div class="progress-container">
-                                        <span class="progress-badge"> Create new dashboard</span>
-                                        <div class="progress">
-                                            <div class="progress-bar progress-bar-warning" role="progressbar"
-                                                 aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"
-                                                 style="width: 45%;">
-                                                <span class="progress-value">45%</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li><a href="javascript:void(0);">
-                                    <div class="progress-container progress-warning">
-                                        <span class="progress-badge">Panding Project</span>
-                                        <div class="progress">
-                                            <div class="progress-bar progress-bar-warning" role="progressbar"
-                                                 aria-valuenow="29" aria-valuemin="0" aria-valuemax="100"
-                                                 style="width: 29%;">
-                                                <span class="progress-value">29%</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="footer"><a href="javascript:void(0);">View All</a></li>
-                </ul>
-            </li>
             <li>
                 <a href="javascript:void(0);" class="fullscreen hidden-sm-down" data-provide="fullscreen"
                    data-close="true"><i class="zmdi zmdi-fullscreen"></i></a>
             </li>
-            <li><a href="Login.php" class="mega-menu" data-close="true"><i class="zmdi zmdi-power"></i></a></li>
+            <li><a href="login.php" class="mega-menu" data-close="true"><i class="zmdi zmdi-power"></i></a></li>
 
         </ul>
     </div>
@@ -229,7 +90,7 @@ if ($_SESSION['UserRoleId'] == 3) {
         <ul class="list">
             <li>
                 <div class="user-info">
-                    <div class="image"><a href="profile.html"><img src="Admin_Store.asset/images/profile_av.jpg"
+                    <div class="image"><a href="User_Account.php><img src="Admin_Store.asset/images/profile_av.jpg"
                                                                    alt="User"></a></div>
                     <div class="detail">
                         <h4>Sầu riêng Ri6</h4>
@@ -237,21 +98,23 @@ if ($_SESSION['UserRoleId'] == 3) {
                     </div>
 
 
-                    <a href="Login.php" title="Sign out"><i class="zmdi zmdi-power"></i></a>
+                    <a href="login.php" title="Sign out"><i class="zmdi zmdi-power"></i></a>
                 </div>
             </li>
             <li class="header">Quản lý Nông Sản Xanh</li>
 
-           <li ><a href="Admin_Dashboard.php"><i class="zmdi zmdi-home"></i><span>Dash board</span> </a>
+            <li><a href="Admin_Dashboard.php"><i class="zmdi zmdi-home"></i><span>Dash board</span> </a>
             </li>
             <li class="active open"><a href="Admin_Category_Added.php"><i class="zmdi zmdi-plus-circle"></i><span>Thêm danh mục</span>
                 </a></li>
-            <li ><a href="Admin_Unit_Added.php"><i class="zmdi zmdi-plus-circle"></i><span>Thêm đơn vị</span>
+            <li><a href="Admin_Unit_Added.php"><i class="zmdi zmdi-plus-circle"></i><span>Thêm đơn vị</span>
                 </a></li>
             <li><a href="Product_List.php"><i class="zmdi zmdi-sort-amount-desc"></i><span>Tất cả sản phẩm</span>
                 </a></li>
-            <li><a href="Order_List.php"><i class="zmdi zmdi-grid"></i><span>Đơn hàng</span> </a></li>
-            <li><a href="Customer-List.php"><i class="zmdi zmdi-label-alt"></i><span>Khách hàng</span> </a></li>
+            <li><a href="Order_List.php"><i class="zmdi zmdi-grid"></i><span>Đơn hàng mới</span> </a></li>
+                        <li><a href="All_Order_List.php"><i class="zmdi zmdi-grid"></i><span>Tất cả Đơn hàng</span> </a></li>
+
+            <li><a href="Customer_List.php"><i class="zmdi zmdi-label-alt"></i><span>Khách hàng</span> </a></li>
             <li><a href="Comision_List.php"><i class="zmdi zmdi-blogger"></i><span>Lợi nhuận</span> </a></li>
         </ul>
     </div>
@@ -281,33 +144,51 @@ if ($_SESSION['UserRoleId'] == 3) {
         <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="card">
-                    <form action="#" method="get">
-                        <div class="header">
-
-                            <ul class="header-dropdown">
-                                <li class="dropdown"><a href="javascript:void(0);" class="dropdown-toggle"
-                                                        data-toggle="dropdown" role="button" aria-haspopup="true"
-                                                        aria-expanded="false"> <i class="zmdi zmdi-more"></i> </a>
-                                    <ul class="dropdown-menu dropdown-menu-right">
-                                        <li><a href="javascript:void(0);">Cập nhật</a></li>
-                                        <li><a href="javascript:void(0);">Xóa danh mục</a></li>
-                                        <li><a href="javascript:void(0);">Khóa danh mục</a></li>
-                                    </ul>
-                                </li>
-                                <li class="remove">
-                                    <a role="button" class="boxs-close"><i class="zmdi zmdi-close"></i></a>
-                                </li>
-                            </ul>
-                        </div>
+                    <form action="Admin_Category_Added.php" method="POST">
                         <div class="body">
                             <div class="demo-masked-input">
                                 <div class="row clearfix">
 
                                     <div class="col-lg-6 col-md-6"><b>Tên danh mục</b>
-                                        <div class="input-group ">
+                                        <div class="input-group col-lg-12">
                                             <span class="input-group-addon"><i class="zmdi zmdi-info"></i></span>
                                             <input type="text" class="form-control" id="Name" name="Name"
-                                                   placeholder="vd: Trái cây">
+                                                   placeholder="vd: Trái cây"">
+                                        </div>
+                                        <div class="col-lg-12 p-b-50 col-md-6 row">
+                                            <div class="col-lg-6 p-b-50 col-md-6"><b>Hình ảnh danh mục</b>
+                                            <!-- Thêm hình ảnh -->
+                                            <div class="input-group">
+                                                <p id="errorMessage"></p>
+
+                                                <form action="Product_Img_Upload.php" id="FileUpload"
+                                                      class="dropzone m-b-20 m-t-20"
+                                                      method="post" enctype="multipart/form-data">
+
+                                                    <div class="fallback">
+                                                        <input id="MainProductImg" name="FileName[]" type="file"
+                                                               multiple/>
+                                                    </div>
+                                                    <input id="UploadMainImgBtn" class="button button-input"
+                                                           type="submit"
+                                                           name="AddMain" value="Thêm hình ảnh">
+                                                </form>
+                                                <div class="col-12 grid-two p-t-20 imageandtext row" id="image_preview">
+
+                                                </div>
+                                            </div>
+                                            <!--                                        todo: click để chọn ra ảnh sẽ đăng, click thêm ảnh sẽ duocjd thêm và chuyển qua bên kia, lưu về database,-->
+                                            <!--                                        xuất ra thẻ img có id và onclick = get name ra cái div ở phía dứi để lấy từng cái value-->
+
+                                        </div>
+                                        <!--                                    try-->
+                                        <div class="col-lg-6 p-b-50 col-md-6 p-t-20 "><b>Hình ảnh Hợp lệ</b>
+                                            <div>
+                                                <div class="grid-two p-t-20 imageandtext row" id="imageSuccess">
+
+                                                </div>
+                                            </div>
+                                        </div>
                                         </div>
 
                                         <p><b>Danh mục cha: litmit 2</b></p>
@@ -325,6 +206,7 @@ if ($_SESSION['UserRoleId'] == 3) {
 
                                                 if (mysqli_num_rows($result) > 0) {
                                                     $index = 0;
+
                                                     while ($row = mysqli_fetch_row($result)) {
                                                         echo "<option id='$row[0]'>$row[1]</option>";
 
@@ -346,15 +228,15 @@ if ($_SESSION['UserRoleId'] == 3) {
                                                 </div>
                                             </div>
                                         </div>
-                                         <div><b>Mô tả danh mục</b>
-                                        <div class="form-group">
+                                        <div><b>Mô tả danh mục</b>
+                                            <div class="form-group">
                                             <textarea id="Description" rows="5" class="form-control no-resize"
                                                       placeholder="Mô tả chung"></textarea>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <button type="Submit" name="Submit" value="Thêm"
-                                            class="btn btn-lg btn-brand btn-primary btn-rounded">Thêm danh mục
-                                    </button>
+                                        <button type="Submit" name="Submit" value="Thêm" id="AddCategory"
+                                                class="btn btn-lg btn-brand btn-primary btn-rounded">Thêm danh mục
+                                        </button>
                                     </div>
 
                                     <div class="col-lg-6 col-md-6"><b>Danh sách danh mục</b>
@@ -385,36 +267,36 @@ if ($_SESSION['UserRoleId'] == 3) {
 
                                                             if (mysqli_num_rows($result) > 0) {
                                                                 $index = 0;
-
-
+                                                                $index1 = 0;
                                                                 while ($row = mysqli_fetch_row($result)) {
+                                                                    $index1++;
                                                                     if ($index % 2 == 0) {
                                                                         echo "<tr class='xl-khaki'>
                                                       <th scope='row'>";
 
-                                                                        echo "$row[0]</th>
+                                                                        echo "$index1</th>
                                                                 <td>";
                                                                         echo "$row[1]</td>
                                                                 <td>";
                                                                         echo "$row[2]</td>
                                                                 ";
                                                                         echo "<td>
-                                        <button class='btn btn-sm btn-icon btn-simple btn-icon-mini btn-round'><i class='zmdi zmdi-edit'></i></button>
-                                        <button class='btn btn-sm btn-icon btn-simple btn-icon-mini btn-round'><i class='zmdi zmdi-delete'></i></button>
+                                         <a href='Admin_Category_Edit.php?action=edit&Id=" . $row[0] . "'><button type='button' class='btn btn-sm btn-icon btn-simple btn-icon-mini btn-round'><i class='zmdi zmdi-edit'></i></button></a> 
+                                        <a href='Admin_Category_Edit.php?action=delete&Id=" . $row[0] . "'><button type='button' class='btn btn-sm btn-icon btn-simple btn-icon-mini btn-round'><i class='zmdi zmdi-delete'></i></button></a>
                                     </td></tr>";
                                                                     } else {
                                                                         echo "<tr class='xl-pink'>
                                                       <th scope='row'>";
 
-                                                                        echo "$row[0]</th>
+                                                                        echo "$index1</th>
                                                                 <td>";
                                                                         echo "$row[1]</td>
                                                                 <td>";
                                                                         echo "$row[2]</td>
                                                                 ";
                                                                         echo "<td>
-                                        <button class='btn btn-sm btn-icon btn-simple btn-icon-mini btn-round'><i class='zmdi zmdi-edit'></i></button>
-                                        <button class='btn btn-sm btn-icon btn-simple btn-icon-mini btn-round'><i class='zmdi zmdi-delete'></i></button>
+                                        <a href='Admin_Category_Edit.php?action=edit&Id=" . $row[0] . "'><button type='button' class='btn btn-sm btn-icon btn-simple btn-icon-mini btn-round'><i class='zmdi zmdi-edit'></i></button></a> 
+                                        <a href='Admin_Category_Edit.php?action=delete&Id=" . $row[0] . "'><button type='button' class='btn btn-sm btn-icon btn-simple btn-icon-mini btn-round'><i class='zmdi zmdi-delete'></i></button></a>
                                     </td></tr>";
                                                                     }
                                                                     $index += 1;
@@ -433,7 +315,6 @@ if ($_SESSION['UserRoleId'] == 3) {
                                         </div>
 
                                     </div>
-
 
 
                                 </div>
@@ -466,23 +347,6 @@ if ($_SESSION['UserRoleId'] == 3) {
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 </body>
-<?php
-if (isset($_GET['Submit'])) {
+<script src="Admin_Category.js"></script>
 
-    include "config.php";
-    $ten = $_GET['Name'];
-
-
-    $sql = "INSERT INTO productcategory (Name) VALUES ('$ten')";
-
-    if (mysqli_query($conn, $sql)) {
-        echo "Thêm thành công";
-    } else {
-        echo "Error adding record: " . mysqli_connect_error();
-    }
-    header("Location: Admin_Category_Added.php");
-
-
-}
-?>
 </html>

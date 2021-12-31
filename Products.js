@@ -19,7 +19,7 @@ function AddToCart(ProductId) {
             })
             // alert($('.pro-count').text());
 
-            $('.pro-count').html(data);
+            $('#cart-count').html(data);
         },
         error: function (data) {
             swal({
@@ -69,9 +69,7 @@ function MinusToCart(ProductId, CurrentQuantity) {
                 icon: "warning",
                 // dangerMode: true
 
-            }).then(function () {
-                window.open('login.php', '_self')
-            });
+            })
         }
     });
     }

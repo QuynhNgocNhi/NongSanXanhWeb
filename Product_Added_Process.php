@@ -1,17 +1,14 @@
 <?php
 ob_start();
 session_start();
-if (!isset($_SESSION['Id'])) {
-    header("location: login.php");
-}
-
+?>
+<?php
 if ($_SESSION['UserRoleId'] == 3) {
     header("location: Store_Register.php");
-} else {
-    require_once('Store_Dashboard_Process.php');
 }
 ?>
 <?php
+require_once ("config.php");
 
 if (isset($_POST)) {
     $ProductStatus = $_POST['ProductStatus'];
@@ -26,10 +23,10 @@ if (isset($_POST)) {
     $Description = $_POST['Description'];
     $ProductCategoryId = $_POST['ProductCategoryId'];
 //get category name
-    $sql = "SELECT * FROM productcategory WHERE Id = '" . $ProductCategoryId . "'";
+    $sql = "SELECT * FROM productcategory WHERE No = '$ProductCategoryId'";
     $result = mysqli_query($conn, $sql);
     if ($result) {
-        $row = mysqli_fetch_array($result, MYSQLI_BOTH);
+        $row = mysqli_fetch_array($result);
         $ProductCategoryName = $row["Name"];
     }
     //get unit name

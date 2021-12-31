@@ -11,9 +11,6 @@ document.getElementById("Checkout").addEventListener('click', function (event) {
     $MainProductName = $('div#Name').text();
     // alert($MainProductName);
     // $OrderTotal = $('div#OrderTotal').text();
-
-
-
     $.ajax({
         type: 'POST',
         url: 'Checkout_Process.php',

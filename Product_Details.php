@@ -13,6 +13,33 @@ $row = mysqli_fetch_assoc($result);
 if (!$row) {
     header("location: page-404.php");
 }
+//add to recentview
+if (isset($_COOKIE['RecentView'])) {
+    $cookie_data = stripslashes($_COOKIE['RecentView']);
+    $RecentViewData = json_decode($cookie_data, true);
+} else {
+    $RecentViewData = array();
+}
+$item_id_list = array_column($RecentViewData, 'Id');
+if (in_array($ProductId, $item_id_list)) {
+    foreach ($RecentViewData as $keys => $values) {
+        if ($values["Id"] == $ProductId) {
+            unset($RecentViewData[$keys]);
+        }
+
+    }
+}
+//Product new in ViewedList
+$ItemData = array(
+    'Id' => $row['Id'],
+    'Image' => $row['Img'],
+);
+
+$RecentViewData[] = $ItemData;
+// Insert item to RecentView array
+$RecentViewDataFull = json_encode($RecentViewData, JSON_UNESCAPED_UNICODE);
+setcookie("RecentView", $RecentViewDataFull, time() + 86400, "/");
+//end recently viewed
 
 //Get store
 $sql1 = "SELECT * FROM stores WHERE Id = '" . $row['StoreId'] . "'";
@@ -28,34 +55,21 @@ $Store = mysqli_fetch_assoc($result1);
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/mainf195.css?v=2.1"/>
+
     <title>Sản phẩm</title>
     <!-- Template CSS -->
     <link rel="stylesheet" href="assets/css/mainf195.css?v=2.1"/>
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/global/2.jpg"/>
     <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
-    <script type="text/javascript">
-        function loadPage(href) {
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.open("GET", href, false);
-            xmlhttp.send();
-            return xmlhttp.responseText;
-        }
 
-    </script>
-
-    <script>
-        $(document).ready(function () {
-            document.getElementById('header').innerHTML = loadPage('header.php');
-            document.getElementById('footer').innerHTML = loadPage('footer.php');
-        });
-        $(document).ready(function () {
-            $('#products-page').addClass("active");
-        });
-    </script>
 </head>
 
 <body>
 
-<div id="header"></div>
+<?php
+require_once('header.php');
+?>
 
 <main class="main">
     <div class="page-header breadcrumb-wrap">
@@ -78,10 +92,11 @@ $Store = mysqli_fetch_assoc($result1);
                                         <span class="zoom-icon"><i class="fi-rs-search"></i></span>
                                         <!-- MAIN SLIDES -->
                                         <div class="product-image-slider">
-<!--                                            <figure class="border-radius-10">-->
-<!--                                                <img src="data/Product_Img_Upload/--><?php //= $row['Img']; ?><!--"-->
-<!--                                                     alt="product image"/>-->
-<!--                                            </figure>-->
+                                            <!--                                            <figure class="border-radius-10">-->
+                                            <!--                                                <img src="data/Product_Img_Upload/-->
+                                            <?php //= $row['Img']; ?><!--"-->
+                                            <!--                                                     alt="product image"/>-->
+                                            <!--                                            </figure>-->
                                             <?php
                                             include "config.php";
 
@@ -94,7 +109,7 @@ $Store = mysqli_fetch_assoc($result1);
                                                 $index = 0;
                                                 while ($ProductImages = mysqli_fetch_assoc($result1)) {
                                                     echo "<figure class='border-radius-10'>
-                                                <img src= 'data/Product_Img_Upload/".$ProductImages['ImgUrl']."' alt='product image'/>
+                                                <img src= 'data/Product_Img_Upload/" . $ProductImages['ImgUrl'] . "' alt='product image'/>
                                             </figure>";
 
                                                 }
@@ -120,9 +135,10 @@ $Store = mysqli_fetch_assoc($result1);
                                         </div>
                                         <!-- THUMBNAILS -->
                                         <div class="slider-nav-thumbnails">
-<!--                                            <div><img src="data/Product_Img_Upload/--><?php //= $row['Img']; ?><!--"-->
-<!--                                                      alt="product image"/>-->
-<!--                                            </div>-->
+                                            <!--                                            <div><img src="data/Product_Img_Upload/-->
+                                            <?php //= $row['Img']; ?><!--"-->
+                                            <!--                                                      alt="product image"/>-->
+                                            <!--                                            </div>-->
                                             <?php
                                             include "config.php";
 
@@ -134,7 +150,7 @@ $Store = mysqli_fetch_assoc($result1);
                                             if (mysqli_num_rows($result1) > 0) {
                                                 $index = 0;
                                                 while ($ProductImages = mysqli_fetch_assoc($result1)) {
-                                                    echo "<div><img src='data/Product_Img_Upload/".$ProductImages['ImgUrl']."' alt='product image'/>
+                                                    echo "<div><img src='data/Product_Img_Upload/" . $ProductImages['ImgUrl'] . "' alt='product image'/>
                                             </div>";
 
                                                 }
@@ -242,10 +258,10 @@ $Store = mysqli_fetch_assoc($result1);
                                             <a class="nav-link active" id="Description-tab" data-bs-toggle="tab"
                                                href="#Description">Mô tả sản phẩm</a>
                                         </li>
-<!--                                        <li class="nav-item">-->
-<!--                                            <a class="nav-link" id="Additional-info-tab" data-bs-toggle="tab"-->
-<!--                                               href="#Additional-info">Thông tin thêm</a>-->
-<!--                                        </li>-->
+                                        <!--                                        <li class="nav-item">-->
+                                        <!--                                            <a class="nav-link" id="Additional-info-tab" data-bs-toggle="tab"-->
+                                        <!--                                               href="#Additional-info">Thông tin thêm</a>-->
+                                        <!--                                        </li>-->
                                         <li class="nav-item">
                                             <a class="nav-link" id="Vendor-info-tab" data-bs-toggle="tab"
                                                href="#Vendor-info">Nhà cung cấp</a>
@@ -418,10 +434,11 @@ $Store = mysqli_fetch_assoc($result1);
                                             </div>
                                             <ul class="contact-infor mb-50">
                                                 <li><img src="assets/imgs/theme/icons/icon-location.svg"
-                                                         alt=""/><strong>Địa chỉ: </strong> <span><?= $Store['StoreAdress']?></span></li>
+                                                         alt=""/><strong>Địa chỉ: </strong>
+                                                    <span><?= $Store['StoreAdress'] ?></span></li>
                                                 <li><img src="assets/imgs/theme/icons/icon-contact.svg"
                                                          alt=""/><strong>Liên hệ cửa hàng:</strong><span>(+84) -
-                                                            <?= $Store['StorePhone']?></span></li>
+                                                            <?= $Store['StorePhone'] ?></span></li>
                                             </ul>
                                             <div class="d-flex mb-55">
                                                 <div class="mr-30">
@@ -437,7 +454,7 @@ $Store = mysqli_fetch_assoc($result1);
                                                 <!--                                                        <h4 class="mb-0">89%</h4>-->
                                                 <!--                                                    </div>-->
                                             </div>
-                                            <p><?= $Store['Info']?></p>
+                                            <p><?= $Store['Info'] ?></p>
                                         </div>
                                         <div class="tab-pane fade" id="Reviews">
                                             <!--Comments-->
@@ -842,10 +859,10 @@ $Store = mysqli_fetch_assoc($result1);
                                 <li>
                                     <i class="fi fi-rs-marker mr-10 text-brand"></i>
                                     <span>
-                                           <?= $Store['StoreAdress']?>
+                                           <?= $Store['StoreAdress'] ?>
                                         </span>
-<!--                                    todo: tính giá vận chuyển-->
-<!--                                    <a href="#" class="change float-end">Change</a>-->
+                                    <!--                                    todo: tính giá vận chuyển-->
+                                    <!--                                    <a href="#" class="change float-end">Change</a>-->
                                 </li>
                                 <li class="hr"><span></span></li>
                             </ul>
@@ -871,7 +888,7 @@ $Store = mysqli_fetch_assoc($result1);
                                 <img src="assets/img/global/vendor/vendor1.jpg" alt=""/>
                                 <div class="vendor-name ml-15">
                                     <h6>
-                                        <a href="vendor-details-2.html"><?= $row['StoreName']; ?></a>
+                                        <a href="Vendor_Detail.php?StoreId=<?= $row['StoreId']; ?>"><?= $row['StoreName']; ?></a>
                                     </h6>
                                     <div class="product-rate-cover text-end">
                                         <div class="product-rate d-inline-block">
@@ -884,8 +901,9 @@ $Store = mysqli_fetch_assoc($result1);
                             <ul class="contact-infor">
                                 <li><img src="assets/imgs/theme/icons/icon-location.svg" alt=""/><strong>Đia chỉ cửa
                                         hàng:
-                                    </strong> <span><?= $Store['StoreAdress']?></span></li>
-                                <li><img src="assets/imgs/theme/icons/icon-contact.svg" alt=""/><strong>Liên hệ:</strong><span>(+84) - <?= $Store['StorePhone']?></span></li>
+                                    </strong> <span><?= $Store['StoreAdress'] ?></span></li>
+                                <li><img src="assets/imgs/theme/icons/icon-contact.svg" alt=""/><strong>Liên
+                                        hệ:</strong><span>(+84) - <?= $Store['StorePhone'] ?></span></li>
                                 <li class="hr"><span></span></li>
                             </ul>
                             <div class="d-flex justify-content-between">
@@ -916,7 +934,9 @@ $Store = mysqli_fetch_assoc($result1);
     </div>
 </main>
 
-<div id="footer"></div>
+<?php
+require_once('footer.php');
+?>
 <!-- Vendor JS-->
 <script data-cfasync="false" src="../../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
 <script src="assets/js/vendor/modernizr-3.6.0.min.js"></script>

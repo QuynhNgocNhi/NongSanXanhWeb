@@ -153,7 +153,9 @@ require_once('config.php');
 
 </main>
 
-<div id="footer"></div>
+<?php
+require_once('footer.php');
+?>
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript">

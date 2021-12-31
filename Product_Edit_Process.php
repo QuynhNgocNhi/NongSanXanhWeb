@@ -29,7 +29,7 @@ if (isset($_POST)) {
     $Description = $_POST['Description'];
     $ProductCategoryId = $_POST['ProductCategoryId'];
     //get category name
-    $sql = "SELECT * FROM productcategory WHERE Id = '" . $ProductCategoryId . "'";
+    $sql = "SELECT * FROM productcategory WHERE No = '" . $ProductCategoryId . "'";
     $result = mysqli_query($conn, $sql);
     if ($result) {
         $row = mysqli_fetch_array($result, MYSQLI_BOTH);

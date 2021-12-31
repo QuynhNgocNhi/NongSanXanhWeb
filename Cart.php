@@ -73,29 +73,12 @@ if (isset($_GET["clearall"])) {
     <!-- font -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
 
-    <script type="text/javascript">
-        function loadPage(href) {
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.open("GET", href, false);
-            xmlhttp.send();
-            return xmlhttp.responseText;
-        }
-
-    </script>
-
-    <script>
-
-        $(document).ready(function () {
-            document.getElementById('header').innerHTML = loadPage('header.php');
-            document.getElementById('footer').innerHTML = loadPage('footer.php');
-        });
-
-
-    </script>
 <body>
 
 <!--header-->
-<div id="header"></div>
+<?php
+require_once('header.php');
+?>
 <!--end header-->
 <main class="no-main main pages">
     <div class="page-header breadcrumb-wrap">
@@ -148,7 +131,7 @@ if (isset($_GET["clearall"])) {
                                                             </h5>
                                                             <p class="ps-product__unit"><?= $values['Unit'] ?></p>
                                                             <p class="ps-product__soldby">Cửa hàng <a
-                                                                        href=""><span><?= $values['StoreName'] ?></span></a>
+                                                                        href="Vendor_Detail.php?StoreId=<?= $values['StoreId']; ?>"><span><?= $values['StoreName'] ?></span></a>
                                                             </p>
                                                             <p class="ps-product__meta">Giá: <span
                                                                         class="ps-product__price"><?= $values['Price'] ?></span>
@@ -214,36 +197,36 @@ if (isset($_GET["clearall"])) {
                                             class="icon-sync"> </i>Xóa tất cả</a>
                                 <a class="button left" href="Products.php"><i
                                             class="icon-arrow-left"></i>Tiếp tục chọn lựa</a></div>
-                            <div class="row">
-                                <div class="col-12 col-lg-6">
-                                    <div class="shopping-cart__block">
-                                        <h3 class="block__title">Using A Promo Code?</h3>
-                                        <div class="input-group">
-                                            <input class="form-control" type="text" placeholder="Coupon code">
-                                            <div class="input-group-append">
-                                                <button class="btn">Apply</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-lg-6">
-                                    <div class="shopping-cart__block">
-                                        <h3 class="block__title">Calculate Shipping</h3>
-                                        <div class="input-group">
-                                            <select class="single-select2" name="state">
+<!--                            <div class="row">-->
+<!--                                <div class="col-12 col-lg-6">-->
+<!--                                    <div class="shopping-cart__block">-->
+<!--                                        <h3 class="block__title">Using A Promo Code?</h3>-->
+<!--                                        <div class="input-group">-->
+<!--                                            <input class="form-control" type="text" placeholder="Coupon code">-->
+<!--                                            <div class="input-group-append">-->
+<!--                                                <button class="btn">Apply</button>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="col-12 col-lg-6">-->
+<!--                                    <div class="shopping-cart__block">-->
+<!--                                        <h3 class="block__title">Calculate Shipping</h3>-->
+<!--                                        <div class="input-group">-->
+<!--                                            <select class="single-select2" name="state">-->
 <!--                                                <option value="uk">United Kingdom</option>-->
-                                                <option value="vn">Viet Nam</option>
-                                            </select>
-                                        </div>
-                                        <div class="input-group">
-                                            <input class="form-control" type="text" placeholder="Town/ City">
-                                        </div>
-                                        <div class="input-group">
-                                            <input class="form-control" type="text" placeholder="Postcode/ ZIP">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+<!--                                                <option value="vn">Viet Nam</option>-->
+<!--                                            </select>-->
+<!--                                        </div>-->
+<!--                                        <div class="input-group">-->
+<!--                                            <input class="form-control" type="text" placeholder="Town/ City">-->
+<!--                                        </div>-->
+<!--                                        <div class="input-group">-->
+<!--                                            <input class="form-control" type="text" placeholder="Postcode/ ZIP">-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
                         </div>
                     </div>
                     <div class="col-12 col-lg-4">
@@ -251,9 +234,9 @@ if (isset($_GET["clearall"])) {
                             <div class="shopping-cart__total">
                                 <p class="shopping-cart__subtotal"><span>Tổng Đơn hàng:</span><span
                                             class="price" id="Subtotal"><?php if(!empty($_COOKIE['Cart'])) echo $total; ?></span></p>
-                                    <p class="shopping-cart__shipping">Shipping<br><span>FREE SHIPPING</span><br>Estimate
+                                    <p class="shopping-cart__shipping">Vận chuyển<br><span>Miễn phí vận chuyển</span><br>Estimate
                                     for <b>Viet Nam</b></p>
-                                <p class="shopping-cart__subtotal"><span><b>TOTAL</b></span><span id="TotalLast" class="price-total"><?php if(!empty($_COOKIE['Cart'])) echo $total; ?></span>
+                                <p class="shopping-cart__subtotal"><span><b>Thành tiền</b></span><span id="TotalLast" class="price-total"><?php if(!empty($_COOKIE['Cart'])) echo $total; ?></span>
                                 </p>
                             </div>
                             <a class="btn shopping-cart__checkout" href="Checkout.php">Đặt</a>

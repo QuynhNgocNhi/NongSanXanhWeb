@@ -180,15 +180,24 @@ s
                                             $sql3 = "select * from productcategory";
 
                                             $result3 = mysqli_query($conn, $sql3);
+                                            $index=1;
 
 
                                             if (mysqli_num_rows($result3) > 0) {
 
                                                 while ($row3 = mysqli_fetch_row($result3)) {
                                                     if ($row3[1] == $row['ProductCategory'])
-                                                        echo "<option selected value='$row3[0]'>$row3[1]</option>";
+                                                    {
+                                                         echo "<option selected value='$index'>$row3[1]</option>";
+                                                         $index++;
+                                                    }
+
                                                     else
-                                                        echo "<option value='$row3[0]'>$row3[1]</option>";
+                                                    {
+                                                        echo "<option value='$index'>$row3[1]</option>";
+                                                        $index++;
+                                                    }
+
 
                                                 }
                                             }

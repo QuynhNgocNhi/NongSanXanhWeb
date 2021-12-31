@@ -21,8 +21,7 @@ if ($_SESSION['UserRoleId'] == 3) {
     <meta name="description" content="Responsive Bootstrap 4 and web Application ui kit.">
 
     <title>Thêm sản phẩm</title>
-        <link rel="icon" href="assets/img/global/2.jpg" type="image/x-icon">
-
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
     <!-- Favicon-->
     <link rel="stylesheet" href="Admin_Store.asset/plugins/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="Admin_Store.asset/plugins/dropzone/dropzone.css">
@@ -183,20 +182,19 @@ if ($_SESSION['UserRoleId'] == 3) {
                                     <div class="col-lg-6 col-md-6"><b>Danh mục</b>
 
                                         <select name="ProductCategory" class="form-control show-tick z-index"
-                                                data-live-search="true">
+                                               >
 
                                             <option>Chọn danh mục --</option>
                                             <?php
-
                                             include "config.php";
 
-                                            $sql = "select * from productcategory";
-                                            $result = mysqli_query($conn, $sql);
+                                            $sql1 = "select * from productcategory";
+                                            $result1 = mysqli_query($conn, $sql1);
 
-                                            if (mysqli_num_rows($result) > 0) {
+                                            if (mysqli_num_rows($result1) > 0) {
                                                 $index = 0;
-                                                while ($row = mysqli_fetch_row($result)) {
-                                                    echo "<option value='$row[0]'>$row[1]</option>";
+                                                while ($row1 = mysqli_fetch_assoc($result1)) {
+                                                    echo "<option value='".$row1['Id']."'>".$row1['Name']."</option>";
 
                                                 }
                                             }

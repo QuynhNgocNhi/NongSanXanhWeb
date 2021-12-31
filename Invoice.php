@@ -1,3 +1,4 @@
+<!--todo: quay về tang chủ-->
 <?php
 ob_start();
 session_start();
@@ -87,7 +88,9 @@ if (!$row) {
 <body>
 
 <!--header-->
-<div id="header"></div>
+<?php
+require_once('header.php');
+?>
 <!--end header-->
 <main class="no-main main pages">
     <div class="page-header breadcrumb-wrap">
@@ -167,19 +170,21 @@ if (!$row) {
                                                     $sqlOrderDetail = "SELECT * FROM orderdetail WHERE OrderId = '" . $OrderId . "'";
                                                     $resultOrderDetail = mysqli_query($conn, $sqlOrderDetail);
                                                     $index = 1;
-                                                    while ($rowOrderDetail = mysqli_fetch_assoc($resultOrderDetail)){
-                                                    ?>
-                                                    <tr>
-                                                        <td><?= $index++;    ?></td>
-                                                        <td><img src="data/Product_Img_Upload/<?= $rowOrderDetail['ProductImage'] ?>" width="40"
-                                                                 alt="Product img"></td>
-                                                        <td><?= $rowOrderDetail['StoreName'] ?></td>
-                                                        <td class="hidden-sm-down"><?= $rowOrderDetail['ProductName'] ?></td>
-                                                        <td><?= $rowOrderDetail['Quantity'] ?></td>
-                                                        <td class="hidden-sm-down"><?= $rowOrderDetail['Price'] ?></td>
-                                                        <td><?= $rowOrderDetail['Total'] ?></td>
-                                                    </tr>
-                                                    <?php  } ?>
+                                                    while ($rowOrderDetail = mysqli_fetch_assoc($resultOrderDetail)) {
+                                                        ?>
+                                                        <tr>
+                                                            <td><?= $index++; ?></td>
+                                                            <td>
+                                                                <img src="data/Product_Img_Upload/<?= $rowOrderDetail['ProductImage'] ?>"
+                                                                     width="40"
+                                                                     alt="Product img"></td>
+                                                            <td><?= $rowOrderDetail['StoreName'] ?></td>
+                                                            <td class="hidden-sm-down"><?= $rowOrderDetail['ProductName'] ?></td>
+                                                            <td><?= $rowOrderDetail['Quantity'] ?></td>
+                                                            <td class="hidden-sm-down"><?= $rowOrderDetail['Price'] ?></td>
+                                                            <td><?= $rowOrderDetail['Total'] ?></td>
+                                                        </tr>
+                                                    <?php } ?>
 
                                                     </tbody>
                                                 </table>
@@ -209,7 +214,9 @@ if (!$row) {
                                                                 class="price-total"><?= $row['OrderTotal'] ?></strong>
                                                     </p>
                                                 </div>
-
+                                                <a class="btn btn-default submit-auto-width font-xs hover-up mt-30"
+                                                   href="index.php"><i
+                                                            class="fi-rs-home mr-5"></i> Về trang chủ</a>
                                             </div>
                                         </div>
 
@@ -264,6 +271,9 @@ if (!$row) {
                                                     </tbody>
                                                 </table>
                                             </div>
+                                            <a class="btn btn-default submit-auto-width font-xs hover-up mt-30"
+                                               href="index.php"><i
+                                                        class="fi fi-rs-home mr-5 text-white"></i> Về trang chủ</a>
                                         </div>
                                     </div>
                                 </div>

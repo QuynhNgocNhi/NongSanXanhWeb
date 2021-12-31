@@ -2,7 +2,10 @@ document.getElementById("AddProduct").addEventListener('click', function (event)
     // NOTE: You are clicking a submit button.  After this function runs,
     // then the form will be submitted.  If you want to *stop* that, you can
     // use the following:
-    event.preventDefault();
+    // event.preventDefault();
+    var e = document.getElementById("ProductCategory");
+    var value = e.options[e.selectedIndex].value;
+    alert(value);
     var ImageArray = new Array(5);
 
     // var MainImageSource = document.getElementById("IMG1").src;
@@ -27,7 +30,7 @@ document.getElementById("AddProduct").addEventListener('click', function (event)
             "Description": $('#Description').val(),
             "ProductMainImage": MainImageName,
             "ProductImages": ImageArray,
-            "ProductCategoryId": $("[name ='ProductCategory']").val()[0],
+            "ProductCategoryId":value,
             "ProductStatus": $('#ProductStatus').val(),
             "ProductUnits": $('#ProductUnits').val(),
 

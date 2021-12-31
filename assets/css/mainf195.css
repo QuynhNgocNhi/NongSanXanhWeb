@@ -6859,7 +6859,7 @@ h6.post-title {
   left: 0;
   -webkit-transition: all .3s ease 0s;
   transition: all .3s ease 0s;
-  border-bottom: 2px solid #FDC040;
+
   background: #fff;
 }
 
@@ -6917,7 +6917,7 @@ h6.post-title {
   width: 100%;
   max-width: 683px;
   font-size: 14px;
-  background-image: url(../imgs/theme/icons/search.png);
+  /*background-image: url(../imgs/theme/icons/search.png);*/
   background-repeat: no-repeat;
   background-position: center right;
   padding-left: 0;
@@ -11623,6 +11623,7 @@ p.ps-product__type a{
    color: #7E7E7E; !important;
 }
 ul.shopping-cart-header{
-    height: 350px;
+    height: fit-content;
+    max-height: 350px;
     overflow-y: auto;
 }

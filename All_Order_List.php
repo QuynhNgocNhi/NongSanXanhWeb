@@ -283,7 +283,7 @@ if ($_SESSION['UserRoleId'] == 3) {
     function UpdateStatus(OrderId, OrderDetailId) {
         QueryToStatusId = "select#".concat(OrderDetailId).concat(" > option:selected");
         StatusId = $(QueryToStatusId).val();
-        alert(StatusId);
+        // alert(StatusId);
         $.ajax({
             type: 'POST',
             url: 'All_Order_List_Process.php',

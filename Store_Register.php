@@ -51,7 +51,9 @@ require_once('config.php');
 </head>
 
 <body>
-<div id="header"></div>
+<?php
+require_once('header.php');
+?>
 <main class="main pages">
     <div class="page-header breadcrumb-wrap">
         <div class="container">
@@ -242,7 +244,7 @@ require_once('config.php');
                             icon: "success"
 
                         }).then(function () {
-                                window.open('Vendor_Dashboard.php', '_blank')
+                                window.open('login.php', '_blank')
                             });
                     },
                     error: function (data) {

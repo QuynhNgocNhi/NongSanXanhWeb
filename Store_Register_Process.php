@@ -24,28 +24,23 @@ if (isset($_POST)) {
     $StoreAdress = $_POST['StoreAdress'];
     $Info = $_POST['Info'];
     $UserId = $_SESSION['Id'];
-    $StoreId = $_SESSION['Id'];
 
 
 //    $sql = "INSERT INTO users (FullName, Password, UserRoleId, EmailVerified) VALUES (?, ?, ?,?,?)";
     $sql = "INSERT INTO stores (FullName, Gender, DOB, CMND, StoreName, StorePhone, StoreAdress, Info, UserId) VALUES (?,?, ?, ?,?,?, ?,?, ?) ";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sisisissi",$FullName, $Gender, $DOB, $CMND,$StoreName,  $StorePhone,$StoreAdress, $Info, $UserId);
+    $stmt->bind_param("sisisissi", $FullName, $Gender, $DOB, $CMND, $StoreName, $StorePhone, $StoreAdress, $Info, $UserId);
 
     $stmt->execute();
+    $StoreId = mysqli_insert_id($conn);
 
-echo "Create Store Successful!";
-
-
-    $sql = "UPDATE users SET UserRoleId = 2, StoreId = '" .$StoreId."' WHERE Id = '".$UserId."'";
+    $sql = "UPDATE users SET UserRoleId = 2, StoreId = '" . $StoreId . "' WHERE Id = '" . $UserId . "'";
     $result = mysqli_query($conn, $sql);
-
     $row = mysqli_fetch_array($result);
-
-echo "Data inserted!";
-
-}
-else{
+    session_start();
+    $_SESSION["UserRoleId"] = 2;
+    $_SESSION["StoreId"] = $StoreId;
+} else {
     echo "No data inserted!";
 }
 ?>
