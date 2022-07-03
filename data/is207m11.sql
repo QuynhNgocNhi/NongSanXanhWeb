@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th12 29, 2021 lúc 04:48 AM
+-- Thời gian đã tạo: Th7 03, 2022 lúc 04:42 AM
 -- Phiên bản máy phục vụ: 10.4.21-MariaDB
 -- Phiên bản PHP: 8.0.12
 
@@ -93,7 +93,11 @@ INSERT INTO `orderdetail` (`Id`, `OrderId`, `UserId`, `StoreId`, `StoreName`, `P
 (47, 60, 176, 29, 'Sầu Riêng mình Tôi', 25, 'Quýt Đường Mọng Nước - Túi 1kg - Kiến Vàng', 'IMG-61bbf595cd8582.01347253.jpg', 12500, 2, 25000, 'giao lẹ nha', 0, 0),
 (48, 60, 176, 29, 'Sầu Riêng mình Tôi', 24, 'Sầu riêng ri6', 'IMG-61bb4aa9149f16.08259637.jpg', 125000, 1, 125000, 'giao lẹ nha', 0, 0),
 (49, 60, 176, 29, 'Sầu Riêng mình Tôi', 27, 'Dừa Sọ Tươi Ngon, Ngọt Nước', 'IMG-61bd996adbf419.50053739.jpg', 890000, 2, 1780000, 'giao lẹ nha', 0, 0),
-(50, 60, 176, 29, 'Sầu Riêng mình Tôi', 26, 'Ổi Nữ Hoàng Giòn Ngọt, Giàu VitaminC', 'IMG-61bbf668b81c34.38054255.jpg', 35000, 1, 35000, 'giao lẹ nha', 0, 0);
+(50, 60, 176, 29, 'Sầu Riêng mình Tôi', 26, 'Ổi Nữ Hoàng Giòn Ngọt, Giàu VitaminC', 'IMG-61bbf668b81c34.38054255.jpg', 35000, 1, 35000, 'giao lẹ nha', 0, 0),
+(51, 61, 176, 29, 'Sầu Riêng mình Tôi', 24, 'Sầu riêng ri6', 'IMG-61bb4aa9149f16.08259637.jpg', 125000, 2, 250000, '', 0, 0),
+(52, 61, 176, 29, 'Sầu Riêng mình Tôi', 25, 'Quýt Đường Mọng Nước - Túi 1kg - Kiến Vàng', 'IMG-61bbf595cd8582.01347253.jpg', 12500, 1, 12500, '', 0, 0),
+(53, 61, 176, 30, 'Cá cơm Vĩnh phúc', 32, 'Củ cải đường', 'IMG-61cbda0bd55105.90690181.jpg', 45000, 2, 90000, '', 2, 2),
+(54, 61, 176, 30, 'Cá cơm Vĩnh phúc', 31, 'Cây giống - Con giống', 'IMG-61cbd90ed12901.34989342.jpg', 49000, 1, 49000, '', 3, 8);
 
 -- --------------------------------------------------------
 
@@ -130,7 +134,8 @@ INSERT INTO `orders` (`Id`, `UserId`, `FirstName`, `LastName`, `Address`, `Zip`,
 (57, 175, 'Nhi', 'huynh', '307, ap 3, xa cam son', '860000', 'tien giang', '+84888250764', 'nhoxnhilove0010@gmail.com', '2021-12-23 05:00:13', 'Quýt Đường Mọng Nước - Túi 1kg - Kiến Vàng', 175000, '0', 0, ''),
 (58, 176, 'Nhi', 'huynh', '307, ap 3, xa cam son', '860000', 'tien giang', '+84888250764', 'nhoxnhilove0010@gmail.com', '2021-12-23 05:01:19', 'Sầu riêng ri6', 550000, '0', 0, ''),
 (59, 176, 'Nhi', 'huynh', '307, ap 3, xa cam son', '860000', 'tien giang', '+84888250764', 'nhoxnhilove0010@gmail.com', '2021-12-25 05:44:35', 'Me Xí Muội Vui Vẻ ', 2011000, '0', 0, 'giao sớm giùm mình nhé'),
-(60, 176, 'Nhi', 'Huỳnh', '307, ấp 3, xã cẩm sơn', '860000', 'Cai Lậy', '+84888250764', 'quynhngocnhi6972@gmail.com', '2021-12-25 05:45:44', 'Quýt Đường Mọng Nước - Túi 1kg - Kiến Vàng', 1965000, '0', 0, 'giao lẹ nha');
+(60, 176, 'Nhi', 'Huỳnh', '307, ấp 3, xã cẩm sơn', '860000', 'Cai Lậy', '+84888250764', 'quynhngocnhi6972@gmail.com', '2021-12-25 05:45:44', 'Quýt Đường Mọng Nước - Túi 1kg - Kiến Vàng', 1965000, '0', 0, 'giao lẹ nha'),
+(61, 176, 'Nhi', 'Huỳnh', '307, ấp 3, xã cẩm sơn', '860000', 'Cai Lậy', '+84888250764', 'quynhngocnhi6972@gmail.com', '2021-12-29 03:56:28', 'Sầu riêng ri6', 401500, '0', 2, '');
 
 -- --------------------------------------------------------
 
@@ -622,13 +627,13 @@ ALTER TABLE `images`
 -- AUTO_INCREMENT cho bảng `orderdetail`
 --
 ALTER TABLE `orderdetail`
-  MODIFY `Id` int(21) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `Id` int(21) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT cho bảng `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `Id` int(21) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `Id` int(21) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT cho bảng `orderstatus`
