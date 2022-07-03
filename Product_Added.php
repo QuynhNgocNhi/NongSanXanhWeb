@@ -21,7 +21,7 @@ if ($_SESSION['UserRoleId'] == 3) {
     <meta name="description" content="Responsive Bootstrap 4 and web Application ui kit.">
 
     <title>Thêm sản phẩm</title>
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/global/2.jpg"/>
     <!-- Favicon-->
     <link rel="stylesheet" href="Admin_Store.asset/plugins/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="Admin_Store.asset/plugins/dropzone/dropzone.css">
@@ -182,7 +182,7 @@ if ($_SESSION['UserRoleId'] == 3) {
                                     <div class="col-lg-6 col-md-6"><b>Danh mục</b>
 
                                         <select name="ProductCategory" class="form-control show-tick z-index"
-                                               >
+                                        >
 
                                             <option>Chọn danh mục --</option>
                                             <?php
@@ -194,7 +194,7 @@ if ($_SESSION['UserRoleId'] == 3) {
                                             if (mysqli_num_rows($result1) > 0) {
                                                 $index = 0;
                                                 while ($row1 = mysqli_fetch_assoc($result1)) {
-                                                    echo "<option value='".$row1['Id']."'>".$row1['Name']."</option>";
+                                                    echo "<option value='" . $row1['Id'] . "'>" . $row1['Name'] . "</option>";
 
                                                 }
                                             }

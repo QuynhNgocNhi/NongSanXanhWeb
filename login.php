@@ -21,7 +21,7 @@ require_once('config.php');
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/global/2.jpg"/>
     <!-- homepage CSS -->
     <link rel="stylesheet" href="home.asset/home.css?v=2.1"/>
-    <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
+
     <!-- font -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
     <!-- call header-footer -->

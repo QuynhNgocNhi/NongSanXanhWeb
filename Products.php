@@ -34,7 +34,7 @@ elseif (isset($_POST['submit'])) {
     $total_pages_sql = "SELECT COUNT(*) from products";
 
 }
-// Get data for current page
+// Get data for current paged
 $res_data = mysqli_query($conn, $data_sql);
 if ($res_data) {
     while ($Products = mysqli_fetch_array($res_data)) {

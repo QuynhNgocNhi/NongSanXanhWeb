@@ -19,32 +19,35 @@
         }
 
     </script>
-    <script>
-        function CallActivePage() {
-            document.getElementById("sellers-page").classList.add("active");
-        }
-        $(document).ready(function () {
-            document.getElementById('header').innerHTML = loadPage('header.php');
-            CallActivePage();
-            document.getElementById('footer').innerHTML = loadPage('footer.php');
-        });
-
-    </script>
+<!--    <script>-->
+<!--        function CallActivePage() {-->
+<!--            document.getElementById("sellers-page").classList.add("active");-->
+<!--        }-->
+<!--        $(document).ready(function () {-->
+<!--            document.getElementById('header').innerHTML = loadPage('header.php');-->
+<!--            CallActivePage();-->
+<!--            document.getElementById('footer').innerHTML = loadPage('footer.php');-->
+<!--        });-->
+<!---->
+<!--    </script>-->
     <!-- active seller pages -->
     <script>
         function myFunction() {
             document.getElementById("sellers-page").classList.add("active");
         }
+        $(document).ready(function () {
+            myFunction();
+        });
     </script>
 
     <!-- Template CSS -->
-    <link rel="stylesheet" href="assets/css/mainf195.css?v=2.1"/>
 
     <link rel="stylesheet" href="providers.asset/provider-css/shop_provider_product_buyandsell.css">
     <link rel="stylesheet" href="providers.asset/grid_base.css/grid.css">
     <link rel="stylesheet" href="providers.asset/grid_base.css/Fshop_base.css">
     <link rel="stylesheet" href="providers.asset/fontawesome-free-5.15.4-web/css/all.min.css">
     <link rel="stylesheet" href="providers.asset/provider-css/provider.css">
+    <link rel="stylesheet" href="assets/css/mainf195.css?v=2.1"/>
 </head>
 
 <body>
@@ -57,7 +60,7 @@ require_once('header.php');
     <div class="page-header breadcrumb-wrap">
         <div class="container">
             <div class="breadcrumb">
-                <a href="index.html" rel="nofollow"><i class="fi-rs-home mr-5"></i>Trang chủ</a>
+                <a href="index.php" rel="nofollow"><i class="fi-rs-home mr-5"></i>Trang chủ</a>
                 <span> Tài khoản</span>
             </div>
         </div>

@@ -5,7 +5,6 @@ document.getElementById("AddProduct").addEventListener('click', function (event)
     // event.preventDefault();
     var e = document.getElementById("ProductCategory");
     var value = e.options[e.selectedIndex].value;
-    alert(value);
     var ImageArray = new Array(5);
 
     // var MainImageSource = document.getElementById("IMG1").src;
@@ -17,8 +16,6 @@ document.getElementById("AddProduct").addEventListener('click', function (event)
         var ImageId = $('div#imageSuccess > img')[i].id;
         var ImageName = getName(ImageId);
         ImageArray[i] = ImageName;
-
-
     }
     $.ajax({
         type: 'POST',
