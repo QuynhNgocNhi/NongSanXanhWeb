@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once('config.php');
+$wishlist_id_list=[];
 ?>
 <!DOCTYPE html>
 <html class="no-js" lang="en">
@@ -46,6 +47,8 @@ require_once('config.php');
     <script src="home.asset/plugins/nouislider.min.js"></script>
     <!-- custom code-->
     <script src="home.asset/js/main.js"></script>
+    <script src="WishList.js"></script>
+
     <!-- font -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
 
@@ -389,41 +392,48 @@ require_once('header.php');
                                 foreach ($resultArray
 
                                          as $item) {
+                                    $id = $item['Id'];
                                     ?>
+<div class="col-6 col-md-4 col-lg-3 p-0">
+                                                <div class="ps-product--standard"><a
+                                                            href="<?= "Product_Details.php?ProductId=" . $id ?>">
+                                                        <img
+                                                                class="ps-product__thumbnail"
+                                                                src="<?= "data/Product_Img_Upload/" . $item['Img']; ?>"
+                                                                alt="alt"/></a>
+                                                    <div class="ps-product__content">
+                                                        <p class="ps-product__type"><i
+                                                                    class="fi fi-rs-home "></i>
+                                                            <a href="Vendor_Detail.php?StoreId=<?= $item['StoreId']; ?>">
+                                                                <?= $item['StoreName']; ?>
+                                                            </a>
+                                                        </p>
+                                                        <h5><a class="ps-product__name"
+                                                               href="<?= "Product_Details.php?ProductId=" . $id ?>"><?= $item['Name']; ?></a>
+                                                        </h5>
 
-                                    <div class="col-6 col-md-4 col-lg-3 p-0">
-                                        <div class="ps-product--standard"><a
-                                                    href="<?= "Product_Details.php?ProductId=" . $item['Id'] ?>">
-                                                <img
-                                                        class="ps-product__thumbnail"
-                                                        src="<?= "data/Product_Img_Upload/" . $item['Img']; ?>"
-                                                        alt="alt"/></a>
-                                            <div class="ps-product__content">
-                                                <p class="ps-product__type"><i
-                                                            class="fi fi-rs-home "></i>
-                                                    <a href="Vendor_Detail.php?StoreId=<?= $item['StoreId']; ?>">
-                                                        <?= $item['StoreName']; ?>
-                                                    </a>
-                                                </p>
-                                                <h5><a class="ps-product__name"
-                                                       href="<?= "Product_Details.php?ProductId=" . $item['Id'] ?>"><?= $item['Name']; ?></a>
-                                                </h5>
+                                                        <div class="Price-Unit">
+                                                            <p class="ps-product__unit"><?= $item['ProductUnitName']; ?></p>
 
-                                                <div class="Price-Unit">
-                                                    <p class="ps-product__unit"><?= $item['ProductUnitName']; ?></p>
+                                                            <p class="ps-product-price-block">
+                                                                <span class="ps-product__sale">$<?= $item['Price']; ?> đ</span>
+                                                            </p>
+                                                        </div>
 
-                                                    <p class="ps-product-price-block">
-                                                        <span class="ps-product__sale">$<?= $item['Price']; ?> đ</span>
-                                                    </p>
-                                                </div>
+                                                        <div class="ps-product__box">
+                                                            <button onclick="AddToCart(<?= $id ?>)"
+                                                                    type="submit" id="<?= $id ?>"
+                                                                    name="<?= $id ?>"
+                                                                    class="ps-product__addcart"
+                                                            <i class="fi-rs-shopping-cart pr-10"></i>Thêm
+                                                            <?php
 
-                                                <div class="ps-product__box">
-                                                    <button class="ps-product__addcart"
-                                                            onclick="AddToCart(<?= $item['Id'] ?>)"><i
-                                                                class="fi-rs-shopping-cart pr-10"></i>Thêm
-                                                    </button>
-                                                    <button class="ps-product__wishlist"><i
-                                                                class="fa fi-rs-heart"></i></button>
+                                                            if (in_array($item['Id'], $wishlist_id_list)) {
+                                                                echo '<button onclick="AddToWishList(' . $id . ',1); setColor(event);" class="ps-product__wishlist"><i
+                                                                        id = "wishlist' . $id . '" class="fa fi-rs-heart text-danger "></i></button>';
+                                                            } else echo '<button onclick="AddToWishList(' . $id . ',0); setColor(event); " class="ps-product__wishlist"><i
+                                                                       id = "wishlist' . $id . '" class="fa fi-rs-heart text"></i></button>';
+                                                            ?>
                                                 </div>
                                             </div>
 
@@ -487,6 +497,7 @@ require_once('header.php');
                                 foreach ($resultArray1
 
                                          as $item) {
+                                    $id = $item['Id'];
                                     ?>
 
                                     <div class="col-6 col-md-4 col-lg-3 p-0">
@@ -520,8 +531,14 @@ require_once('header.php');
                                                             onclick="AddToCart(<?= $item['Id'] ?>)"><i
                                                                 class="fi-rs-shopping-cart pr-10"></i>Thêm
                                                     </button>
-                                                    <button class="ps-product__wishlist"><i
-                                                                class="fa fi-rs-heart"></i></button>
+                                                   <?php
+
+                                                            if (in_array($item['Id'], $wishlist_id_list)) {
+                                                                echo '<button onclick="AddToWishList(' . $id . ',1); setColor(event);" class="ps-product__wishlist"><i
+                                                                        id = "wishlist' . $id . '" class="fa fi-rs-heart text-danger "></i></button>';
+                                                            } else echo '<button onclick="AddToWishList(' . $id . ',0); setColor(event); " class="ps-product__wishlist"><i
+                                                                       id = "wishlist' . $id . '" class="fa fi-rs-heart text"></i></button>';
+                                                            ?>
                                                 </div>
                                             </div>
 
@@ -583,6 +600,7 @@ require_once('header.php');
                                 foreach ($resultArray1
 
                                          as $item) {
+                                    $id = $item['Id'];
                                     ?>
 
                                     <div class="col-6 col-md-4 col-lg-3 p-0">
@@ -616,8 +634,14 @@ require_once('header.php');
                                                             onclick="AddToCart(<?= $item['Id'] ?>)"><i
                                                                 class="fi-rs-shopping-cart pr-10"></i>Thêm
                                                     </button>
-                                                    <button class="ps-product__wishlist"><i
-                                                                class="fa fi-rs-heart"></i></button>
+                                                   <?php
+
+                                                            if (in_array($item['Id'], $wishlist_id_list)) {
+                                                                echo '<button onclick="AddToWishList(' . $id . ',1); setColor(event);" class="ps-product__wishlist"><i
+                                                                        id = "wishlist' . $id . '" class="fa fi-rs-heart text-danger "></i></button>';
+                                                            } else echo '<button onclick="AddToWishList(' . $id . ',0); setColor(event); " class="ps-product__wishlist"><i
+                                                                       id = "wishlist' . $id . '" class="fa fi-rs-heart text"></i></button>';
+                                                            ?>
                                                 </div>
                                             </div>
 
@@ -680,6 +704,16 @@ require_once('header.php');
     <?php
     require_once('footer.php');
     ?>
+
 </main>
+<script type="text/javascript">
+    function setColor(e) {
+        var target = e.target,
+            status = e.target.classList.contains('text-danger');
+
+        e.target.classList.add(status ? 'text' : 'text-danger');
+        e.target.classList.remove(status ? 'text-danger' : 'text');
+    }
+</script>
 </body>
 </html>
