@@ -108,10 +108,10 @@ require_once('header.php');
                                 <div class="tab-pane fade active show" id="account-detail" role="tabpanel"
                                      aria-labelledby="account-detail-tab">
                                     <div class="card">
-                                        <div class="card-header">
+                                        <div class="card-header text-center">
                                             <?php
                                             if (isset($_SESSION["UserName"])) {
-                                                echo "<a href='User_Account.php'><span class='h3 text-brand lable ml-0'> Chào " . $_SESSION["UserName"];
+                                                echo "<a href='User_Account.php'><span class='h3 text-brand lable '> Chào " . $_SESSION["UserName"];
 
                                             } else {
                                                 echo "<h3 href='Amin_Dashboard.php'><span class='lable ml-0'>Admin</span></h3>";
@@ -119,8 +119,8 @@ require_once('header.php');
                                             ?>
                                             <!--                                            <h3 class="mb-0">Xin chào Rosie!</h3>-->
                                         </div>
-                                        <div class="row">
-                                            <div class="row-cols-4">
+                                        <div class="" style="width: 100%; align-items: center ">
+                                            <div class="row-cols-4 align-self-center">
                                                 <?php
                                                 if (isset($_GET['error'])): ?>
                                                     <p><?php
@@ -134,7 +134,7 @@ require_once('header.php');
                                                     $row = mysqli_fetch_array($result, MYSQLI_BOTH);
                                                     $images = $row["ImgUrl"]; ?>
                                                     <!--                                                        Thêm role-->
-                                                    <img class="justify-content-around rounded-circle center"
+                                                    <img class="bg-dark rounded-circle" style="width: 300px; margin-left: 320px;"
                                                          src="data/Avartar_Upload/<?= $images ?>">
                                                     <?php
 

@@ -34,7 +34,7 @@
                             </div>
                             <ul class="contact-infor">
                                 <li>
-                                    <img src="assets/img/global/" alt="NSX" /><strong>Địa chỉ: </strong>
+                                    
                                     <span>Khu phố 6, phường Linh Trung, Tp. Thủ Đức</span>
                                 </li>
                                 <li>

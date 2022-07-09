@@ -1,10 +1,29 @@
-# IS207M11 - Nông Sản Xanh 
-//rules git push
-//1. Push to your branch - not master branch
-//2. Name your brach by page or function vd: homepage, login, checkout
-//3. Every branch has 1 .html file, 1 .css file, 1. js file,... or else
-//4. Add these link to your <head></head> before your css link.
-<!-- Template CSS -->
- <link rel="stylesheet" href="assets/css/mainf195.css?v=2.1" /> #ff5e00
 
-// useuuseuseuususeuuseuseuseuuseuseuususeuuseuuseuseuususeuuseuseuseuuseuseuususeuus
+# Nong San Xanh - C2C eCommerce Platform 
+
+
+I developed an online marketplace by HTML, CSS, Javascript, PHP, and MySql that enables Users to Buy and Sell agricultural products. Nong San Xanh is an e-commerce platform for the Agricultural industry. 
+
+This is my first time coding front-end & back-end, in a Web Application class at my school (UIT-University of Information Technology).
+I'm aware that the code is a little messy because I didn't use a framework or model; instead, I concentrated on how to code it quickly for the end-of-class project on my own. Of course, I have some help to fix bugs from the anonymous one. I finished it on time, got a fantastic mark, and more importantly, I achieved my goal of creating a platform that would make it simple for people in my country to connect with one another and exchange agricultural goods through e-Commerce. I've always wanted to create a platform just for small and medium-sized enterprises in Vietnam. This is the first step toward my dream.
+
+I designed (Balsamiq) & developed both front-end and back-end with almost full functional expected for my website which is an online marketplace that enables Users to Buy and Sell products. The platform was created particularly for web users, therefore I integrated the templates to create a beautiful user interface for customers and clean, simple pages for sellers to manage their products. I also used PHP and MySQL to create the back-end for it. 
+
+## Demo
+
+![Logo](./data/demo.gif)
+
+## Video Demo
+
+
+
+## Authors
+
+- [@quynhngocnhi](https://github.com/QuynhNgocNhi/)
+
+
+## Deployment
+
+To deploy this project check out this link:
+
+[How to Run PHP file on localhost](https://www.youtube.com/watch?v=tcoIVp1eNgM&ab_channel=GeekyScript)
